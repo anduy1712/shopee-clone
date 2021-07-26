@@ -1,0 +1,48 @@
+@font-face {
+  font-family: "Helvetica Neue", "Roboto";
+  src: url(../fonts/helvetica-neue-light.ttf);
+  font-weight: 300;
+}
+@font-face {
+  font-family: "Helvetica Neue", "Roboto";
+  src: url(../fonts/helvetica-neue-light-italic.ttf);
+  font-weight: 300;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Helvetica Neue", "Roboto";
+  src: url(../fonts/helvetica-neue-regular.ttf);
+  font-weight: 400;
+}
+@font-face {
+  font-family: "Helvetica Neue", "Roboto";
+  src: url(../fonts/helvetica-neue-italic.ttf);
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Helvetica Neue", "Roboto";
+  src: url(../fonts/helvetica-neue-condensed-bold.ttf);
+  font-weight: 600;
+}
+* {
+  padding: 0;
+  font-size: 62.5%;
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+body {
+  font-family: "Helvetica Neue", "Roboto";
+}
+
+ul {
+  list-style-type: none;
+}
+
+a {
+  text-decoration: none;
+  color: unset;
+}
