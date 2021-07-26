@@ -1,0 +1,14 @@
+.txt {
+  &__small {
+    font-size: 1.3rem;
+    &.bold {
+      font-weight: 600 !important;
+    }
+  }
+  &__medium {
+    font-size: 1.6rem;
+  }
+  &__large {
+    font-size: 20rem;
+  }
+}

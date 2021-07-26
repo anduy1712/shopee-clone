@@ -1,3 +1,5 @@
+@import "./components/fonts";
+
 @font-face {
   font-family: "Helvetica Neue", "Roboto";
   src: url(../fonts/helvetica-neue-light.ttf);
@@ -33,7 +35,9 @@
   -webkit-tap-highlight-color: transparent;
   user-select: none;
 }
-
+img {
+  width: 100%;
+}
 body {
   font-family: "Helvetica Neue", "Roboto";
 }

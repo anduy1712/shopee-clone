@@ -1,0 +1,97 @@
+.header {
+  height: $header-height;
+  background-image: linear-gradient(to bottom, $nc-subprimary, $nc-primary);
+  .toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 0;
+    &__left {
+      display: flex;
+      align-items: center;
+
+      .txt__small {
+        color: white;
+        font-weight: 300;
+        padding: 0 8px;
+        border-right: 2px solid hsla(0, 0%, 100%, 0.22);
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+      .qr-code {
+        position: relative;
+        &:hover .qrcode-inner {
+          display: block;
+        }
+      }
+      .qrcode-inner {
+        position: absolute;
+        display: none;
+        border-radius: 2px;
+        overflow: hidden;
+        top: calc(100% + 10px);
+        left: 10%;
+        width: 180px;
+        .qrcode-store {
+          display: flex;
+          padding: 4px 10px;
+          img {
+            width: calc(100% / 2);
+            margin: 0 4px;
+            object-fit: contain;
+          }
+        }
+      }
+      .toolbar__block {
+        display: flex;
+        align-items: center;
+        .txt__small {
+          border-right: none;
+        }
+        &--fb {
+          font-size: 1.6rem;
+          color: white;
+          margin: 0 2px;
+        }
+        &--ig {
+          font-size: 1.8rem;
+          color: white;
+          margin: 0 2px;
+        }
+      }
+    }
+    &__right {
+      display: flex;
+      align-items: center;
+      .toolbar__block {
+        display: flex;
+        align-items: center;
+        padding: 0 4px;
+        &:hover {
+          opacity: 0.6;
+        }
+        &--bell {
+          font-size: 2rem;
+          color: $nc-white;
+        }
+        &--question {
+          font-size: 2rem;
+          color: $nc-white;
+        }
+      }
+      .txt__small {
+        color: $nc-white;
+        font-weight: 300;
+        padding: 0 4px;
+        border-right: 1px solid hsla(0, 0%, 100%, 0.22);
+        &:last-child {
+          border-right: none;
+        }
+        &:hover {
+          opacity: 0.6;
+        }
+      }
+    }
+  }
+}
