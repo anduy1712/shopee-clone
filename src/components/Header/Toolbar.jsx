@@ -6,28 +6,34 @@ import {
   AiOutlineQuestionCircle,
 } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { FcVoicePresentation } from "react-icons/fc";
+
 const Toolbar = () => {
   return (
     <div className="toolbar">
       <div className="toolbar__left">
-        <Link className="txt__small">Kênh Người Bán</Link>
-        <Link className="txt__small">Trở Thành Người Bán</Link>
-        <Link className="toolbar__block qr-code">
-          <Link className="txt__small">Tải ứng dụng</Link>
-          <Link className="qrcode-inner">
+        <Link to="" className="txt__small">Kênh Người Bán</Link>
+        <Link to="" className="txt__small">Trở Thành Người Bán</Link>
+        <Link to="" className="toolbar__block qr-code">
+          <Link to="" className="txt__small">Tải ứng dụng</Link>
+          <Link to="" className="qrcode-inner">
             <img
               src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/d91264e165ed6facc6178994d5afae79.png"
               alt="qrshopee"
             />
             <div className="qrcode-store">
-              <img
-                src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/39f189e19764dab688d3850742f13718.png"
-                alt="applestore"
-              />
-              <img
-                src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/f4f5426ce757aea491dce94201560583.png"
-                alt="chplaystore"
-              />
+              <Link to="">
+                <img
+                  src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/39f189e19764dab688d3850742f13718.png"
+                  alt="applestore"
+                />
+              </Link>
+              <Link to="">
+                <img
+                  src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/f4f5426ce757aea491dce94201560583.png"
+                  alt="chplaystore"
+                />
+              </Link>
             </div>
           </Link>
         </Link>
@@ -38,16 +44,32 @@ const Toolbar = () => {
         </div>
       </div>
       <div className="toolbar__right">
-        <Link className="toolbar__block">
-          <AiOutlineBell className="toolbar__block--bell" />
-          <div className="txt__small">Thông Báo</div>
-        </Link>
-        <Link className="toolbar__block">
+        <div className="notify">
+          <AiOutlineBell className="notify__bell" />
+          <p className="txt__small">Thông Báo</p>
+          <div className="notify__block">
+            <ul className="notify__list">
+              <li className="notify__list-item">
+                <FcVoicePresentation className="notify__list-item--icon" />
+                <p className="notify__list-text">Đâng nhập để xem thông báo</p>
+              </li>
+              <li className="notify__list-btn">
+                <button className="btn-notify">Đăng ký</button>
+                <button className="btn-notify">Đăng nhập</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <Link to="" className="toolbar__block">
           <AiOutlineQuestionCircle className="toolbar__block--question" />
           <div className="txt__small">Hỗ Trợ</div>
         </Link>
-        <Link className="txt__small bold">Đăng Ký</Link>
-        <Link className="txt__small bold">Đăng Nhập</Link>
+        <Link to="" className="txt__small bold">
+          Đăng Ký
+        </Link>
+        <Link to="" className="txt__small bold">
+          Đăng Nhập
+        </Link>
       </div>
     </div>
   );
