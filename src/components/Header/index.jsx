@@ -1,4 +1,5 @@
 import React from "react";
+import Search from "./Search";
 import Toolbar from "./Toolbar";
 
 const Header = () => {
@@ -10,7 +11,7 @@ const Header = () => {
             <Toolbar />
           </div>
           <div className="col c-12">
-            
+            <Search />
           </div>
         </div>
       </div>
