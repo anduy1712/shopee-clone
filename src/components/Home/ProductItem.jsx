@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const ProductItem = ({ img, title, price }) => {
+const ProductItem = ({ id, img, title, price }) => {
   return (
-    <Link to="#" className="col l-2 m-4 c-6">
+    <Link to={"detail/" + id} className="col l-2 m-4 c-6">
       <div className="product">
         <div className="product__img" style={{ background: `url(${img})` }}>
           <span className="product__img-tag">Yêu Thích</span>

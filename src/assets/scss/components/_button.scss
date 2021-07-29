@@ -1,0 +1,33 @@
+.btn {
+  display: inline-block;
+  background: white;
+  border: none;
+  font-size: 1.4rem;
+  padding: 16px 30px;
+  transition: filter ease-in 0.1s;
+  &:hover {
+    cursor: pointer;
+  }
+}
+.btn + .btn {
+  margin-left: 10px;
+}
+.btn-medium {
+  min-width: 180px;
+}
+.btn-default {
+  border: 1px solid $nc-primary;
+  background: #fcece6;
+  color: $nc-primary;
+  &:hover {
+    filter: brightness(96%);
+  }
+}
+.btn-primary {
+  border: 1px solid $nc-primary;
+  background: $nc-primary;
+  color: white;
+  &:hover {
+    filter: brightness(96%);
+  }
+}

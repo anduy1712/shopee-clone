@@ -1,7 +1,9 @@
 @import "./base";
 @import "./variables";
 @import "./mixins";
+@import "./components/button";
 
 @import "./components/header";
 @import "./grid";
 @import "./pages/home";
+@import "./pages/detail";
