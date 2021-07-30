@@ -170,6 +170,18 @@
         }
       }
       .txt__small {
+        display: flex;
+        align-items: center;
+        &-avatar {
+          width: 20px;
+          margin-right: 8px;
+          display: block;
+          border-radius: 50%;
+        }
+        &-txt {
+          font-size: 1.3rem;
+          display: block;
+        }
         color: $nc-white;
         font-weight: 300;
         padding: 0 4px;

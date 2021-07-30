@@ -3,7 +3,10 @@
   background: white;
   border: none;
   font-size: 1.4rem;
-  padding: 16px 30px;
+  min-width: 80px;
+  min-height: 30px;
+  text-align: center;
+  padding: 10px 20px;
   transition: filter ease-in 0.1s;
   &:hover {
     cursor: pointer;
@@ -11,6 +14,9 @@
 }
 .btn + .btn {
   margin-left: 10px;
+}
+.btn-small {
+  max-width: 60px;
 }
 .btn-medium {
   min-width: 180px;

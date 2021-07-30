@@ -7,15 +7,33 @@ import {
 } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { FcVoicePresentation } from "react-icons/fc";
+import {
+  fetchUserBytoken,
+  isSuccessSelector,
+  usernameSelector,
+} from "../../store/reducers/usersSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const Toolbar = () => {
+  const dispatch = useDispatch();
+  const isLoggin = useSelector(isSuccessSelector);
+  useEffect(() => {
+    dispatch(fetchUserBytoken({ token: localStorage.getItem("token") }));
+  }, []);
   return (
     <div className="toolbar">
       <div className="toolbar__left">
-        <Link to="" className="txt__small">Kênh Người Bán</Link>
-        <Link to="" className="txt__small">Trở Thành Người Bán</Link>
+        <Link to="" className="txt__small">
+          Kênh Người Bán
+        </Link>
+        <Link to="" className="txt__small">
+          Trở Thành Người Bán
+        </Link>
         <Link to="" className="toolbar__block qr-code">
-          <Link to="" className="txt__small">Tải ứng dụng</Link>
+          <Link to="" className="txt__small">
+            Tải ứng dụng
+          </Link>
           <Link to="" className="qrcode-inner">
             <img
               src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/d91264e165ed6facc6178994d5afae79.png"
@@ -64,10 +82,25 @@ const Toolbar = () => {
           <AiOutlineQuestionCircle className="toolbar__block--question" />
           <div className="txt__small">Hỗ Trợ</div>
         </Link>
-        <Link to="" className="txt__small bold">
+        {isLoggin ? (
+          <Link to="" className="txt__small bold">
+            <img
+              className="txt__small-avatar"
+              src="https://cf.shopee.vn/file/0163cd287487716180d96d276c3446d4_tn"
+              alt=""
+            />
+            <p className="txt__small-txt">Duy An</p>
+          </Link>
+        ) : (
+          ""
+        )}
+        <Link to="" className={isLoggin ? "c-0 m-0 l-0" : "txt__small bold"}>
           Đăng Ký
         </Link>
-        <Link to="" className="txt__small bold">
+        <Link
+          to="/login"
+          className={isLoggin ? "c-0 m-0 l-0" : "txt__small bold"}
+        >
           Đăng Nhập
         </Link>
       </div>

@@ -1,0 +1,33 @@
+.formlogin {
+  margin: 0 auto;
+  width: 400px;
+  border-radius: 8px;
+  height: 350px;
+  background: white;
+  padding: 20px;
+  box-shadow: 0 3px 10px 0 rgba(0, 0, 0, 0.14);
+  .form-title {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  .form-group {
+    label {
+      display: block;
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+    input {
+      height: 40px;
+      width: 100%;
+      padding: 10px;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+      outline: none;
+      border: 1px solid $nc-util-line-o;
+    }
+  }
+  .btn {
+    margin-top: 20px;
+    width: 100%;
+  }
+}
