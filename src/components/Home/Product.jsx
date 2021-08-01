@@ -29,6 +29,18 @@ const Product = () => {
   return (
     <section className="products">
       <div className="grid wide">
+        <div className="row">
+          <div className="col c-12 m-12 l-12">
+            <div className="navbar">
+              <h2 className="navbar-title">Gợi ý hôm nay</h2>
+              <img
+                className="navbar-img"
+                src="https://cf.shopee.vn/file/cb7702bebc3ee2e6c8f3ce66d1d1864a"
+                alt=""
+              />
+            </div>
+          </div>
+        </div>
         <div className="row">{product}</div>
       </div>
     </section>
