@@ -39,27 +39,13 @@ export const loginUser = createAsyncThunk("users/login", async (obj) => {
 export const fetchUserBytoken = createAsyncThunk(
   "users/fetchUserByToken",
   async ({ token }, thunkAPI) => {
-    try {
-      const response = await fetch("https://fakestoreapi.com/users", {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          Authorization: token,
-          "Content-Type": "application/json",
-        },
-      });
-      let data = await response.json();
-      console.log("data", data, response.status);
-
-      if (response.status === 200) {
-        return { ...data };
-      } else {
-        return thunkAPI.rejectWithValue(data);
-      }
-    } catch (e) {
-      console.log("Error", e.response.data);
-      return thunkAPI.rejectWithValue(e.response.data);
-    }
+    const config = {
+      headers: {
+        Authorization: "Bearer " + token,
+      },
+    };
+    const response = axios.get("https://fakestoreapi.com/users", config);
+    console.log(response);
   }
 );
 //Slice
@@ -83,9 +69,9 @@ const usersSlice = createSlice({
       return state;
     },
     [fetchUserBytoken.fulfilled]: (state, { payload }) => {
-      state.isSuccess = true;
-      console.log(payload);
-      state.username = payload.name;
+      // state.isSuccess = true;
+      // console.log(payload);
+      // state.username = payload.name;
     },
   },
 });

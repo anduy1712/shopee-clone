@@ -1,0 +1,24 @@
+.footer {
+  background: $nc-white;
+  border-top: 2px solid $nc-primary;
+  padding: 40px 0;
+  .aboutus {
+    text-align: center;
+    &__title {
+      font-size: 1.4rem;
+      margin-bottom: 16px;
+    }
+    &__list {
+      &-item {
+        font-size: 1.2rem;
+        color: $nc-grey;
+        margin-bottom: 14px;
+        transition: color ease-in 0.1s;
+        &:hover {
+          cursor: pointer;
+          color: $nc-primary;
+        }
+      }
+    }
+  }
+}
