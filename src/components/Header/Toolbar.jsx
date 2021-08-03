@@ -7,20 +7,13 @@ import {
 } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { FcVoicePresentation } from "react-icons/fc";
-import {
-  fetchUserBytoken,
-  isSuccessSelector,
-  usernameSelector,
-} from "../../store/reducers/usersSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { isSuccessSelector } from "../../store/reducers/usersSlice";
 
 const Toolbar = () => {
-  const dispatch = useDispatch();
-  const isLoggin = useSelector(isSuccessSelector);
-  useEffect(() => {
-    dispatch(fetchUserBytoken({ token: localStorage.getItem("token") }));
-  }, []);
+  const user = JSON.parse(localStorage.getItem("user"));
+  const isLogin = useSelector(isSuccessSelector);
+  //ERROR
   return (
     <div className="toolbar">
       <div className="toolbar__left">
@@ -30,11 +23,11 @@ const Toolbar = () => {
         <Link to="" className="txt__small">
           Trở Thành Người Bán
         </Link>
-        <Link to="" className="toolbar__block qr-code">
+        <div to="" className="toolbar__block qr-code">
           <Link to="" className="txt__small">
             Tải ứng dụng
           </Link>
-          <Link to="" className="qrcode-inner">
+          <div to="" className="qrcode-inner">
             <img
               src="https://deo.shopeemobile.com/shopee/shopee-pcmall-live-sg/assets/d91264e165ed6facc6178994d5afae79.png"
               alt="qrshopee"
@@ -53,8 +46,8 @@ const Toolbar = () => {
                 />
               </Link>
             </div>
-          </Link>
-        </Link>
+          </div>
+        </div>
         <div className="toolbar__block">
           <div className="txt__small">Kết Nối</div>
           <FaFacebook className="toolbar__block--fb" />
@@ -82,25 +75,22 @@ const Toolbar = () => {
           <AiOutlineQuestionCircle className="toolbar__block--question" />
           <div className="txt__small">Hỗ Trợ</div>
         </Link>
-        {isLoggin ? (
+        {user ? (
           <Link to="" className="txt__small bold">
             <img
               className="txt__small-avatar"
               src="https://cf.shopee.vn/file/0163cd287487716180d96d276c3446d4_tn"
               alt=""
             />
-            <p className="txt__small-txt">Duy An</p>
+            <p className="txt__small-txt">{user.email}</p>
           </Link>
         ) : (
           ""
         )}
-        <Link to="" className={isLoggin ? "c-0 m-0 l-0" : "txt__small bold"}>
+        <Link to="" className={user ? "c-0 m-0 l-0" : "txt__small bold"}>
           Đăng Ký
         </Link>
-        <Link
-          to="/login"
-          className={isLoggin ? "c-0 m-0 l-0" : "txt__small bold"}
-        >
+        <Link to="/login" className={user ? "c-0 m-0 l-0" : "txt__small bold"}>
           Đăng Nhập
         </Link>
       </div>

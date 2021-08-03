@@ -39,8 +39,9 @@ const Search = () => {
         </div>
         <div className="search__suggest">{sugget}</div>
       </div>
-      <Link to="" className="search__cart">
+      <Link to="/cart" className="search__cart">
         <FiShoppingCart className="search__cart--icon" />
+        <span className="search__cart-total">0</span>
       </Link>
     </div>
   );

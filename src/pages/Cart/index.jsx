@@ -1,6 +1,23 @@
 import React from "react";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { cartsSelector, getCart } from "../../store/reducers/cartsSlice";
+import { getProduct } from "../../store/reducers/productsSlice";
 
 const Cart = () => {
+  const user = JSON.parse(localStorage.getItem("user"));
+  const dispatch = useDispatch();
+  const carts = useSelector(cartsSelector);
+  //GET ID PRODUCT
+  const { products } = carts;
+  products.forEach(item => {
+    
+    
+  })
+ 
+  useEffect(() => {
+    dispatch(getCart(user.id));
+  }, []);
   return (
     <section className="main">
       <section className="cart">

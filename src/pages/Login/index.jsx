@@ -1,6 +1,10 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { isSuccessSelector, loginUser } from "../../store/reducers/usersSlice";
+import {
+  getUsers,
+  isSuccessSelector,
+  loginUser,
+} from "../../store/reducers/usersSlice";
 import { Formik, Field, Form } from "formik";
 import { useHistory } from "react-router-dom";
 const Login = () => {
@@ -12,7 +16,10 @@ const Login = () => {
   const handleSubmitForm = (values) => {
     dispatch(loginUser(values));
   };
+
   useEffect(() => {
+    dispatch(getUsers());
+
     if (isSuccess) {
       history.push("/");
     }

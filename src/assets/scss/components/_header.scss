@@ -248,12 +248,24 @@
       }
     }
     &__cart {
+      position: relative;
       margin: 0 20px;
       margin-left: 40px;
       padding: 10px;
       &--icon {
+        position: relative;
         color: $nc-white;
         font-size: 30px;
+      }
+      &-total {
+        position: absolute;
+        top: 0;
+        right: -10px;
+        background: $nc-white;
+        padding: 4px 10px;
+        font-size: 1.2rem;
+        color: $nc-primary;
+        border-radius: 8px;
       }
     }
   }

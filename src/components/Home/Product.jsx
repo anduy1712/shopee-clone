@@ -18,14 +18,15 @@ const Product = () => {
         id={item.id}
         title={item.title}
         price={item.price}
-        img={item.image}
+        img={item.images[0]}
       />
     );
   });
   useEffect(() => {
     dispatch(getProducts());
-  }, []);
-
+    
+  }, [dispatch]);
+  
   return (
     <section className="products">
       <div className="grid wide">
