@@ -44,7 +44,6 @@ export const fetchUserBytoken = createAsyncThunk(
         Authorization: "Bearer " + token,
       },
     };
-    const response = axios.get("https://fakestoreapi.com/users", config);
   }
 );
 //Slice

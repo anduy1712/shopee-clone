@@ -3,8 +3,13 @@ import { Link } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { FiShoppingCart } from "react-icons/fi";
 import { BiSearch } from "react-icons/bi";
-
+import { amount, cartsSelector } from "../../store/reducers/cartsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
 const Search = () => {
+  //Redux
+  const dispatch = useDispatch();
+  const { quantity, cart } = useSelector(cartsSelector);
   const item = [
     " Váy",
     " Bông Tẩy Trang",
@@ -21,6 +26,10 @@ const Search = () => {
       </Link>
     );
   });
+  //USE EFFECT
+  useEffect(() => {
+    dispatch(amount());
+  }, [cart, dispatch]);
   return (
     <div className="search">
       <Link to="" className="search__logo">
@@ -41,7 +50,7 @@ const Search = () => {
       </div>
       <Link to="/cart" className="search__cart">
         <FiShoppingCart className="search__cart--icon" />
-        <span className="search__cart-total">0</span>
+        <span className="search__cart-total">{quantity}</span>
       </Link>
     </div>
   );

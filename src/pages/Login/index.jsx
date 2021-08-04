@@ -23,7 +23,7 @@ const Login = () => {
     if (isSuccess) {
       history.push("/");
     }
-  }, [isSuccess]);
+  }, [dispatch, history, isSuccess]);
   return (
     <section className="main">
       <div className="login">

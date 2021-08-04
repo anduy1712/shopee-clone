@@ -7,12 +7,9 @@ import {
 } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { FcVoicePresentation } from "react-icons/fc";
-import { useSelector } from "react-redux";
-import { isSuccessSelector } from "../../store/reducers/usersSlice";
 
 const Toolbar = () => {
   const user = JSON.parse(localStorage.getItem("user"));
-  const isLogin = useSelector(isSuccessSelector);
   //ERROR
   return (
     <div className="toolbar">
