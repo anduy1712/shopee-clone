@@ -9,6 +9,10 @@
     font-size: 1.6rem;
   }
   &__large {
-    font-size: 20rem;
+    font-size: 2rem;
+  }
+  &__primary {
+    font-size: 2rem;
+    color: $nc-primary;
   }
 }

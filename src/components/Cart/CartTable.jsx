@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
-import { useSelector } from "react-redux";
-import { cartsSelector } from "../../store/reducers/cartsSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { cartsSelector, total } from "../../store/reducers/cartsSlice";
 import CartItemTable from "./CartItemTable";
 const CartTable = () => {
-  const { cart } = useSelector(cartsSelector);
+  const dispatch = useDispatch();
+  const { cart, totalCart } = useSelector(cartsSelector);
   const item = cart.map((item) => {
     return (
       <CartItemTable
@@ -16,6 +17,9 @@ const CartTable = () => {
       />
     );
   });
+  useEffect(() => {
+    dispatch(total());
+  }, [cart, dispatch]);
   return (
     <section className="cart">
       <div className="grid wide">
@@ -42,6 +46,17 @@ const CartTable = () => {
           </div>
           <div className="col c-12 m-12 l-12">
             <ul className="cartlist">{item}</ul>
+          </div>
+          <div className="col c-12 m-12 l-12">
+            <div className="cartpay">
+              <div className="cartpay__action">
+                <p className="cartpay__action-total">
+                  Tổng thanh toán (0 Sản phẩm):{" "}
+                  <span className="txt__primary">₫{totalCart}</span>
+                </p>
+                <button className="btn btn-primary">Mua Hàng</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

@@ -1,17 +1,19 @@
 import React from "react";
+import banner01 from "../../assets/images/adv_01.png";
+import banner02 from "../../assets/images/adv_02.png";
+import banner03 from "../../assets/images/adv_03.png";
+import banner04 from "../../assets/images/adv_04.png";
+import banner05 from "../../assets/images/adv_05.png";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-
 // Import Swiper styles
 import "swiper/swiper.min.css";
 import "swiper/components/navigation/navigation.min.css";
 import "swiper/components/pagination/pagination.min.css";
 // import Swiper core and required modules
 import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper/core";
-
 // install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation]);
-
 const Adver = () => {
   return (
     <section className="adver">
@@ -33,28 +35,13 @@ const Adver = () => {
                 className="mySwiper"
               >
                 <SwiperSlide>
-                  <img
-                    src="https://cf.shopee.vn/file/156bafac960de967dc383f9817cffd4e_xhdpi"
-                    alt=""
-                  />
+                  <img src={banner01} alt="" />
                 </SwiperSlide>
                 <SwiperSlide>
-                  <img
-                    src="https://cf.shopee.vn/file/bed9df9ce78a77380fc861ba73d5e910_xxhdpi"
-                    alt=""
-                  />
+                  <img src={banner02} alt="" />
                 </SwiperSlide>
                 <SwiperSlide>
-                  <img
-                    src="https://cf.shopee.vn/file/db02884d41f634cc65c2e63c46ee3e84_xxhdpi"
-                    alt=""
-                  />
-                </SwiperSlide>
-                <SwiperSlide>
-                  <img
-                    src="https://cf.shopee.vn/file/bed9df9ce78a77380fc861ba73d5e910_xxhdpi"
-                    alt=""
-                  />
+                  <img src={banner03} alt="" />
                 </SwiperSlide>
               </Swiper>
             </div>
@@ -64,15 +51,13 @@ const Adver = () => {
               <div
                 className="adver__banner-item"
                 style={{
-                  background:
-                    "url(https://cf.shopee.vn/file/156bafac960de967dc383f9817cffd4e_xhdpi)",
+                  background: `url(${banner04})`,
                 }}
               ></div>
               <div
                 className="adver__banner-item"
                 style={{
-                  background:
-                    "url(https://cf.shopee.vn/file/3f37d48fcb3537dea0e70eb1795f59a1_xhdpi)",
+                  background: `url(${banner05})`,
                 }}
               ></div>
             </div>

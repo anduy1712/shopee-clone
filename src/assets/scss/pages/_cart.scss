@@ -30,7 +30,7 @@
     }
   }
   .cartlist {
-    margin-top: 20px;
+    margin: 20px 0;
     padding: 20px 24px;
     background: white;
     box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
@@ -68,6 +68,19 @@
       &-totalitem {
         font-size: 1.4rem;
       }
+    }
+  }
+  .cartpay {
+    background: white;
+    padding: 20px;
+    &__action {
+      &-total {
+        font-size: 16px;
+        margin-right: 14px;
+      }
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
     }
   }
 }
