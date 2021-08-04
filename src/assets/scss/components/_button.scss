@@ -12,7 +12,8 @@
     cursor: pointer;
   }
 }
-.btn + .btn {
+.btn + .btn,
+.selects {
   margin-left: 10px;
 }
 .btn-small {
@@ -33,6 +34,14 @@
   border: 1px solid $nc-primary;
   background: $nc-primary;
   color: white;
+  &:hover {
+    filter: brightness(96%);
+  }
+}
+.btn-white {
+  border: 1px solid white;
+  background: white;
+  color: black;
   &:hover {
     filter: brightness(96%);
   }

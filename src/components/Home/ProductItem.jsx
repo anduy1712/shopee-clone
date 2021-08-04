@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Column from "../Column";
 
-const ProductItem = ({ id, img, title, price }) => {
+const ProductItem = ({ id, img, title, price, size }) => {
+  const [c, m, l] = size;
   return (
-    <Link to={"detail/" + id} className="col l-2 m-4 c-6">
-      <div className="product">
+    <Column c={c} m={m} l={l}>
+      <Link to={"detail/" + id} className="product">
         <div className="product__img" style={{ background: `url(${img})` }}>
           <span className="product__img-tag">Yêu Thích</span>
         </div>
@@ -15,8 +17,8 @@ const ProductItem = ({ id, img, title, price }) => {
             <span className="product__box-sold">Đã bán 5k</span>
           </div>
         </div>
-      </div>
-    </Link>
+      </Link>
+    </Column>
   );
 };
 

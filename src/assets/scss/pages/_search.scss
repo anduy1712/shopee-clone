@@ -1,0 +1,97 @@
+.search {
+  &-sidebar {
+    margin-top: 20px;
+    &-heading {
+      display: flex;
+      align-items: center;
+      margin-bottom: 20px;
+      .sidebar-icon {
+        font-size: 1.4rem;
+      }
+      h2 {
+        text-transform: uppercase;
+        margin-left: 10px;
+        font-size: 1.6rem;
+      }
+    }
+    &-list {
+      h3 {
+        font-size: 1.4rem;
+        margin-bottom: 14px;
+      }
+      &__item {
+        display: flex;
+        // align-items: center;
+        margin-bottom: 14px;
+        input {
+          margin-right: 8px;
+        }
+        p {
+          font-size: 14px;
+          list-style: 18px;
+        }
+      }
+    }
+  }
+  &-tools {
+    display: flex;
+    align-items: center;
+    padding: 8px 18px;
+    background: rgba(0, 0, 0, 0.03);
+    margin: 20px 0;
+    &-txt {
+      font-size: 1.4rem;
+      color: #555;
+      margin-right: 10px;
+    }
+    .selects {
+      border-radius: 2px;
+      padding: 0 10px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-width: 200px;
+      min-height: 38px;
+      background: white;
+      &:hover {
+        cursor: pointer;
+        filter: brightness(98%);
+      }
+      &-txt {
+        font-size: 1.4rem;
+      }
+      &-icon {
+        font-size: 2rem;
+      }
+    }
+    &__pages {
+      display: flex;
+      justify-content: flex-end;
+      flex: 1;
+      align-items: center;
+      &-txt {
+        font-size: 1.4rem;
+        margin-right: 10px;
+      }
+      .page-btn {
+        display: flex;
+        border-radius: 2px;
+        overflow: hidden;
+        box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.1);
+        &-left,
+        &-right {
+          background: white;
+          padding: 8px;
+          border: none;
+        }
+        &-left {
+          border-right: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        .icon-left,
+        .icon-right {
+          font-size: 1.8rem;
+        }
+      }
+    }
+  }
+}
