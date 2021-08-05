@@ -9,36 +9,32 @@ import { useHistory } from "react-router-dom";
 import { useState } from "react";
 
 const Tools = ({ url }) => {
-  //redux
+  //state
   const [checkBtn, setCheckBtn] = useState(false);
-
+  const [valueSelect, setValueSelect] = useState("Giá");
+  // get all the URLParams
+  const params = new URLSearchParams(url);
   const history = useHistory();
   const handleNormal = () => {
     setCheckBtn(false);
-    // get all the URLParams
-    const params = new URLSearchParams(url);
     // get the q param
     const q = params.get("q");
     history.push(`/search?q=${q}&_sort=id`);
   };
   const handleLatest = () => {
     setCheckBtn(true);
-    // get all the URLParams
-    const params = new URLSearchParams(url);
     // get the q param
     const q = params.get("q");
     history.push(`/search?q=${q}&_sort=createdAt`);
   };
   const handleAsc = () => {
-    // get all the URLParams
-    const params = new URLSearchParams(url);
+    setValueSelect("Giá: Thấp đến Cao");
     // get the q param
     const q = params.get("q");
     history.push(`/search?q=${q}&_sort=price&_order=asc`);
   };
   const handleDesc = () => {
-    // get all the URLParams
-    const params = new URLSearchParams(url);
+    setValueSelect("Giá: Cao đến Thấp");
     // get the q param
     const q = params.get("q");
     history.push(`/search?q=${q}&_sort=price&_order=desc`);
@@ -60,7 +56,7 @@ const Tools = ({ url }) => {
           Mới Nhất
         </button>
         <div className="selects">
-          <span className="selects-txt">Giá</span>
+          <span className="selects-txt">{valueSelect}</span>
           <RiArrowDownSLine className="selects-icon" />
           <ul className="selects__list">
             <li className="selects__list-item" onClick={handleAsc}>

@@ -6,8 +6,9 @@ import {
   filterProduct,
   productsSelector,
 } from "../../store/reducers/productsSlice";
-import Sidebar from "../../components/Search/Sidebar";
-import Tools from "../../components/Search/Tools";
+import Sidebar from "./Sidebar";
+import Tools from "./Tools";
+import Notfind from "../../components/Notfind";
 
 const Search = ({ location }) => {
   //Redux
@@ -40,7 +41,7 @@ const Search = ({ location }) => {
             <div className="col c-12 m-12 l-10">
               <div className="row">
                 <Tools url={location.search} />
-                {product}
+                {product.length === 0 ? <Notfind /> : product}
               </div>
             </div>
           </div>

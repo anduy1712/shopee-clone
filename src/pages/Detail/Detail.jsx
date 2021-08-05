@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import {
@@ -12,6 +12,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // import Swiper core and required modules
 import SwiperCore, { Pagination, Navigation } from "swiper/core";
 import { addCart } from "../../store/reducers/cartsSlice";
+import Loading from "../../components/Loading";
 // install Swiper modules
 SwiperCore.use([Pagination, Navigation]);
 
@@ -54,7 +55,13 @@ const Detail = () => {
     dispatch(getProduct(slug));
   }, [dispatch, slug]);
   if (Object.keys(product).length === 0) {
-    return <div>loading</div>;
+    return (
+      <div className="grid wide">
+        <div className="row">
+          <Loading />
+        </div>
+      </div>
+    );
   }
   return (
     <section className="pagedetail">
@@ -76,6 +83,9 @@ const Detail = () => {
                           loop={true}
                           loopFillGroupWithBlank={true}
                           navigation={true}
+                          pagination={{
+                            clickable: true,
+                          }}
                           className="mySwiper"
                         >
                           {product.images.map((item, index) => {

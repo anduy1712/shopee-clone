@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect } from "react";
-import CartTable from "../../components/Cart/CartTable";
+import CartTable from "./CartTable"
 
 const Cart = () => {
   useEffect(() => {}, []);

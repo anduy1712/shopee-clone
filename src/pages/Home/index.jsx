@@ -1,6 +1,6 @@
 import React from "react";
-import Adver from "../../components/Home/Adver";
-import Product from "../../components/Home/Product";
+import Adver from "./Adver";
+import Product from "./Product";
 
 const Home = () => {
   return (

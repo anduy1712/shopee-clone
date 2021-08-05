@@ -4,7 +4,8 @@ import {
   getProducts,
   productsSelector,
 } from "../../store/reducers/productsSlice";
-import ProductItem from "./ProductItem";
+import ProductItem from "../../components/Home/ProductItem";
+import Loading from "../../components/Loading";
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -41,7 +42,9 @@ const Product = () => {
             </div>
           </div>
         </div>
-        <div className="row">{product}</div>
+        <div className="row">
+          {product.length === 0 ? <Loading /> : product}
+        </div>
       </div>
     </section>
   );

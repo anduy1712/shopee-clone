@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import EmptyCart from "../../components/EmptyCart";
 import { cartsSelector, total } from "../../store/reducers/cartsSlice";
 import CartItemTable from "./CartItemTable";
 const CartTable = () => {
@@ -45,7 +46,9 @@ const CartTable = () => {
             </div>
           </div>
           <div className="col c-12 m-12 l-12">
-            <ul className="cartlist">{item}</ul>
+            <ul className="cartlist">
+              {item.length === 0 ? <EmptyCart /> : item}
+            </ul>
           </div>
           <div className="col c-12 m-12 l-12">
             <div className="cartpay">

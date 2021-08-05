@@ -1,5 +1,5 @@
 import React from "react";
-import Detail from "../../components/Detail/Detail";
+import Detail from "./Detail";
 
 const index = () => {
   return (
