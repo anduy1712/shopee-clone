@@ -8,8 +8,7 @@ import ProductItem from "./ProductItem";
 
 const Product = () => {
   const dispatch = useDispatch();
-  const products = useSelector(productsSelector);
-
+  const { products } = useSelector(productsSelector);
   //Get Product
   const product = products.map((item) => {
     return (

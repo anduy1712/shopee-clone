@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import {
   getProduct,
-  productSelector,
+  productsSelector,
 } from "../../store/reducers/productsSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -20,7 +20,7 @@ const Detail = () => {
   const { slug } = useParams();
   const dispatch = useDispatch();
   //Get Product
-  const product = useSelector(productSelector); //rerender
+  const { product } = useSelector(productsSelector); //rerender
   //Add Cart Item
   const addToCart = (obj) => {
     const user = JSON.parse(localStorage.getItem("user"));

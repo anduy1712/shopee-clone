@@ -223,6 +223,12 @@
           border: none;
           outline: none;
           padding: 0 12px;
+          &:-webkit-autofill,
+          &:-webkit-autofill:hover,
+          &:-webkit-autofill:focus,
+          &:-webkit-autofill:active {
+            -webkit-box-shadow: 0 0 0 30px white inset !important;
+          }
         }
         &--submit {
           height: calc(100% - 8px);
@@ -232,6 +238,10 @@
           border-radius: 2px;
           margin-right: 4px;
           color: white;
+          &:hover {
+            cursor: pointer;
+            filter: brightness(98%);
+          }
         }
         &--icon {
           font-size: 2rem;

@@ -19,7 +19,18 @@ export const getProduct = createAsyncThunk(
     }
   }
 );
-const producstSlice = createSlice({
+export const filterProduct = createAsyncThunk(
+  "products/filterProduct",
+  async (name) => {
+    try {
+      const response = await productApi.filterProduct(name);
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+);
+export const producstSlice = createSlice({
   name: "products",
   initialState: {
     products: [],
@@ -33,12 +44,11 @@ const producstSlice = createSlice({
     [getProduct.fulfilled]: (state, action) => {
       state.product = action.payload;
     },
+    [filterProduct.fulfilled]: (state, action) => {
+      state.products = action.payload;
+    },
   },
 });
-//reducers
-const productsReducer = producstSlice.reducer;
-//get state
-export const productsSelector = (state) => state.productsReducer.products;
-export const productSelector = (state) => state.productsReducer.product;
 
-export default productsReducer;
+//export selector
+export const productsSelector = (state) => state.products;

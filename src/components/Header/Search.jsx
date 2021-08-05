@@ -1,14 +1,17 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { ReactComponent as Logo } from "../../assets/images/logo.svg";
 import { FiShoppingCart } from "react-icons/fi";
 import { BiSearch } from "react-icons/bi";
 import { amount, cartsSelector } from "../../store/reducers/cartsSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { Formik, Field, Form } from "formik";
+
 const Search = () => {
   //Redux
   const dispatch = useDispatch();
+  const history = useHistory();
   const { quantity, cart } = useSelector(cartsSelector);
   const item = [
     " Váy",
@@ -26,6 +29,10 @@ const Search = () => {
       </Link>
     );
   });
+  //On Submit
+  const handleSubmitForm = (values) => {
+    history.push(`/search?q=${values.keyword}&_sort=id`);
+  };
   //USE EFFECT
   useEffect(() => {
     dispatch(amount());
@@ -36,16 +43,26 @@ const Search = () => {
         <Logo />
       </Link>
       <div className="search__wrapper">
-        <div className="search__input">
-          <input
-            type="text"
-            className="search__input--header"
-            placeholder="Sulwhasoo Quà đến 100 triệu"
-          />
-          <button className="search__input--submit">
-            <BiSearch className="search__input--icon" />
-          </button>
-        </div>
+        <Formik
+          initialValues={{
+            keyword: "",
+          }}
+          onSubmit={handleSubmitForm}
+        >
+          <Form className="search__input">
+            <Field
+              id="keyword"
+              name="keyword"
+              type="text"
+              className="search__input--header"
+              placeholder="Sulwhasoo Quà đến 100 triệu"
+            />
+            <button className="search__input--submit" type="submit">
+              <BiSearch className="search__input--icon" />
+            </button>
+          </Form>
+        </Formik>
+
         <div className="search__suggest">{sugget}</div>
       </div>
       <Link to="/cart" className="search__cart">

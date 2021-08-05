@@ -45,6 +45,7 @@
       margin-right: 10px;
     }
     .selects {
+      position: relative;
       border-radius: 2px;
       padding: 0 10px;
       display: flex;
@@ -55,13 +56,31 @@
       background: white;
       &:hover {
         cursor: pointer;
-        filter: brightness(98%);
+      }
+      &:hover .selects__list {
+        display: block;
       }
       &-txt {
         font-size: 1.4rem;
       }
       &-icon {
         font-size: 2rem;
+      }
+      &__list {
+        display: none;
+        position: absolute;
+        top: 102%;
+        left: 0;
+        width: 100%;
+        background: white;
+        z-index: 10;
+        &-item {
+          padding: 12px 8px;
+          font-size: 1.4rem;
+          &:hover {
+            color: $nc-primary;
+          }
+        }
       }
     }
     &__pages {
