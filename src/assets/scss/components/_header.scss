@@ -46,6 +46,8 @@
         top: calc(100% + 10px);
         left: 10%;
         width: 180px;
+        min-height: 210px;
+        background: white;
         .qrcode-store {
           display: flex;
           padding: 4px 10px;
@@ -169,8 +171,72 @@
           color: $nc-white;
         }
       }
+      .user {
+        display: flex;
+        align-items: center;
+        position: relative;
+        .txt__small-txt {
+          color: white;
+        }
+        &:hover {
+          .txt__small-avatar,
+          .txt__small-txt {
+            opacity: 0.6;
+          }
+          .user-block {
+            display: block;
+          }
+        }
+        &-block {
+          display: none;
+          position: absolute;
+          top: 120%;
+          right: 0;
+          width: 80%;
+          background: white;
+          color: black;
+          z-index: 10;
+          border: 1px solid rgba(0, 0, 0, 0.1);
+          transform-origin: calc(50% + 10px) top;
+          animation: scaleTopRight ease-in 0.2s;
+          @keyframes scaleTopRight {
+            from {
+              transform: scale(0);
+            }
+            to {
+              transform: scale(1);
+            }
+          }
+          &::after {
+            position: absolute;
+            content: "";
+            bottom: 100%;
+            left: 50%;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 10px solid white;
+          }
+          &::before {
+            position: absolute;
+            content: "";
+            bottom: 100%;
+            left: 0;
+            width: 100%;
+            height: 10px;
+            background: transparent;
+          }
+          &__txt {
+            font-size: 1.2rem;
+            padding: 10px;
+            &:hover {
+              color: #00bfa5;
+            }
+          }
+        }
+      }
       .txt__small {
         display: flex;
+        position: relative;
         align-items: center;
         &-avatar {
           width: 20px;

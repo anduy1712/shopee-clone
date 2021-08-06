@@ -4,12 +4,13 @@ import {
   getUsers,
   isSuccessSelector,
   loginUser,
+  usersSelector,
 } from "../../store/reducers/usersSlice";
 import { Formik, Field, Form } from "formik";
 import { useHistory } from "react-router-dom";
 const Login = () => {
   //Get users
-  const isSuccess = useSelector(isSuccessSelector);
+  const { isSuccess } = useSelector(usersSelector);
   const dispatch = useDispatch();
   const history = useHistory();
   //On Submit

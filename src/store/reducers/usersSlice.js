@@ -47,13 +47,13 @@ export const fetchUserBytoken = createAsyncThunk(
   }
 );
 //Slice
-const usersSlice = createSlice({
+export const usersSlice = createSlice({
   name: "users",
   initialState: {
     users: [],
     username: "",
     isFetching: false,
-    isSuccess: false,
+    isSuccess: JSON.parse(localStorage.getItem("user")) ? true : false,
   },
   reducers: {
     loginUser: {
@@ -66,6 +66,12 @@ const usersSlice = createSlice({
             console.log("ok login");
           }
         });
+      },
+    },
+    logoutUser: {
+      reducer: (state, action) => {
+        localStorage.removeItem("user");
+        state.isSuccess = false;
       },
     },
   },
@@ -90,9 +96,8 @@ const usersSlice = createSlice({
 //reducer
 const usersReducer = usersSlice.reducer;
 //selector
-export const usersSelector = (state) => state.usersReducer.users;
-export const isSuccessSelector = (state) => state.usersReducer.isSuccess;
-export const usernameSelector = (state) => state.usersReducer.username;
+export const usersSelector = (state) => state.users;
+
 //action
-export const { loginUser } = usersSlice.actions;
+export const { loginUser, logoutUser } = usersSlice.actions;
 export default usersReducer;

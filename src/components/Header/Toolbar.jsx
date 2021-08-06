@@ -7,9 +7,19 @@ import {
 } from "react-icons/ai";
 import { Link } from "react-router-dom";
 import { FcVoicePresentation } from "react-icons/fc";
+import { useEffect } from "react";
+import { logoutUser, usersSelector } from "../../store/reducers/usersSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 const Toolbar = () => {
+  const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem("user"));
+  const { isSuccess } = useSelector(usersSelector);
+
+  const logOut = () => {
+    dispatch(logoutUser());
+  };
+  useEffect(() => {}, [user]);
   //ERROR
   return (
     <div className="toolbar">
@@ -73,13 +83,20 @@ const Toolbar = () => {
           <div className="txt__small">Hỗ Trợ</div>
         </Link>
         {user ? (
-          <Link to="" className="txt__small bold">
+          <Link to="" className="user">
             <img
               className="txt__small-avatar"
               src="https://cf.shopee.vn/file/0163cd287487716180d96d276c3446d4_tn"
               alt=""
             />
             <p className="txt__small-txt">{user.email}</p>
+            <div className="user-block">
+              <p className="user-block__txt">Tài Khoản Của Tôi</p>
+              <p className="user-block__txt">Đơn Mua</p>
+              <p className="user-block__txt" onClick={logOut}>
+                Đăng Xuất
+              </p>
+            </div>
           </Link>
         ) : (
           ""
