@@ -13,9 +13,8 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Toolbar = () => {
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem("user"));
+  const user = JSON.parse(localStorage.getItem("firebaseui::rememberedAccounts"));
   const { isSuccess } = useSelector(usersSelector);
-
   const logOut = () => {
     dispatch(logoutUser());
   };
@@ -89,7 +88,7 @@ const Toolbar = () => {
               src="https://cf.shopee.vn/file/0163cd287487716180d96d276c3446d4_tn"
               alt=""
             />
-            <p className="txt__small-txt">{user.email}</p>
+            <p className="txt__small-txt">{user[0].email}</p>
             <div className="user-block">
               <p className="user-block__txt">Tài Khoản Của Tôi</p>
               <p className="user-block__txt">Đơn Mua</p>

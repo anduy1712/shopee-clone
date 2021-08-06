@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import userApi from "../../api/userApi";
+import firebase from "firebase";
 export const getUsers = createAsyncThunk("users/get", async () => {
   try {
     const response = await userApi.getAll();
@@ -53,7 +54,9 @@ export const usersSlice = createSlice({
     users: [],
     username: "",
     isFetching: false,
-    isSuccess: JSON.parse(localStorage.getItem("user")) ? true : false,
+    isSuccess: localStorage.getItem("firebaseui::rememberedAccounts")
+      ? true
+      : false,
   },
   reducers: {
     loginUser: {
@@ -70,7 +73,8 @@ export const usersSlice = createSlice({
     },
     logoutUser: {
       reducer: (state, action) => {
-        localStorage.removeItem("user");
+        firebase.auth().signOut();
+        localStorage.removeItem("firebaseui::rememberedAccounts");
         state.isSuccess = false;
       },
     },

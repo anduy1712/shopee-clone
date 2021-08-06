@@ -8,7 +8,11 @@ import {
 } from "../../store/reducers/usersSlice";
 import { Formik, Field, Form } from "formik";
 import { useHistory } from "react-router-dom";
+import firebase from "firebase";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import { useState } from "react";
 const Login = () => {
+  const [isSignedIn, setIsSignedIn] = useState(false); // Local signed-in state.
   //Get users
   const { isSuccess } = useSelector(usersSelector);
   const dispatch = useDispatch();
@@ -18,13 +22,33 @@ const Login = () => {
     dispatch(loginUser(values));
   };
 
+  // Configure FirebaseUI.
+  const uiConfig = {
+    // Popup signin flow rather than redirect flow.
+    signInFlow: "redirect",
+    // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
+    signInSuccessUrl: "/",
+    // We will display Google and Facebook as auth providers.
+    signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+  };
   useEffect(() => {
     dispatch(getUsers());
-
     if (isSuccess) {
       history.push("/");
     }
   }, [dispatch, history, isSuccess]);
+  useEffect(() => {
+    const unregisterAuthObserver = firebase
+      .auth()
+      .onAuthStateChanged((user) => {
+        setIsSignedIn(!!user);
+        localStorage.setItem(
+          "firebaseui::rememberedAccounts",
+          JSON.stringify(user.providerData)
+        );
+      });
+    return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
+  }, []);
   return (
     <section className="main">
       <div className="login">
@@ -61,6 +85,10 @@ const Login = () => {
                     <button className="btn btn-primary" type="submit">
                       Đâng Nhập
                     </button>
+                    <StyledFirebaseAuth
+                      uiConfig={uiConfig}
+                      firebaseAuth={firebase.auth()}
+                    />
                   </Form>
                 </Formik>
               </div>

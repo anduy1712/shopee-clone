@@ -24,7 +24,7 @@ const Detail = () => {
   const { product } = useSelector(productsSelector); //rerender
   //Add Cart Item
   const addToCart = (obj) => {
-    const user = JSON.parse(localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("firebaseui::rememberedAccounts"));
     //CHECK USER
     if (user !== null) {
       toast.success("Product added to cart", {
