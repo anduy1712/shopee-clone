@@ -13,7 +13,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 const Toolbar = () => {
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem("firebaseui::rememberedAccounts"));
+  const user = JSON.parse(
+    localStorage.getItem("firebaseui::rememberedAccounts")
+  );
   const { isSuccess } = useSelector(usersSelector);
   const logOut = () => {
     dispatch(logoutUser());
@@ -83,11 +85,7 @@ const Toolbar = () => {
         </Link>
         {user ? (
           <Link to="" className="user">
-            <img
-              className="txt__small-avatar"
-              src="https://cf.shopee.vn/file/0163cd287487716180d96d276c3446d4_tn"
-              alt=""
-            />
+            <img className="txt__small-avatar" src={user[0].photoURL} alt="" />
             <p className="txt__small-txt">{user[0].email}</p>
             <div className="user-block">
               <p className="user-block__txt">Tài Khoản Của Tôi</p>

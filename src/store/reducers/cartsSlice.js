@@ -46,6 +46,7 @@ export const cartsSlice = createSlice({
           item.amount += 1;
         }
       });
+      localStorage.setItem("cart", JSON.stringify([...state.cart]));
     },
     decrease: (state, action) => {
       state.cart.forEach((item) => {
@@ -56,6 +57,18 @@ export const cartsSlice = createSlice({
       state.cart = state.cart.filter((item) => {
         return item.amount !== 0;
       });
+      localStorage.setItem("cart", JSON.stringify([...state.cart]));
+    },
+    onChangeAmount: (state, action) => {
+      state.cart.forEach((item) => {
+        if (item.id === action.payload.id) {
+          item.amount = action.payload.value;
+        }
+      });
+      state.cart = state.cart.filter((item) => {
+        return item.amount !== 0;
+      });
+      localStorage.setItem("cart", JSON.stringify([...state.cart]));
     },
     remove: (state, action) => {
       state.cart = state.cart.filter((item) => item.id !== action.payload);
@@ -91,6 +104,7 @@ export const {
   amount,
   increase,
   decrease,
+  onChangeAmount,
   remove,
   total,
   getItemCart,

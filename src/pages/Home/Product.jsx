@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   getProducts,
-  productsSelector,
-} from "../../store/reducers/productsSlice";
-import ProductItem from "../../components/Home/ProductItem";
-import Loading from "../../components/Loading";
+  productsSelector
+} from '../../store/reducers/productsSlice';
+import ProductItem from '../../components/Home/ProductItem';
+import Loading from '../../components/Loading';
+import SkeletonCard from '../../components/SkeletonCard';
 
 const Product = () => {
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ const Product = () => {
         title={item.title}
         price={item.price}
         img={item.images[0]}
-        size={["6", "4", "2"]}
+        size={['6', '4', '2']}
       />
     );
   });
@@ -43,7 +44,11 @@ const Product = () => {
           </div>
         </div>
         <div className="row">
-          {product.length === 0 ? <Loading /> : product}
+          {product.length === 0
+            ? Array(9)
+                .fill()
+                .map((item) => <SkeletonCard size={['6', '4', '2']} />)
+            : product}
         </div>
       </div>
     </section>

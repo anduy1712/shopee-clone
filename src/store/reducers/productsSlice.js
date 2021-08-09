@@ -1,6 +1,6 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import productApi from "../../api/productApi";
-export const getProducts = createAsyncThunk("products/get", async () => {
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import productApi from '../../api/productApi';
+export const getProducts = createAsyncThunk('products/get', async () => {
   try {
     const response = await productApi.getAll();
     return response;
@@ -9,7 +9,7 @@ export const getProducts = createAsyncThunk("products/get", async () => {
   }
 });
 export const getProduct = createAsyncThunk(
-  "products/getProduct",
+  'products/getProduct',
   async (id) => {
     try {
       const response = await productApi.getProduct(id);
@@ -20,7 +20,7 @@ export const getProduct = createAsyncThunk(
   }
 );
 export const filterProduct = createAsyncThunk(
-  "products/filterProduct",
+  'products/filterProduct',
   async (name) => {
     try {
       const response = await productApi.filterProduct(name);
@@ -31,23 +31,33 @@ export const filterProduct = createAsyncThunk(
   }
 );
 export const producstSlice = createSlice({
-  name: "products",
+  name: 'products',
   initialState: {
     products: [],
-    product: {},
+    product: {}
   },
   reducers: {},
   extraReducers: {
+    [getProducts.pending]: (state, action) => {
+      state.products = [];
+    },
     [getProducts.fulfilled]: (state, action) => {
       state.products = action.payload;
+    },
+    [getProduct.pending]: (state, action) => {
+      state.product = {};
     },
     [getProduct.fulfilled]: (state, action) => {
       state.product = action.payload;
     },
+    [filterProduct.pending]: (state, action) => {
+      console.log('test filter');
+      state.products = null;
+    },
     [filterProduct.fulfilled]: (state, action) => {
       state.products = action.payload;
-    },
-  },
+    }
+  }
 });
 
 //export selector

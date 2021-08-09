@@ -64,6 +64,16 @@
           line-height: 20px;
           margin-bottom: 50px;
         }
+        &__quantity {
+          display: flex;
+          align-items: center;
+          margin-bottom: 20px;
+          &-txt {
+            width: 100px;
+            font-size: 1.4rem;
+            color: $nc-grey;
+          }
+        }
       }
     }
   }

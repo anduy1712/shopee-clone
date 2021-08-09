@@ -13,6 +13,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SwiperCore, { Pagination, Navigation } from "swiper/core";
 import { addCart } from "../../store/reducers/cartsSlice";
 import Loading from "../../components/Loading";
+import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+
 // install Swiper modules
 SwiperCore.use([Pagination, Navigation]);
 
@@ -22,9 +24,15 @@ const Detail = () => {
   const dispatch = useDispatch();
   //Get Product
   const { product } = useSelector(productsSelector); //rerender
+  document.querySelector("title").innerText =
+    Object.keys(product).length > 0
+      ? product.title
+      : "Shopee Việt Nam | Mua và Sắm";
   //Add Cart Item
   const addToCart = (obj) => {
-    const user = JSON.parse(localStorage.getItem("firebaseui::rememberedAccounts"));
+    const user = JSON.parse(
+      localStorage.getItem("firebaseui::rememberedAccounts")
+    );
     //CHECK USER
     if (user !== null) {
       toast.success("Product added to cart", {
@@ -113,6 +121,29 @@ const Detail = () => {
                       <div className="content__options"></div>
                       <p className="content__price">${product.price}</p>
                       <div className="content__desc">{product.description}</div>
+                      <div className="content__quantity">
+                        <p className="content__quantity-txt">Số Lượng</p>
+                        <div className="shopee-input">
+                          <button
+                            className="shopee-input__icon"
+                            // onClick={() => decreaseCart(id)}
+                          >
+                            <AiOutlineMinus />
+                          </button>
+                          <input
+                            type="text"
+                            // defaultValue={amount}
+                            // value={amount}
+                            // onChange={(e) => ChangeAmount(e, id)}
+                          />
+                          <button
+                            className="shopee-input__icon"
+                            // onClick={() => increaseCart(id)}
+                          >
+                            <AiOutlinePlus />
+                          </button>
+                        </div>
+                      </div>
                       <div className="content__button">
                         <button
                           onClick={() => addToCart(product)}

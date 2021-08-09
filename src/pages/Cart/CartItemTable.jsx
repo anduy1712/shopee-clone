@@ -1,6 +1,11 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { remove, increase, decrease } from "../../store/reducers/cartsSlice";
+import {
+  remove,
+  increase,
+  decrease,
+  onChangeAmount,
+} from "../../store/reducers/cartsSlice";
 import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
 
 const CartItemTable = ({ id, name, img, price, amount }) => {
@@ -12,6 +17,15 @@ const CartItemTable = ({ id, name, img, price, amount }) => {
   //DECREASE CART
   const decreaseCart = (id) => {
     dispatch(decrease(id));
+  };
+  //onChangeAmount CART
+  const ChangeAmount = (e, id) => {
+    console.log(e.target.value);
+    const obj = {
+      value: Number(e.target.value),
+      id,
+    };
+    dispatch(onChangeAmount(obj));
   };
   //REMOVE ITEM CART
   const removeCart = (id) => {
@@ -35,7 +49,12 @@ const CartItemTable = ({ id, name, img, price, amount }) => {
           >
             <AiOutlineMinus />
           </button>
-          <input type="text" defaultValue={amount} value={amount} />
+          <input
+            type="text"
+            defaultValue={amount}
+            value={amount}
+            onChange={(e) => ChangeAmount(e, id)}
+          />
           <button
             className="shopee-input__icon"
             onClick={() => increaseCart(id)}

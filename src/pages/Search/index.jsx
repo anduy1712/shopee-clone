@@ -1,32 +1,39 @@
-import React from "react";
-import ProductItem from "../../components/Home/ProductItem";
-import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from 'react';
+import ProductItem from '../../components/Home/ProductItem';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   filterProduct,
-  productsSelector,
-} from "../../store/reducers/productsSlice";
-import Sidebar from "./Sidebar";
-import Tools from "./Tools";
-import Notfind from "../../components/Notfind";
+  productsSelector
+} from '../../store/reducers/productsSlice';
+import Sidebar from './Sidebar';
+import Tools from './Tools';
+import Notfind from '../../components/Notfind';
+import SkeletonCard from '../../components/SkeletonCard';
 
 const Search = ({ location }) => {
   //Redux
   const dispatch = useDispatch();
   const { products } = useSelector(productsSelector);
   //Get Product
-  const product = products.map((item) => {
-    return (
-      <ProductItem
-        key={item.id}
-        id={item.id}
-        title={item.title}
-        price={item.price}
-        img={item.images[0]}
-        size={["6", "4", "2-4"]}
-      />
-    );
-  });
+
+  const product =
+    products === null
+      ? Array(10)
+          .fill()
+          .map((item) => <SkeletonCard size={['6', '4', '2-4']} />)
+      : products.map((item) => {
+          return (
+            <ProductItem
+              key={item.id}
+              id={item.id}
+              title={item.title}
+              price={item.price}
+              img={item.images[0]}
+              size={['6', '4', '2-4']}
+            />
+          );
+        });
   //Get Products
   useEffect(() => {
     // get current url
