@@ -1,16 +1,16 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   getUsers,
   isSuccessSelector,
   loginUser,
-  usersSelector,
-} from "../../store/reducers/usersSlice";
-import { Formik, Field, Form } from "formik";
-import { useHistory } from "react-router-dom";
-import firebase from "firebase";
-import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
-import { useState } from "react";
+  usersSelector
+} from '../../store/reducers/usersSlice';
+import { Formik, Field, Form } from 'formik';
+import { useHistory } from 'react-router-dom';
+import firebase from 'firebase';
+import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
+import { useState } from 'react';
 const Login = () => {
   const [isSignedIn, setIsSignedIn] = useState(false); // Local signed-in state.
   //Get users
@@ -25,16 +25,16 @@ const Login = () => {
   // Configure FirebaseUI.
   const uiConfig = {
     // Popup signin flow rather than redirect flow.
-    signInFlow: "redirect",
+    signInFlow: 'redirect',
     // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-    signInSuccessUrl: "/",
+    signInSuccessUrl: '/home',
     // We will display Google and Facebook as auth providers.
-    signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID],
+    signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID]
   };
   useEffect(() => {
     dispatch(getUsers());
     if (isSuccess) {
-      history.push("/");
+      history.push('/');
     }
   }, [dispatch, history, isSuccess]);
   useEffect(() => {
@@ -43,7 +43,7 @@ const Login = () => {
       .onAuthStateChanged((user) => {
         setIsSignedIn(!!user);
         localStorage.setItem(
-          "firebaseui::rememberedAccounts",
+          'firebaseui::rememberedAccounts',
           JSON.stringify(user.providerData)
         );
       });
@@ -58,8 +58,8 @@ const Login = () => {
               <div className="formlogin">
                 <Formik
                   initialValues={{
-                    username: "",
-                    password: "",
+                    username: '',
+                    password: ''
                   }}
                   onSubmit={handleSubmitForm}
                 >
