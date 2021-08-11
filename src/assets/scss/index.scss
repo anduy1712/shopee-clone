@@ -1,13 +1,15 @@
-@import "./variables";
-@import "./base";
-@import "./mixins";
+@import './variables';
+@import './base';
+@import './mixins';
 
-@import "./components/button";
-@import "./components/header";
-@import "./components/footer";
-@import "./grid";
-@import "./pages/home";
-@import "./pages/detail";
-@import "./pages/cart";
-@import "./pages/login";
-@import "./pages/search";
+@import './components/button';
+@import './components/form';
+@import './components/header';
+@import './components/footer';
+@import './grid';
+@import './pages/home';
+@import './pages/detail';
+@import './pages/cart';
+@import './pages/login';
+@import './pages/search';
+@import './pages/user';

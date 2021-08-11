@@ -1,21 +1,19 @@
-import React from "react";
-import { FaFacebook } from "react-icons/fa";
+import React from 'react';
+import { FaFacebook } from 'react-icons/fa';
 import {
   AiFillInstagram,
   AiOutlineBell,
-  AiOutlineQuestionCircle,
-} from "react-icons/ai";
-import { Link } from "react-router-dom";
-import { FcVoicePresentation } from "react-icons/fc";
-import { useEffect } from "react";
-import { logoutUser, usersSelector } from "../../store/reducers/usersSlice";
-import { useDispatch, useSelector } from "react-redux";
+  AiOutlineQuestionCircle
+} from 'react-icons/ai';
+import { Link } from 'react-router-dom';
+import { FcVoicePresentation } from 'react-icons/fc';
+import { useEffect } from 'react';
+import { logoutUser, usersSelector } from '../../store/reducers/usersSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Toolbar = () => {
   const dispatch = useDispatch();
-  const user = JSON.parse(
-    localStorage.getItem("firebaseui::rememberedAccounts")
-  );
+  const user = JSON.parse(localStorage.getItem('user'));
   const { isSuccess } = useSelector(usersSelector);
   const logOut = () => {
     dispatch(logoutUser());
@@ -88,7 +86,9 @@ const Toolbar = () => {
             <img className="txt__small-avatar" src={user[0].photoURL} alt="" />
             <p className="txt__small-txt">{user[0].email}</p>
             <div className="user-block">
-              <p className="user-block__txt">Tài Khoản Của Tôi</p>
+              <Link to="/user" className="user-block__txt">
+                Tài Khoản Của Tôi
+              </Link>
               <p className="user-block__txt">Đơn Mua</p>
               <p className="user-block__txt" onClick={logOut}>
                 Đăng Xuất
@@ -96,12 +96,12 @@ const Toolbar = () => {
             </div>
           </Link>
         ) : (
-          ""
+          ''
         )}
-        <Link to="" className={user ? "c-0 m-0 l-0" : "txt__small bold"}>
+        <Link to="" className={user ? 'c-0 m-0 l-0' : 'txt__small bold'}>
           Đăng Ký
         </Link>
-        <Link to="/login" className={user ? "c-0 m-0 l-0" : "txt__small bold"}>
+        <Link to="/login" className={user ? 'c-0 m-0 l-0' : 'txt__small bold'}>
           Đăng Nhập
         </Link>
       </div>

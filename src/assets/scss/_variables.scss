@@ -27,7 +27,10 @@ $nc-white: white;
 $nc-grey: #888888;
 $mobile-width: 600px;
 $tablet-width: 1024px;
-
+$nc-grey-light: rgba(0, 0, 0, 0.13);
 //height Header
 $header-height: 118px;
 $space-main: $header-height;
+
+//box-shadow
+$box-shadow-01: 0 1px 2px 0 rgba(0, 0, 0, 0.13);

@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router';
 import {
   getProduct,
-  productsSelector,
-} from "../../store/reducers/productsSlice";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+  productsSelector
+} from '../../store/reducers/productsSlice';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from 'swiper/react';
 // import Swiper core and required modules
-import SwiperCore, { Pagination, Navigation } from "swiper/core";
-import { addCart } from "../../store/reducers/cartsSlice";
-import Loading from "../../components/Loading";
-import { AiOutlineMinus, AiOutlinePlus } from "react-icons/ai";
+import SwiperCore, { Pagination, Navigation } from 'swiper/core';
+import { addCart } from '../../store/reducers/cartsSlice';
+import Loading from '../../components/Loading';
+import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
 // install Swiper modules
 SwiperCore.use([Pagination, Navigation]);
@@ -24,36 +24,34 @@ const Detail = () => {
   const dispatch = useDispatch();
   //Get Product
   const { product } = useSelector(productsSelector); //rerender
-  document.querySelector("title").innerText =
+  document.querySelector('title').innerText =
     Object.keys(product).length > 0
       ? product.title
-      : "Shopee Việt Nam | Mua và Sắm";
+      : 'Shopee Việt Nam | Mua và Sắm';
   //Add Cart Item
   const addToCart = (obj) => {
-    const user = JSON.parse(
-      localStorage.getItem("firebaseui::rememberedAccounts")
-    );
+    const user = JSON.parse(localStorage.getItem('user'));
     //CHECK USER
     if (user !== null) {
-      toast.success("Product added to cart", {
-        position: "bottom-right",
+      toast.success('Product added to cart', {
+        position: 'bottom-right',
         autoClose: 2000,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined,
+        progress: undefined
       });
       dispatch(addCart(obj));
     } else {
-      toast.error("Please login to buy", {
-        position: "bottom-right",
+      toast.error('Please login to buy', {
+        position: 'bottom-right',
         autoClose: 2000,
         hideProgressBar: true,
         closeOnClick: true,
         pauseOnHover: true,
         draggable: true,
-        progress: undefined,
+        progress: undefined
       });
       // history.push("/login");
     }
@@ -92,12 +90,12 @@ const Detail = () => {
                           loopFillGroupWithBlank={true}
                           navigation={true}
                           pagination={{
-                            clickable: true,
+                            clickable: true
                           }}
                           className="mySwiper"
                         >
                           {product.images.map((item, index) => {
-                            if (index === 0) return "";
+                            if (index === 0) return '';
                             return (
                               <SwiperSlide>
                                 <img src={item} alt="img_detail" />

@@ -1,8 +1,8 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
-import userApi from "../../api/userApi";
-import firebase from "firebase";
-export const getUsers = createAsyncThunk("users/get", async () => {
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import axios from 'axios';
+import userApi from '../../api/userApi';
+import firebase from 'firebase';
+export const getUsers = createAsyncThunk('users/get', async () => {
   try {
     const response = await userApi.getAll();
     return response;
@@ -38,25 +38,23 @@ export const getUsers = createAsyncThunk("users/get", async () => {
 // });
 
 export const fetchUserBytoken = createAsyncThunk(
-  "users/fetchUserByToken",
+  'users/fetchUserByToken',
   async ({ token }, thunkAPI) => {
     const config = {
       headers: {
-        Authorization: "Bearer " + token,
-      },
+        Authorization: 'Bearer ' + token
+      }
     };
   }
 );
 //Slice
 export const usersSlice = createSlice({
-  name: "users",
+  name: 'users',
   initialState: {
     users: [],
-    username: "",
+    username: '',
     isFetching: false,
-    isSuccess: localStorage.getItem("firebaseui::rememberedAccounts")
-      ? true
-      : false,
+    isSuccess: localStorage.getItem('user') ? true : false
   },
   reducers: {
     loginUser: {
@@ -64,20 +62,20 @@ export const usersSlice = createSlice({
         const { username, password } = action.payload;
         state.users.forEach((user) => {
           if (user.username === username && user.password === password) {
-            localStorage.setItem("user", JSON.stringify(user));
+            localStorage.setItem('user', JSON.stringify(user));
             state.isSuccess = true;
-            console.log("ok login");
+            console.log('ok login');
           }
         });
-      },
+      }
     },
     logoutUser: {
       reducer: (state, action) => {
         firebase.auth().signOut();
-        localStorage.removeItem("firebaseui::rememberedAccounts");
+        localStorage.removeItem('user');
         state.isSuccess = false;
-      },
-    },
+      }
+    }
   },
   extraReducers: {
     [getUsers.fulfilled]: (state, action) => {
@@ -93,8 +91,8 @@ export const usersSlice = createSlice({
       // state.isSuccess = true;
       // console.log(payload);
       // state.username = payload.name;
-    },
-  },
+    }
+  }
 });
 
 //reducer

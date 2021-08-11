@@ -5,6 +5,7 @@ import Detail from '../pages/Detail';
 import Cart from '../pages/Cart';
 import Login from '../pages/Login';
 import Search from '../pages/Search';
+import User from '../pages/User';
 const Routes = () => {
   return (
     <Switch>
@@ -14,6 +15,7 @@ const Routes = () => {
       <Route exact path="/cart" component={Cart} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/search" component={Search} />
+      <Route exact path="/user" component={User} />
     </Switch>
   );
 };

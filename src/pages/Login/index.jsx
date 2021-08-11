@@ -42,9 +42,10 @@ const Login = () => {
       .auth()
       .onAuthStateChanged((user) => {
         setIsSignedIn(!!user);
+        console.log(user.providerData);
         localStorage.setItem(
-          'firebaseui::rememberedAccounts',
-          JSON.stringify(user.providerData)
+          'user',
+          JSON.stringify(user.providerData ? user.providerData : '')
         );
       });
     return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.

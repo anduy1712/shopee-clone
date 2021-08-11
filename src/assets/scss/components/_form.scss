@@ -1,0 +1,25 @@
+.form-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 30px;
+  label {
+    min-width: 100px;
+    font-size: 1.4rem;
+  }
+  input {
+    width: 100%;
+    min-height: 40px;
+    outline: none;
+    padding: 0 8px;
+    border: 1px solid $nc-grey-light;
+  }
+  span {
+    font-size: 1.4rem;
+  }
+  a {
+    margin-left: 4px;
+    color: #05a;
+    text-decoration: underline;
+    font-size: 1.3rem;
+  }
+}
