@@ -2,9 +2,6 @@
   "name": "shopee-clone",
   "version": "0.1.0",
   "private": true,
-  "engines": {
-    "node": "14.16.1"
-  },
   "homepage": "https://anduy1712.github.io/shopee-clone/",
   "dependencies": {
     "@reduxjs/toolkit": "^1.6.1",
