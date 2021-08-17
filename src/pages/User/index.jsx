@@ -1,16 +1,20 @@
 import { Field, Form, Formik } from 'formik';
 import React from 'react';
+import { useRef } from 'react';
 import { useHistory } from 'react-router-dom';
 import Column from '../../components/Column';
 
 const User = () => {
   const history = useHistory();
+  const inputFiles = useRef(null);
   const user = JSON.parse(localStorage.getItem('user'));
+  const openImg = () => {
+    inputFiles.current.click();
+  };
   if (!user) {
     history.push('/');
   }
   //func
-  const openFile = (file) => {};
   return (
     <section className="main">
       <section className="account">
@@ -49,17 +53,21 @@ const User = () => {
                               <Field
                                 id="name"
                                 name="name"
-                                value={user[0].displayName}
+                                value={user.username}
                               />
                             </div>
                             <div className="form-group">
                               <label>Email</label>
-                              <span>{user[0].email}</span>
+                              <span>{user.email}</span>
                               <a href="/">Thay đổi</a>
                             </div>
                             <div className="form-group">
                               <label htmlFor="email">Số Điện Thoại</label>
-                              <Field id="number" name="number" />
+                              <Field
+                                id="number"
+                                name="number"
+                                value={user.phone}
+                              />
                             </div>
                             <button className="btn btn-primary">Lưu</button>
                           </Form>
@@ -68,15 +76,24 @@ const User = () => {
                     </Column>
                     <Column c={4} m={4} l={4}>
                       <div className="profile-content-avatar">
-                        <img src={user[0].photoURL} alt="img_avatar" />
+                        <img
+                          src="https://lh3.googleusercontent.com/ogw/ADea4I5sgu4mCPsb6CevnQx6C6Xzeo8J8XFBWNOJK98w=s32-c-mo"
+                          alt="img_avatar"
+                        />
                         <button
                           type="file"
                           for="avatar"
                           className="btn btn-default"
+                          onClick={openImg}
                         >
                           Chọn ảnh{' '}
                         </button>
-
+                        <input
+                          hidden
+                          type="file"
+                          ref={inputFiles}
+                          accept="image/png, image/gif, image/jpeg"
+                        />
                         <span>
                           Dụng lượng file tối đa 1 MB Định dạng:.JPEG, .PNG
                         </span>

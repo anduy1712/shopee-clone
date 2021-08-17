@@ -69,6 +69,18 @@ export const usersSlice = createSlice({
         });
       }
     },
+    login: {
+      reducer: (state, action) => {
+        let { username, password } = action.payload;
+        state.users.forEach((user) => {
+          if (user.username === username && user.password === password) {
+            localStorage.setItem('user', JSON.stringify(user));
+            state.auth = true;
+            console.log('ok login');
+          }
+        });
+      }
+    },
     logoutUser: {
       reducer: (state, action) => {
         firebase.auth().signOut();
@@ -101,5 +113,5 @@ const usersReducer = usersSlice.reducer;
 export const usersSelector = (state) => state.users;
 
 //action
-export const { loginUser, logoutUser } = usersSlice.actions;
+export const { loginUser, login, logoutUser } = usersSlice.actions;
 export default usersReducer;

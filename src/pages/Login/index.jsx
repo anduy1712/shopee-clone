@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import {
   getUsers,
   isSuccessSelector,
+  login,
   loginUser,
   usersSelector
 } from '../../store/reducers/usersSlice';
@@ -19,7 +20,8 @@ const Login = () => {
   const history = useHistory();
   //On Submit
   const handleSubmitForm = (values) => {
-    dispatch(loginUser(values));
+    dispatch(login(values));
+    history.push('/');
   };
 
   // Configure FirebaseUI.
@@ -37,19 +39,18 @@ const Login = () => {
       history.push('/');
     }
   }, [dispatch, history, isSuccess]);
-  useEffect(() => {
-    const unregisterAuthObserver = firebase
-      .auth()
-      .onAuthStateChanged((user) => {
-        setIsSignedIn(!!user);
-        console.log(user.providerData);
-        localStorage.setItem(
-          'user',
-          JSON.stringify(user.providerData ? user.providerData : '')
-        );
-      });
-    return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
-  }, []);
+  // useEffect(() => {
+  //   const unregisterAuthObserver = firebase
+  //     .auth()
+  //     .onAuthStateChanged((user) => {
+  //       setIsSignedIn(!!user);
+  //       localStorage.setItem(
+  //         'user',
+  //         JSON.stringify(user.providerData ? user.providerData : '')
+  //       );
+  //     });
+  //   return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
+  // }, []);
   return (
     <section className="main">
       <div className="login">

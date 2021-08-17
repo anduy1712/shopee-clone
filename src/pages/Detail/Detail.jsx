@@ -14,6 +14,7 @@ import SwiperCore, { Pagination, Navigation } from 'swiper/core';
 import { addCart } from '../../store/reducers/cartsSlice';
 import Loading from '../../components/Loading';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
+import { useRef } from 'react';
 
 // install Swiper modules
 SwiperCore.use([Pagination, Navigation]);
@@ -21,7 +22,11 @@ SwiperCore.use([Pagination, Navigation]);
 const Detail = () => {
   //Get ID
   const { slug } = useParams();
+  //State
   const dispatch = useDispatch();
+  const [amount, setAmount] = useState(1);
+  const [notify, setNotify] = useState(false);
+  const inputElement = useRef(null);
   //Get Product
   const { product } = useSelector(productsSelector); //rerender
   document.querySelector('title').innerText =
@@ -33,6 +38,10 @@ const Detail = () => {
     const user = JSON.parse(localStorage.getItem('user'));
     //CHECK USER
     if (user !== null) {
+      if (amount > product.quantites) {
+        alert('So luong vuot qua muc cho phep');
+        return;
+      }
       toast.success('Product added to cart', {
         position: 'bottom-right',
         autoClose: 2000,
@@ -42,6 +51,7 @@ const Detail = () => {
         draggable: true,
         progress: undefined
       });
+      obj = { ...obj, amount: Number(amount) };
       dispatch(addCart(obj));
     } else {
       toast.error('Please login to buy', {
@@ -55,6 +65,33 @@ const Detail = () => {
       });
       // history.push("/login");
     }
+  };
+  //Change amount
+  const ChangeAmount = (e) => {
+    const values = e.target.value;
+    if (Number(values) < 0 || /^\d*\.?\d*$/.test(values) === false) return;
+    if (Number(values) > product.quantites) {
+      setNotify(true);
+      return;
+    }
+    if (Number(values) <= product.quantites) {
+      setNotify(false);
+    }
+    setAmount(values);
+  };
+  const increase = () => {
+    if (amount >= product.quantites) {
+      setNotify(true);
+      return;
+    }
+    const newAmount = amount + 1;
+    setAmount(newAmount);
+  };
+  const decrease = () => {
+    if (amount <= 1) return;
+    if (amount <= product.quantites) setNotify(false);
+    const newAmount = amount - 1;
+    setAmount(newAmount);
   };
   //Get Product When the fist load
   useEffect(() => {
@@ -124,24 +161,32 @@ const Detail = () => {
                         <div className="shopee-input">
                           <button
                             className="shopee-input__icon"
-                            // onClick={() => decreaseCart(id)}
+                            onClick={decrease}
                           >
                             <AiOutlineMinus />
                           </button>
                           <input
                             type="text"
-                            // defaultValue={amount}
-                            // value={amount}
-                            // onChange={(e) => ChangeAmount(e, id)}
+                            value={amount}
+                            onChange={(e) => ChangeAmount(e)}
+                            ref={inputElement}
                           />
                           <button
                             className="shopee-input__icon"
-                            // onClick={() => increaseCart(id)}
+                            onClick={increase}
                           >
                             <AiOutlinePlus />
                           </button>
                         </div>
+                        <span>{product.quantites} sản phẩm có sẵn</span>
                       </div>
+                      {notify && (
+                        <div className="content__notify">
+                          Đã đạt đến số lượng mua tối đa cho phép của sản phẩm
+                          này
+                        </div>
+                      )}
+
                       <div className="content__button">
                         <button
                           onClick={() => addToCart(product)}

@@ -1,26 +1,32 @@
-import React from "react";
-import { Link, useHistory } from "react-router-dom";
-import { ReactComponent as Logo } from "../../assets/images/logo.svg";
-import { FiShoppingCart } from "react-icons/fi";
-import { BiSearch } from "react-icons/bi";
-import { amount, cartsSelector } from "../../store/reducers/cartsSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
-import { Formik, Field, Form } from "formik";
+import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { ReactComponent as Logo } from '../../assets/images/logo.svg';
+import { FiShoppingCart } from 'react-icons/fi';
+import { BiSearch } from 'react-icons/bi';
+import {
+  amount,
+  cartsSelector,
+  setTheme
+} from '../../store/reducers/cartsSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { Formik, Field, Form } from 'formik';
+import Column from '../Column';
 
 const Search = () => {
   //Redux
   const dispatch = useDispatch();
   const history = useHistory();
-  const { quantity, cart } = useSelector(cartsSelector);
+  const { quantity, cart, SearchTheme } = useSelector(cartsSelector);
+  //Sugget Item
   const item = [
-    " Váy",
-    " Bông Tẩy Trang",
-    "Balo",
-    "Dép Nữ",
-    "Quần Dép",
-    "Son",
-    "Áo Phông",
+    ' Váy',
+    ' Bông Tẩy Trang',
+    'Balo',
+    'Dép Nữ',
+    'Quần Dép',
+    'Son',
+    'Áo Phông'
   ];
   const sugget = item.map((item) => {
     return (
@@ -37,39 +43,49 @@ const Search = () => {
   useEffect(() => {
     dispatch(amount());
   }, [cart, dispatch]);
-  return (
-    <div className="search">
-      <Link to="" className="search__logo">
-        <Logo />
-      </Link>
-      <div className="search__wrapper">
-        <Formik
-          initialValues={{
-            keyword: "",
-          }}
-          onSubmit={handleSubmitForm}
-        >
-          <Form className="search__input">
-            <Field
-              id="keyword"
-              name="keyword"
-              type="text"
-              className="search__input--header"
-              placeholder="Sulwhasoo Quà đến 100 triệu"
-            />
-            <button className="search__input--submit" type="submit">
-              <BiSearch className="search__input--icon" />
-            </button>
-          </Form>
-        </Formik>
 
-        <div className="search__suggest">{sugget}</div>
+  return (
+    <section
+      className={SearchTheme ? 'header-search s-white' : 'header-search '}
+    >
+      <div className="grid wide">
+        <div className="row">
+          <Column c={12} m={12} l={12}>
+            <div className="search">
+              <Link to="" className="search__logo">
+                <Logo />
+              </Link>
+              <div className="search__wrapper">
+                <Formik
+                  initialValues={{
+                    keyword: ''
+                  }}
+                  onSubmit={handleSubmitForm}
+                >
+                  <Form className="search__input">
+                    <Field
+                      id="keyword"
+                      name="keyword"
+                      type="text"
+                      className="search__input--header"
+                      placeholder="Sulwhasoo Quà đến 100 triệu"
+                    />
+                    <button className="search__input--submit" type="submit">
+                      <BiSearch className="search__input--icon" />
+                    </button>
+                  </Form>
+                </Formik>
+                <div className="search__suggest">{sugget}</div>
+              </div>
+              <Link to="/cart" className="search__cart">
+                <FiShoppingCart className="search__cart--icon" />
+                <span className="search__cart-total">{quantity}</span>
+              </Link>
+            </div>
+          </Column>
+        </div>
       </div>
-      <Link to="/cart" className="search__cart">
-        <FiShoppingCart className="search__cart--icon" />
-        <span className="search__cart-total">{quantity}</span>
-      </Link>
-    </div>
+    </section>
   );
 };
 

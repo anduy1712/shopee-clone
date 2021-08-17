@@ -6,6 +6,7 @@ import Cart from '../pages/Cart';
 import Login from '../pages/Login';
 import Search from '../pages/Search';
 import User from '../pages/User';
+
 const Routes = () => {
   return (
     <Switch>

@@ -1,17 +1,17 @@
-import React from "react";
-import banner01 from "../../assets/images/adv_01.png";
-import banner02 from "../../assets/images/adv_02.png";
-import banner03 from "../../assets/images/adv_03.png";
-import banner04 from "../../assets/images/adv_04.png";
-import banner05 from "../../assets/images/adv_05.png";
+import React from 'react';
+import banner01 from '../../assets/images/adv_01.png';
+import banner02 from '../../assets/images/adv_02.png';
+import banner03 from '../../assets/images/adv_03.png';
+import banner04 from '../../assets/images/adv_04.png';
+import banner05 from '../../assets/images/adv_05.png';
 // Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
-import "swiper/swiper.min.css";
-import "swiper/components/navigation/navigation.min.css";
-import "swiper/components/pagination/pagination.min.css";
+import 'swiper/swiper.min.css';
+import 'swiper/components/navigation/navigation.min.css';
+import 'swiper/components/pagination/pagination.min.css';
 // import Swiper core and required modules
-import SwiperCore, { Autoplay, Pagination, Navigation } from "swiper/core";
+import SwiperCore, { Autoplay, Pagination, Navigation } from 'swiper/core';
 // install Swiper modules
 SwiperCore.use([Autoplay, Pagination, Navigation]);
 const Adver = () => {
@@ -24,12 +24,12 @@ const Adver = () => {
               <Swiper
                 spaceBetween={30}
                 centeredSlides={true}
-                autoplay={{
-                  delay: 2500,
-                  disableOnInteraction: false,
-                }}
+                // autoplay={{
+                //   delay: 2500,
+                //   disableOnInteraction: false,
+                // }}
                 pagination={{
-                  clickable: true,
+                  clickable: true
                 }}
                 navigation={true}
                 className="mySwiper"
@@ -51,13 +51,13 @@ const Adver = () => {
               <div
                 className="adver__banner-item"
                 style={{
-                  background: `url(${banner04})`,
+                  background: `url(${banner04})`
                 }}
               ></div>
               <div
                 className="adver__banner-item"
                 style={{
-                  background: `url(${banner05})`,
+                  background: `url(${banner05})`
                 }}
               ></div>
             </div>

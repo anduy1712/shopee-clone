@@ -67,12 +67,24 @@
         &__quantity {
           display: flex;
           align-items: center;
-          margin-bottom: 20px;
+          margin-bottom: 10px;
           &-txt {
             width: 100px;
             font-size: 1.4rem;
             color: $nc-grey;
           }
+          .shopee-input {
+            margin-right: 10px;
+          }
+          span {
+            font-size: 1.4rem;
+            color: #757575;
+          }
+        }
+        &__notify {
+          font-size: 1.4rem;
+          color: $nc-primary;
+          margin: 10px 0 16px 100px;
         }
       }
     }

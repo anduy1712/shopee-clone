@@ -266,84 +266,106 @@
       }
     }
   }
-  .search {
-    display: flex;
-    align-items: flex-start;
-    padding: 15px 0;
-    &__logo {
-      margin-right: 40px;
-    }
-    &__wrapper {
-      flex: 2;
-      .search__input {
-        height: 4rem;
-        background: $nc-white;
-        border-radius: 2px;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        &--header {
-          flex: 1;
-          height: 100%;
-          font-size: 1.4rem;
-          font-weight: 300;
-          border: none;
-          outline: none;
-          padding: 0 12px;
-          &:-webkit-autofill,
-          &:-webkit-autofill:hover,
-          &:-webkit-autofill:focus,
-          &:-webkit-autofill:active {
-            -webkit-box-shadow: 0 0 0 30px white inset !important;
-          }
-        }
-        &--submit {
-          height: calc(100% - 8px);
-          min-width: 60px;
-          background: #ee4d2d;
-          border: none;
+  &-search {
+    .search {
+      display: flex;
+      align-items: flex-start;
+      padding: 15px 0;
+      &__logo {
+        margin-right: 40px;
+      }
+      &__wrapper {
+        flex: 2;
+        .search__input {
+          height: 4rem;
+          background: $nc-white;
           border-radius: 2px;
-          margin-right: 4px;
-          color: white;
-          &:hover {
-            cursor: pointer;
-            filter: brightness(98%);
+          overflow: hidden;
+          display: flex;
+          align-items: center;
+          &--header {
+            flex: 1;
+            height: 100%;
+            font-size: 1.4rem;
+            font-weight: 300;
+            border: none;
+            outline: none;
+            padding: 0 12px;
+            &:-webkit-autofill,
+            &:-webkit-autofill:hover,
+            &:-webkit-autofill:focus,
+            &:-webkit-autofill:active {
+              -webkit-box-shadow: 0 0 0 30px white inset !important;
+            }
+          }
+          &--submit {
+            height: calc(100% - 8px);
+            min-width: 60px;
+            background: #ee4d2d;
+            border: none;
+            border-radius: 2px;
+            margin-right: 4px;
+            color: white;
+            &:hover {
+              cursor: pointer;
+              filter: brightness(98%);
+            }
+          }
+          &--icon {
+            font-size: 2rem;
           }
         }
-        &--icon {
-          font-size: 2rem;
+        .search__suggest {
+          margin-top: 4px;
+          &--item {
+            font-size: 1.2rem;
+            font-weight: 300;
+            color: $nc-white;
+            margin-right: 8px;
+          }
         }
       }
-      .search__suggest {
-        margin-top: 4px;
-        &--item {
-          font-size: 1.2rem;
-          font-weight: 300;
+      &__cart {
+        position: relative;
+        margin: 0 20px;
+        margin-left: 40px;
+        padding: 10px;
+        &--icon {
+          position: relative;
           color: $nc-white;
-          margin-right: 8px;
+          font-size: 30px;
+        }
+        &-total {
+          position: absolute;
+          top: 0;
+          right: -10px;
+          background: $nc-white;
+          border: 2px solid $nc-primary;
+          padding: 4px 10px;
+          font-size: 1.2rem;
+          color: $nc-primary;
+          border-radius: 8px;
         }
       }
     }
-    &__cart {
-      position: relative;
-      margin: 0 20px;
-      margin-left: 40px;
-      padding: 10px;
-      &--icon {
-        position: relative;
-        color: $nc-white;
-        font-size: 30px;
+  }
+  &-search {
+    &.s-white {
+      background: white;
+      border: 1px solid $nc-grey-light;
+      .search__input {
+        border: 1px solid $nc-primary;
       }
-      &-total {
-        position: absolute;
-        top: 0;
-        right: -10px;
-        background: $nc-white;
-        border: 2px solid $nc-primary;
-        padding: 4px 10px;
-        font-size: 1.2rem;
+      .search__suggest--item {
         color: $nc-primary;
-        border-radius: 8px;
+      }
+      .search__logo {
+        path {
+          fill: $nc-primary;
+        }
+      }
+      .search__cart--icon {
+        color: $nc-primary;
       }
     }
   }
