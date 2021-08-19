@@ -1,16 +1,35 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import EmptyCart from "../../components/EmptyCart";
-import { cartsSelector, total } from "../../store/reducers/cartsSlice";
-import CartItemTable from "./CartItemTable";
+import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+
+import { useDispatch, useSelector } from 'react-redux';
+import EmptyCart from '../../components/EmptyCart';
+import {
+  cartsSelector,
+  getCartByUser,
+  total
+} from '../../store/reducers/cartsSlice';
+import CartItemTable from './CartItemTable';
 const CartTable = () => {
+  const user = JSON.parse(localStorage.getItem('user'));
   const dispatch = useDispatch();
+  const history = useHistory();
+
   const { cart, totalCart } = useSelector(cartsSelector);
-  const item = cart.map((item) => {
+
+  useEffect(() => {
+    if (user) {
+      dispatch(getCartByUser(user.id));
+    }
+  }, [dispatch, user.id]);
+  useEffect(() => {
+    dispatch(total());
+  }, [cart, dispatch]);
+  const item = cart.map((item, index) => {
     return (
       <CartItemTable
         key={item.id}
-        id={item.id}
+        id={item.productId}
+        index={index}
         name={item.title}
         amount={item.amount}
         img={item.images}
@@ -18,9 +37,6 @@ const CartTable = () => {
       />
     );
   });
-  useEffect(() => {
-    dispatch(total());
-  }, [cart, dispatch]);
   return (
     <section className="cart">
       <div className="grid wide">
@@ -54,7 +70,7 @@ const CartTable = () => {
             <div className="cartpay">
               <div className="cartpay__action">
                 <p className="cartpay__action-total">
-                  Tổng thanh toán (0 Sản phẩm):{" "}
+                  Tổng thanh toán (0 Sản phẩm):{' '}
                   <span className="txt__primary">₫{totalCart}</span>
                 </p>
                 <button className="btn btn-primary">Mua Hàng</button>

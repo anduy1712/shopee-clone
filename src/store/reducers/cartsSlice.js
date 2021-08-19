@@ -1,10 +1,140 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { cloneDeep, isEmpty } from 'lodash';
+import cartApi from '../../api/cartApi';
 
-const cart = JSON.parse(localStorage.getItem('cart'))
-  ? JSON.parse(localStorage.getItem('cart'))
-  : [];
+export const addCartApi = createAsyncThunk('cart/addCartApi', async (obj) => {
+  //get cart
+  try {
+    const response = await cartApi.getAll();
+    //get id cart
+    let checkIdInCart = false;
+    let cartList = null;
+    //Check Cart In Users
+    const arrayCart = cloneDeep(response);
+    await arrayCart.forEach((item) => {
+      if (item.userId === obj.userId) {
+        checkIdInCart = true;
+        const { id, title, amount, images, price } = obj;
+        let isSame = false;
+        //Increase Cart Item
+        item.products.forEach((item) => {
+          if (item.productId === id) {
+            isSame = true;
+            item.amount += amount;
+          }
+        });
+        cartList = cartApi.putCart(item);
+        //Add Cart Item in ListCarts
+        if (!isSame) {
+          const product = {
+            productId: id,
+            title,
+            images,
+            price,
+            amount
+          };
+          const test = cloneDeep(item);
+          test.products.push(product);
+          // item.products.push(product);
+          cartList = cartApi.putCart(test);
+        }
+      }
+    });
+    //User don't have Cart before
+    if (!checkIdInCart) {
+      //init cart
+      const { id, title, amount, images, price, userId } = obj;
+      const cart = {
+        userId,
+        date: Date.now(),
+        products: [
+          {
+            productId: id,
+            title,
+            images,
+            price,
+            amount
+          }
+        ]
+      };
+      cartList = await cartApi.postCart(cart);
+      return cartList;
+    }
+    return cartList;
+  } catch (error) {
+  }
+});
+export const getCartByUser = createAsyncThunk(
+  'cart/getCartByUser',
+  async (id) => {
+    try {
+      const response = await cartApi.getCartByUser(id);
+      return response;
+    } catch (error) {}
+  }
+);
+export const deleteItemCart = createAsyncThunk(
+  'cart/deleteItemCart',
+  async (id) => {
+    try {
+      //get user
+      const user = JSON.parse(localStorage.getItem('user'));
+      const response = await cartApi.getCartByUser(user.id);
+      //Remove Item
+      response[0].products.splice(id, 1);
+      //Put Cart
+      const data = await cartApi.putCart(response[0]);
+      return data;
+    } catch (error) {
+    }
+  }
+);
+export const increaseCartApi = createAsyncThunk(
+  'cart/increaseCartApi',
+  async (id) => {
+    try {
+      //get user
+      const user = JSON.parse(localStorage.getItem('user'));
+      const response = await cartApi.getCartByUser(user.id);
+      //Increase Item Cart
+      response[0].products.forEach((item) => {
+        if (item.productId === id) {
+          item.amount += 1;
+        }
+      });
+      //Put Cart
+      const data = await cartApi.putCart(response[0]);
+      return data;
+    } catch (error) {
+    }
+  }
+);
+export const decreaseCartApi = createAsyncThunk(
+  'cart/decreaseCartApi',
+  async (id) => {
+    try {
+      //get user
+      const user = JSON.parse(localStorage.getItem('user'));
+      const response = await cartApi.getCartByUser(user.id);
+      //Increase Item Cart
+      response[0].products.forEach((item) => {
+        if (item.productId === id) {
+          item.amount -= 1;
+        }
+      });
+      const newProducts = response[0].products.filter((item) => {
+        return item.amount !== 0;
+      });
+      response[0].products = newProducts;
+      //Put Cart
+      const data = await cartApi.putCart(response[0]);
+      return data;
+    } catch (error) {
+    }
+  }
+);
 const initialState = {
-  cart,
+  cart: [],
   quantity: 0,
   totalCart: 0,
   SearchTheme: false
@@ -81,14 +211,12 @@ export const cartsSlice = createSlice({
     getItemCart: (state, action) => {
       let isSame = false;
       const { productId } = action.payload.product;
-      console.log(state.cart, '1');
       const test = state.cart.forEach((item) => {
         if (item.product.productId === productId) {
           isSame = true;
           item.amount += 1;
         }
       });
-      console.log(test, '2');
       if (!isSame) {
         //add new item cart
         // addCart(action.payload);
@@ -98,7 +226,28 @@ export const cartsSlice = createSlice({
       state.SearchTheme = action.payload;
     }
   },
-  extraReducers: {}
+  extraReducers: {
+    [addCartApi.fulfilled]: (state, action) => {
+      state.cart = action.payload.products;
+    },
+    [getCartByUser.fulfilled]: (state, action) => {
+      if (action.payload.length > 0) {
+        state.cart = action.payload[0].products;
+      }
+      if (isEmpty(action.payload)) {
+        state.cart = [];
+      }
+    },
+    [deleteItemCart.fulfilled]: (state, action) => {
+      state.cart = action.payload.products;
+    },
+    [increaseCartApi.fulfilled]: (state, action) => {
+      state.cart = action.payload.products;
+    },
+    [decreaseCartApi.fulfilled]: (state, action) => {
+      state.cart = action.payload.products;
+    }
+  }
 });
 //export action
 export const {

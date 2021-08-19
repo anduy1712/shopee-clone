@@ -1,19 +1,31 @@
 import { Field, Form, Formik } from 'formik';
 import React from 'react';
+import { useState } from 'react';
 import { useRef } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Column from '../../components/Column';
+import { editUserApi } from '../../store/reducers/usersSlice';
 
 const User = () => {
+  const dispatch = useDispatch();
   const history = useHistory();
   const inputFiles = useRef(null);
   const user = JSON.parse(localStorage.getItem('user'));
+  const [img, setImg] = useState(user.photoImage);
   const openImg = () => {
     inputFiles.current.click();
   };
   if (!user) {
     history.push('/');
   }
+  const previewImg = (e) => {
+    setImg(URL.createObjectURL(e.target.files[0]));
+  };
+  const handleSubmitForm = (values) => {
+    const data = { ...values, photoImage: img };
+    dispatch(editUserApi(data));
+  };
   //func
   return (
     <section className="main">
@@ -37,22 +49,24 @@ const User = () => {
                       <div className="profile-content-form">
                         <Formik
                           initialValues={{
-                            name: '',
-                            email: '',
-                            number: ''
+                            id: user.id,
+                            email: user.email,
+                            username: user.username,
+                            password: user.password,
+                            name: user.name,
+                            phone: user.phone,
+                            address: user.address,
+                            author: user.author
                           }}
-                          onSubmit={async (values) => {
-                            await new Promise((r) => setTimeout(r, 500));
-                            alert(JSON.stringify(values, null, 2));
-                          }}
+                          onSubmit={handleSubmitForm}
                         >
                           <Form>
                             <div className="form-group">
                               <label>Tên</label>
 
                               <Field
-                                id="name"
-                                name="name"
+                                id="username"
+                                name="username"
                                 value={user.username}
                               />
                             </div>
@@ -64,22 +78,21 @@ const User = () => {
                             <div className="form-group">
                               <label htmlFor="email">Số Điện Thoại</label>
                               <Field
-                                id="number"
-                                name="number"
+                                id="phone"
+                                name="phone"
                                 value={user.phone}
                               />
                             </div>
-                            <button className="btn btn-primary">Lưu</button>
+                            <button type="submit" className="btn btn-primary">
+                              Lưu
+                            </button>
                           </Form>
                         </Formik>
                       </div>
                     </Column>
                     <Column c={4} m={4} l={4}>
                       <div className="profile-content-avatar">
-                        <img
-                          src="https://lh3.googleusercontent.com/ogw/ADea4I5sgu4mCPsb6CevnQx6C6Xzeo8J8XFBWNOJK98w=s32-c-mo"
-                          alt="img_avatar"
-                        />
+                        <img src={img} alt="img_avatar" />
                         <button
                           type="file"
                           for="avatar"
@@ -92,6 +105,7 @@ const User = () => {
                           hidden
                           type="file"
                           ref={inputFiles}
+                          onChange={previewImg}
                           accept="image/png, image/gif, image/jpeg"
                         />
                         <span>

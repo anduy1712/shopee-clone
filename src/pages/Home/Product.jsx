@@ -5,7 +5,6 @@ import {
   productsSelector
 } from '../../store/reducers/productsSlice';
 import ProductItem from '../../components/Home/ProductItem';
-import Loading from '../../components/Loading';
 import SkeletonCard from '../../components/SkeletonCard';
 
 const Product = () => {
@@ -47,7 +46,9 @@ const Product = () => {
           {product.length === 0
             ? Array(9)
                 .fill()
-                .map((item) => <SkeletonCard size={['6', '4', '2']} />)
+                .map((item, index) => (
+                  <SkeletonCard key={index} size={['6', '4', '2']} />
+                ))
             : product}
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { cartsSelector, setTheme } from '../../store/reducers/cartsSlice';
+import { setTheme } from '../../store/reducers/cartsSlice';
 import CartTable from './CartTable';
 
 const Cart = () => {
@@ -13,7 +13,7 @@ const Cart = () => {
   }
   useEffect(() => {
     dispatch(setTheme(true));
-  }, []);
+  }, [dispatch]);
   return (
     <section className="main">
       <CartTable />

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import queryString from 'query-string';
-import firebase from 'firebase';
+// import firebase from 'firebase';
 
 // const getFirebaseToken = async () => {
 //   const currentUser = firebase.auth().currentUser;

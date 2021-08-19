@@ -51,7 +51,6 @@ export const producstSlice = createSlice({
       state.product = action.payload;
     },
     [filterProduct.pending]: (state, action) => {
-      console.log('test filter');
       state.products = null;
     },
     [filterProduct.fulfilled]: (state, action) => {

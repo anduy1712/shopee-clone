@@ -6,18 +6,21 @@ import { BiSearch } from 'react-icons/bi';
 import {
   amount,
   cartsSelector,
-  setTheme
+  getCartByUser,
 } from '../../store/reducers/cartsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Formik, Field, Form } from 'formik';
 import Column from '../Column';
+import { usersSelector } from '../../store/reducers/usersSlice';
 
 const Search = () => {
   //Redux
   const dispatch = useDispatch();
   const history = useHistory();
   const { quantity, cart, SearchTheme } = useSelector(cartsSelector);
+  //Get user
+  const { users, isSuccess } = useSelector(usersSelector);
   //Sugget Item
   const item = [
     ' Váy',
@@ -43,7 +46,13 @@ const Search = () => {
   useEffect(() => {
     dispatch(amount());
   }, [cart, dispatch]);
-
+  useEffect(() => {
+    if (isSuccess) {
+      dispatch(getCartByUser(users.id));
+    } else {
+      dispatch(getCartByUser(null));
+    }
+  }, [dispatch, isSuccess, users.id]);
   return (
     <section
       className={SearchTheme ? 'header-search s-white' : 'header-search '}

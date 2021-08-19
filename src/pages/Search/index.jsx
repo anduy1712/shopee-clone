@@ -38,7 +38,7 @@ const Search = ({ location }) => {
   useEffect(() => {
     // get current url
     dispatch(filterProduct(location.search));
-  }, [location]);
+  }, [dispatch, location]);
   return (
     <section className="main">
       <section className="search">

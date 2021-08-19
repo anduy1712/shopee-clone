@@ -91,7 +91,7 @@ const Toolbar = () => {
                   <Link to="" className="user">
                     <img
                       className="txt__small-avatar"
-                      src="https://lh3.googleusercontent.com/ogw/ADea4I5sgu4mCPsb6CevnQx6C6Xzeo8J8XFBWNOJK98w=s32-c-mo"
+                      src={user.photoImage}
                       alt=""
                     />
                     <p className="txt__small-txt">{user.email}</p>

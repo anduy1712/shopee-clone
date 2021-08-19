@@ -1,26 +1,18 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getUsers,
-  isSuccessSelector,
-  login,
-  loginUser,
-  usersSelector
-} from '../../store/reducers/usersSlice';
+import { loginApi, usersSelector } from '../../store/reducers/usersSlice';
 import { Formik, Field, Form } from 'formik';
 import { useHistory } from 'react-router-dom';
 import firebase from 'firebase';
 import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
-import { useState } from 'react';
 const Login = () => {
-  const [isSignedIn, setIsSignedIn] = useState(false); // Local signed-in state.
   //Get users
   const { isSuccess } = useSelector(usersSelector);
   const dispatch = useDispatch();
   const history = useHistory();
   //On Submit
   const handleSubmitForm = (values) => {
-    dispatch(login(values));
+    dispatch(loginApi(values));
     history.push('/');
   };
 
@@ -34,23 +26,11 @@ const Login = () => {
     signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID]
   };
   useEffect(() => {
-    dispatch(getUsers());
+    // dispatch(getUsers());
     if (isSuccess) {
       history.push('/');
     }
   }, [dispatch, history, isSuccess]);
-  // useEffect(() => {
-  //   const unregisterAuthObserver = firebase
-  //     .auth()
-  //     .onAuthStateChanged((user) => {
-  //       setIsSignedIn(!!user);
-  //       localStorage.setItem(
-  //         'user',
-  //         JSON.stringify(user.providerData ? user.providerData : '')
-  //       );
-  //     });
-  //   return () => unregisterAuthObserver(); // Make sure we un-register Firebase observers when the component unmounts.
-  // }, []);
   return (
     <section className="main">
       <div className="login">
@@ -66,22 +46,23 @@ const Login = () => {
                   onSubmit={handleSubmitForm}
                 >
                   <Form>
-                    <h3 className="form-title">Đâng Nhập</h3>
+                    <h3 className="form-title">Đăng Nhập</h3>
                     <div className="form-group">
-                      <label htmlFor="username">Username:</label>
+                      {/* <label htmlFor="username">Username:</label> */}
                       <Field
                         id="username"
                         name="username"
-                        placeholder="Tên đăng nhập"
+                        placeholder="Email/Số điện thoại/Tên đăng nhập"
                         type="text"
                       />
                     </div>
                     <div className="form-group">
-                      <label htmlFor="password">Password:</label>
+                      {/* <label htmlFor="password">Password:</label> */}
                       <Field
                         id="password"
                         name="password"
                         placeholder="Mật khẩu"
+                        type="password"
                       />
                     </div>
                     <button className="btn btn-primary" type="submit">

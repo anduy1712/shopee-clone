@@ -1,22 +1,22 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import {
-  remove,
-  increase,
-  decrease,
-  onChangeAmount
+  onChangeAmount,
+  deleteItemCart,
+  increaseCartApi,
+  decreaseCartApi
 } from '../../store/reducers/cartsSlice';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
-const CartItemTable = ({ id, name, img, price, amount }) => {
+const CartItemTable = ({ index, id, name, img, price, amount }) => {
   const dispatch = useDispatch();
   //INCREASE CART
   const increaseCart = (id) => {
-    dispatch(increase(id));
+    dispatch(increaseCartApi(id));
   };
   //DECREASE CART
   const decreaseCart = (id) => {
-    dispatch(decrease(id));
+    dispatch(decreaseCartApi(id));
   };
   //onChangeAmount CART
   const ChangeAmount = (e, id) => {
@@ -26,10 +26,10 @@ const CartItemTable = ({ id, name, img, price, amount }) => {
     };
     dispatch(onChangeAmount(obj));
   };
-  const test = () => {};
   //REMOVE ITEM CART
-  const removeCart = (id) => {
-    dispatch(remove(id));
+  const removeCart = (index) => {
+    // console.log(index);
+    dispatch(deleteItemCart(index));
   };
   const totalItem = price * amount;
   return (
@@ -68,7 +68,7 @@ const CartItemTable = ({ id, name, img, price, amount }) => {
       </div>
       <div className="cartlist__item-box">
         <button
-          onClick={() => removeCart(id)}
+          onClick={() => removeCart(index)}
           className="btn btn-small btn-primary"
         >
           Xoá

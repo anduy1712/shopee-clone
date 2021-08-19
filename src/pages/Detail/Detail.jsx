@@ -11,7 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 // import Swiper core and required modules
 import SwiperCore, { Pagination, Navigation } from 'swiper/core';
-import { addCart } from '../../store/reducers/cartsSlice';
+import { addCartApi } from '../../store/reducers/cartsSlice';
 import Loading from '../../components/Loading';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { useRef } from 'react';
@@ -51,8 +51,8 @@ const Detail = () => {
         draggable: true,
         progress: undefined
       });
-      obj = { ...obj, amount: Number(amount) };
-      dispatch(addCart(obj));
+      obj = { ...obj, amount: Number(amount), userId: user.id };
+      dispatch(addCartApi(obj));
     } else {
       toast.error('Please login to buy', {
         position: 'bottom-right',

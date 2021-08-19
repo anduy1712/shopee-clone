@@ -9,5 +9,9 @@ const userApi = {
     const url = "/users";
     return axiosClient.post(url, { params });
   },
+  editUser: (obj) => {
+    const url = `/users/${obj.id}`;
+    return axiosClient.put(url, obj);
+  },
 };
 export default userApi;
