@@ -13,14 +13,17 @@ const CartTable = () => {
   const user = JSON.parse(localStorage.getItem('user'));
   const dispatch = useDispatch();
   const history = useHistory();
-
+  if (!user) {
+    alert('Vui lòng đăng nhập để mua hàng');
+    history.push('/login');
+  }
   const { cart, totalCart } = useSelector(cartsSelector);
 
   useEffect(() => {
     if (user) {
       dispatch(getCartByUser(user.id));
     }
-  }, [dispatch, user.id]);
+  }, [dispatch, user]);
   useEffect(() => {
     dispatch(total());
   }, [cart, dispatch]);

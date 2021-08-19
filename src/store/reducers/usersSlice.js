@@ -24,14 +24,17 @@ export const loginApi = createAsyncThunk('users/loginApi', async (obj) => {
     return error;
   }
 });
-export const editUserApi = createAsyncThunk('users/editUserApi', async (obj) => {
-  try {
-    const response = await userApi.editUser(obj);
-    return response;
-  } catch (error) {
-    return error;
+export const editUserApi = createAsyncThunk(
+  'users/editUserApi',
+  async (obj) => {
+    try {
+      const response = await userApi.editUser(obj);
+      return response;
+    } catch (error) {
+      return error;
+    }
   }
-});
+);
 // export const loginUser = createAsyncThunk("users/login", async (obj) => {
 //   try {
 //     const response = await axios({
@@ -108,6 +111,8 @@ export const usersSlice = createSlice({
     },
     [editUserApi.fulfilled]: (state, action) => {
       state.users = action.payload;
+      localStorage.removeItem('user');
+      localStorage.setItem('user', JSON.stringify(action.payload));
     },
     [loginApi.fulfilled]: (state, { payload }) => {
       if (payload !== null) {

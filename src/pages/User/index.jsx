@@ -6,6 +6,8 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import Column from '../../components/Column';
 import { editUserApi } from '../../store/reducers/usersSlice';
+import FileBase64 from 'react-file-base64';
+import imageUploaded from '../../helpers/covertBase';
 
 const User = () => {
   const dispatch = useDispatch();
@@ -13,15 +15,24 @@ const User = () => {
   const inputFiles = useRef(null);
   const user = JSON.parse(localStorage.getItem('user'));
   const [img, setImg] = useState(user.photoImage);
-  const openImg = () => {
-    inputFiles.current.click();
-  };
+
   if (!user) {
     history.push('/');
   }
-  const previewImg = (e) => {
-    setImg(URL.createObjectURL(e.target.files[0]));
+  //Open FileType from Button
+  const openImg = () => {
+    inputFiles.current.click();
   };
+  //Image File Change
+  const imageUploaded = () => {
+    var file = document.querySelector('input[type=file]')['files'][0];
+    var reader = new FileReader();
+    reader.onload = function () {
+      setImg(reader.result);
+    };
+    reader.readAsDataURL(file);
+  };
+  //Submit Form
   const handleSubmitForm = (values) => {
     const data = { ...values, photoImage: img };
     dispatch(editUserApi(data));
@@ -104,10 +115,13 @@ const User = () => {
                         <input
                           hidden
                           type="file"
+                          onChange={imageUploaded}
                           ref={inputFiles}
-                          onChange={previewImg}
                           accept="image/png, image/gif, image/jpeg"
                         />
+                        {/* <div  className="testinput">
+                          <FileBase64 multiple={true} onDone={getFiles} />
+                        </div> */}
                         <span>
                           Dụng lượng file tối đa 1 MB Định dạng:.JPEG, .PNG
                         </span>
