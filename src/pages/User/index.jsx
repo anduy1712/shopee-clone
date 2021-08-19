@@ -8,6 +8,7 @@ import Column from '../../components/Column';
 import { editUserApi } from '../../store/reducers/usersSlice';
 import FileBase64 from 'react-file-base64';
 import imageUploaded from '../../helpers/covertBase';
+import UserMenu from './UserMenu';
 
 const User = () => {
   const dispatch = useDispatch();
@@ -43,8 +44,8 @@ const User = () => {
       <section className="account">
         <div className="grid wide">
           <div className="row">
-            <Column c={12} m={3} l={2}>
-              <div>User Tools</div>
+            <Column c={0} m={3} l={2}>
+              <UserMenu />
             </Column>
             <Column c={12} m={9} l={10}>
               <div className="profile">

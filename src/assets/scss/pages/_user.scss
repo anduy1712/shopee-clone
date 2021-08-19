@@ -1,10 +1,71 @@
 .account {
   padding: 20px 0;
+  .menu {
+    &-header {
+      display: flex;
+      align-items: center;
+      padding: 15px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      &__img {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+      &__txt {
+        flex: 1;
+        text-align: center;
+        &-name,
+        &-edit {
+          font-size: 1.4rem;
+        }
+        &-name {
+          margin-bottom: 4px;
+        }
+        &-edit {
+          color: #888;
+        }
+      }
+    }
+    &-body {
+      padding: 20px 0;
+      &__list {
+        &-item {
+          margin-bottom: 15px;
+          a {
+            display: flex;
+            align-items: center;
+            font-size: 1.4rem;
+            font-weight: 500;
+            &:hover {
+              color: $nc-primary;
+            }
+          }
+          .item-icon {
+            font-size: 2.2rem;
+            margin-right: 8px;
+            &.blue {
+              color: #315db7;
+            }
+            &.blue {
+              color: #315db7;
+            }
+            &.primary {
+              color: $nc-primary;
+            }
+            &.yellow {
+              color: #f4d9a6;
+            }
+          }
+        }
+      }
+    }
+  }
   .profile {
     background: white;
     box-shadow: $box-shadow-01;
     border-radius: 2px;
-    padding: 30px;
+    padding: 15px 30px;
     &-header {
       border-bottom: 1px solid rgba(0, 0, 0, 0.1);
       padding-bottom: 20px;
