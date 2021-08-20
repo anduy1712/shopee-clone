@@ -133,6 +133,22 @@ export const decreaseCartApi = createAsyncThunk(
     }
   }
 );
+export const removeCartApi = createAsyncThunk(
+  'cart/removeCartApi',
+  async (id) => {
+    try {
+      //get user
+      const user = JSON.parse(localStorage.getItem('user'));
+      const response = await cartApi.getCartByUser(user.id);
+      //Remove Item
+      response[0].products = []
+      //Put Cart
+      const data = await cartApi.putCart(response[0]);
+      return data;
+    } catch (error) {
+    }
+  }
+);
 const initialState = {
   cart: [],
   quantity: 0,
@@ -224,6 +240,11 @@ export const cartsSlice = createSlice({
     },
     setTheme: (state, action) => {
       state.SearchTheme = action.payload;
+    },
+    clearCart: (state, action) => {
+      state.cart = [];
+      state.quantity = 0;
+      state.totalCart = 0;
     }
   },
   extraReducers: {
@@ -247,6 +268,10 @@ export const cartsSlice = createSlice({
     [decreaseCartApi.fulfilled]: (state, action) => {
       state.cart = action.payload.products;
     }
+    ,
+    [removeCartApi.fulfilled]: (state, action) => {
+      state.cart = action.payload.products;
+    }
   }
 });
 //export action
@@ -259,7 +284,8 @@ export const {
   remove,
   total,
   getItemCart,
-  setTheme
+  setTheme,
+  clearCart
 } = cartsSlice.actions;
 //selector
 export const cartsSelector = (state) => state.carts;

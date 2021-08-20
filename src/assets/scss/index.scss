@@ -1,15 +1,17 @@
 @import './variables';
 @import './base';
 @import './mixins';
+@import './grid';
 
 @import './components/button';
 @import './components/form';
 @import './layout/header';
 @import './layout/footer';
-@import './grid';
 @import './pages/home';
 @import './pages/detail';
 @import './pages/cart';
 @import './pages/login';
 @import './pages/search';
 @import './pages/user';
+@import './pages/checkout';
+

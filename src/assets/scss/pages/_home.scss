@@ -1,6 +1,9 @@
 .main {
   margin-top: $space-main;
   background: $nc-util-bg;
+  @include mobile {
+    margin-top: $space-mobile-main;
+  }
   .navbar {
     display: flex;
     align-items: center;

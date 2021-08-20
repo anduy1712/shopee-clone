@@ -18,12 +18,14 @@ const CartTable = () => {
     history.push('/login');
   }
   const { cart, totalCart } = useSelector(cartsSelector);
-
-  useEffect(() => {
-    if (user) {
-      dispatch(getCartByUser(user.id));
-    }
-  }, [dispatch, user]);
+  const handleSubmitCart = () => {
+    history.push('/cart/checkout');
+  };
+  // useEffect(() => {
+  //   if (user) {
+  //     dispatch(getCartByUser(user.id));
+  //   }
+  // }, [dispatch, user]);
   useEffect(() => {
     dispatch(total());
   }, [cart, dispatch]);
@@ -76,7 +78,9 @@ const CartTable = () => {
                   Tổng thanh toán (0 Sản phẩm):{' '}
                   <span className="txt__primary">₫{totalCart}</span>
                 </p>
-                <button className="btn btn-primary">Mua Hàng</button>
+                <button className="btn btn-primary" onClick={handleSubmitCart}>
+                  Mua Hàng
+                </button>
               </div>
             </div>
           </div>

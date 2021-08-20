@@ -94,9 +94,9 @@ const Toolbar = () => {
                       src={user.photoImage}
                       alt=""
                     />
-                    <p className="txt__small-txt">{user.email}</p>
+                    <p className="txt__small-txt">{user.username}</p>
                     <div className="user-block">
-                      <Link to="/user" className="user-block__txt">
+                      <Link to="/user/profile" className="user-block__txt">
                         Tài Khoản Của Tôi
                       </Link>
                       <p className="user-block__txt">Đơn Mua</p>

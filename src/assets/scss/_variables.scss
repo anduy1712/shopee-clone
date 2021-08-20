@@ -25,12 +25,16 @@ $nc-util-bg: #f5f5f5;
 $nc-util-placeholder: #fafafa;
 $nc-white: white;
 $nc-grey: #888888;
+
 $mobile-width: 600px;
 $tablet-width: 1024px;
 $nc-grey-light: rgba(0, 0, 0, 0.13);
 //height Header
 $header-height: 118px;
-$space-main: $header-height;
+$header-nav-height: 33px;
+$header-search-height: 86px;
 
+$space-main: calc(#{$header-nav-height} + #{$header-search-height});
+$space-mobile-main: $header-search-height;
 //box-shadow
 $box-shadow-01: 0 1px 2px 0 rgba(0, 0, 0, 0.13);

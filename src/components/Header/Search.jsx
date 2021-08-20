@@ -6,7 +6,7 @@ import { BiSearch } from 'react-icons/bi';
 import {
   amount,
   cartsSelector,
-  getCartByUser,
+  getCartByUser
 } from '../../store/reducers/cartsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';

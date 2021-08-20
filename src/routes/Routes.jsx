@@ -6,6 +6,7 @@ import Cart from '../pages/Cart';
 import Login from '../pages/Login';
 import Search from '../pages/Search';
 import User from '../pages/User';
+import CheckOut from '../pages/CheckOut';
 
 const Routes = () => {
   return (
@@ -14,9 +15,10 @@ const Routes = () => {
       <Route exact path="/home" component={Home} />
       <Route exact path="/detail/:slug" component={Detail} />
       <Route exact path="/cart" component={Cart} />
+      <Route exact path="/cart/checkout" component={CheckOut} />
       <Route exact path="/login" component={Login} />
       <Route exact path="/search" component={Search} />
-      <Route exact path="/user" component={User} />
+      <Route exact path="/user/:slug" component={User} />
     </Switch>
   );
 };
