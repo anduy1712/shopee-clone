@@ -99,7 +99,9 @@ const Toolbar = () => {
                       <Link to="/user/profile" className="user-block__txt">
                         Tài Khoản Của Tôi
                       </Link>
-                      <p className="user-block__txt">Đơn Mua</p>
+                      <Link to="/user/purchase" className="user-block__txt">
+                        Đơn Mua
+                      </Link>
                       <p className="user-block__txt" onClick={logOut}>
                         Đăng Xuất
                       </p>
