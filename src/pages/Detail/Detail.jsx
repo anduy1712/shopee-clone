@@ -44,6 +44,10 @@ const Detail = () => {
         alert('So luong vuot qua muc cho phep');
         return;
       }
+      if(notify) {
+        alert('So luong vuot qua muc cho phep');
+        return;
+      }
       toast.success('Product added to cart', {
         position: 'bottom-right',
         autoClose: 2000,

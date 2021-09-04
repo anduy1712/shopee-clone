@@ -44,7 +44,7 @@ const Product = () => {
         </div>
         <div className="row">
           {product.length === 0
-            ? Array(9)
+            ? Array(12)
                 .fill()
                 .map((item, index) => (
                   <SkeletonCard key={index} size={['6', '4', '2']} />

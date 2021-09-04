@@ -72,17 +72,24 @@ const CartTable = () => {
             </ul>
           </div>
           <div className="col c-12 m-12 l-12">
-            <div className="cartpay">
-              <div className="cartpay__action">
-                <p className="cartpay__action-total">
-                  Tổng thanh toán (0 Sản phẩm):{' '}
-                  <span className="txt__primary">₫{totalCart}</span>
-                </p>
-                <button className="btn btn-primary" onClick={handleSubmitCart}>
-                  Mua Hàng
-                </button>
+            {item.length === 0 ? (
+              ''
+            ) : (
+              <div className="cartpay">
+                <div className="cartpay__action">
+                  <p className="cartpay__action-total">
+                    Tổng thanh toán (0 Sản phẩm):{' '}
+                    <span className="txt__primary">₫{totalCart}</span>
+                  </p>
+                  <button
+                    className="btn btn-primary"
+                    onClick={handleSubmitCart}
+                  >
+                    Mua Hàng
+                  </button>
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
