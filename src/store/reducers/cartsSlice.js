@@ -61,8 +61,7 @@ export const addCartApi = createAsyncThunk('cart/addCartApi', async (obj) => {
       return cartList;
     }
     return cartList;
-  } catch (error) {
-  }
+  } catch (error) {}
 });
 export const getCartByUser = createAsyncThunk(
   'cart/getCartByUser',
@@ -85,8 +84,7 @@ export const deleteItemCart = createAsyncThunk(
       //Put Cart
       const data = await cartApi.putCart(response[0]);
       return data;
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 );
 export const increaseCartApi = createAsyncThunk(
@@ -105,8 +103,7 @@ export const increaseCartApi = createAsyncThunk(
       //Put Cart
       const data = await cartApi.putCart(response[0]);
       return data;
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 );
 export const decreaseCartApi = createAsyncThunk(
@@ -129,8 +126,7 @@ export const decreaseCartApi = createAsyncThunk(
       //Put Cart
       const data = await cartApi.putCart(response[0]);
       return data;
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 );
 export const removeCartApi = createAsyncThunk(
@@ -141,12 +137,11 @@ export const removeCartApi = createAsyncThunk(
       const user = JSON.parse(localStorage.getItem('user'));
       const response = await cartApi.getCartByUser(user.id);
       //Remove Item
-      response[0].products = []
+      response[0].products = [];
       //Put Cart
       const data = await cartApi.putCart(response[0]);
       return data;
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 );
 const initialState = {
@@ -267,8 +262,7 @@ export const cartsSlice = createSlice({
     },
     [decreaseCartApi.fulfilled]: (state, action) => {
       state.cart = action.payload.products;
-    }
-    ,
+    },
     [removeCartApi.fulfilled]: (state, action) => {
       state.cart = action.payload.products;
     }

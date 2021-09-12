@@ -42,7 +42,7 @@ const Product = () => {
             </div>
           </div>
         </div>
-        <div className="row">
+        <div className="row row-cus">
           {product.length === 0
             ? Array(12)
                 .fill()

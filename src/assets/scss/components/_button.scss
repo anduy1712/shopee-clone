@@ -4,9 +4,9 @@
   border: none;
   font-size: 1.4rem;
   min-width: 80px;
-  min-height: 30px;
+  min-height: 38px;
   text-align: center;
-  padding: 10px 20px;
+  padding: 0 20px;
   transition: filter ease-in 0.1s;
   &:hover {
     cursor: pointer;
@@ -96,7 +96,7 @@
 
   .dot-flashing::before,
   .dot-flashing::after {
-    content: "";
+    content: '';
     display: inline-block;
     position: absolute;
     top: 0;

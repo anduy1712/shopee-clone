@@ -6,6 +6,10 @@
     padding: 10px;
     &__left {
       text-align: center;
+      @include mobile {
+        max-width: 420px;
+        margin: 0 auto;
+      }
       .thumbnails {
         img {
           width: 100px;
@@ -68,6 +72,22 @@
           font-size: 1.4rem;
           color: $nc-primary;
           margin: 10px 0 16px 100px;
+        }
+        @include mobile {
+          &__button {
+            display: flex;
+            .btn {
+              flex: 1;
+            }
+          }
+        }
+        @include tablet {
+          &__button {
+            display: flex;
+            .btn {
+              flex: 1;
+            }
+          }
         }
       }
     }

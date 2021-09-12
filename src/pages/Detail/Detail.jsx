@@ -44,7 +44,7 @@ const Detail = () => {
         alert('So luong vuot qua muc cho phep');
         return;
       }
-      if(notify) {
+      if (notify) {
         alert('So luong vuot qua muc cho phep');
         return;
       }
@@ -175,8 +175,6 @@ const Detail = () => {
                     <Carousel
                       data={testt}
                       time={2000}
-                      width="850px"
-                      height="500px"
                       captionStyle={captionStyle}
                       radius="10px"
                       slideNumber={true}
@@ -190,12 +188,6 @@ const Detail = () => {
                       slideImageFit="cover"
                       thumbnails={true}
                       thumbnailWidth="100px"
-                      style={{
-                        textAlign: 'center',
-                        maxWidth: '850px'
-                        // maxHeight: '500px',
-                        // margin: '40px auto'
-                      }}
                     />
                   </div>
                 </div>

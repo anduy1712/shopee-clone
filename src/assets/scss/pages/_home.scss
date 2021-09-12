@@ -1,6 +1,13 @@
 .main {
   margin-top: $space-main;
   background: $nc-util-bg;
+  .products {
+    .row-cus {
+      @include mobile {
+        padding: 0 14px;
+      }
+    }
+  }
   @include mobile {
     margin-top: $space-mobile-main;
   }

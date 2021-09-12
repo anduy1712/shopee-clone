@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import {
   onChangeAmount,
@@ -10,13 +10,18 @@ import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 
 const CartItemTable = ({ index, id, name, img, price, amount }) => {
   const dispatch = useDispatch();
+  const [quantity, setQuantity] = useState(amount);
   //INCREASE CART
-  const increaseCart = (id) => {
-    dispatch(increaseCartApi(id));
+  const increaseCart = async (id) => {
+    const newQuantity = quantity + 1;
+    setQuantity(newQuantity);
+    await dispatch(increaseCartApi(id));
   };
   //DECREASE CART
   const decreaseCart = (id) => {
     dispatch(decreaseCartApi(id));
+    const newQuantity = quantity - 1;
+    setQuantity(newQuantity);
   };
   //onChangeAmount CART
   const ChangeAmount = (e, id) => {
@@ -51,7 +56,7 @@ const CartItemTable = ({ index, id, name, img, price, amount }) => {
           </button>
           <input
             type="text"
-            value={amount}
+            value={quantity}
             onChange={(e) => ChangeAmount(e, id)}
             // onBlur={test}
           />
