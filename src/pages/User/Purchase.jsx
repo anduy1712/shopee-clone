@@ -8,7 +8,6 @@ import {
   customersSelector,
   getCustomerByUserApi
 } from '../../store/reducers/customersSlice';
-import { isEmpty } from 'lodash';
 import { useEffect } from 'react';
 
 const Purchase = () => {
@@ -45,6 +44,7 @@ const Purchase = () => {
   });
   useEffect(() => {
     dispatch(getCustomerByUserApi(users.id));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="order">

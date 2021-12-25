@@ -8,13 +8,12 @@ import {
 import { Link } from 'react-router-dom';
 import { FcVoicePresentation } from 'react-icons/fc';
 import { useEffect } from 'react';
-import { logoutUser, usersSelector } from '../../store/reducers/usersSlice';
-import { useDispatch, useSelector } from 'react-redux';
+import { logoutUser } from '../../store/reducers/usersSlice';
+import { useDispatch } from 'react-redux';
 import Column from '../Column';
 const Toolbar = () => {
   const dispatch = useDispatch();
   const user = JSON.parse(localStorage.getItem('user'));
-  const { isSuccess } = useSelector(usersSelector);
   const logOut = () => {
     dispatch(logoutUser());
   };

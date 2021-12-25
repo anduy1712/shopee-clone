@@ -222,7 +222,7 @@ export const cartsSlice = createSlice({
     getItemCart: (state, action) => {
       let isSame = false;
       const { productId } = action.payload.product;
-      const test = state.cart.forEach((item) => {
+      state.cart.forEach((item) => {
         if (item.product.productId === productId) {
           isSame = true;
           item.amount += 1;

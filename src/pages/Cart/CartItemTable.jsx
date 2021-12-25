@@ -7,21 +7,28 @@ import {
   decreaseCartApi
 } from '../../store/reducers/cartsSlice';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-
+import _ from 'lodash';
+import clsx from 'clsx';
 const CartItemTable = ({ index, id, name, img, price, amount }) => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(amount);
+  const [inputOpacity, setInputOpacity] = useState(false);
+
   //INCREASE CART
   const increaseCart = async (id) => {
+    setInputOpacity(true);
     const newQuantity = quantity + 1;
     setQuantity(newQuantity);
     await dispatch(increaseCartApi(id));
+    setInputOpacity(false);
   };
   //DECREASE CART
-  const decreaseCart = (id) => {
-    dispatch(decreaseCartApi(id));
+  const decreaseCart = async (id) => {
+    setInputOpacity(true);
+    await dispatch(decreaseCartApi(id));
     const newQuantity = quantity - 1;
     setQuantity(newQuantity);
+    setInputOpacity(false);
   };
   //onChangeAmount CART
   const ChangeAmount = (e, id) => {
@@ -47,10 +54,10 @@ const CartItemTable = ({ index, id, name, img, price, amount }) => {
         <p className="cartlist__item-price">${price}</p>
       </div>
       <div className="cartlist__item-box">
-        <div className="shopee-input">
+        <div className={clsx({ 'shopee-input': true, opacity: inputOpacity })}>
           <button
             className="shopee-input__icon"
-            onClick={() => decreaseCart(id)}
+            onClick={_.debounce(() => decreaseCart(id), 300)}
           >
             <AiOutlineMinus />
           </button>
@@ -62,7 +69,7 @@ const CartItemTable = ({ index, id, name, img, price, amount }) => {
           />
           <button
             className="shopee-input__icon"
-            onClick={() => increaseCart(id)}
+            onClick={_.debounce(() => increaseCart(id), 300)}
           >
             <AiOutlinePlus />
           </button>

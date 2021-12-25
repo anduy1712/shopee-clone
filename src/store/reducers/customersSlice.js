@@ -1,6 +1,4 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { cloneDeep, isEmpty } from 'lodash';
-import cartApi from '../../api/cartApi';
 import customerApi from '../../api/customerApi';
 
 export const addCustomerApi = createAsyncThunk(

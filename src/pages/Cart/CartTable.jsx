@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import EmptyCart from '../../components/EmptyCart';
 import {
   cartsSelector,
-  getCartByUser,
   total
 } from '../../store/reducers/cartsSlice';
 import CartItemTable from './CartItemTable';

@@ -2,30 +2,24 @@ import React from 'react';
 import Column from '../../components/Column';
 import { IoLocationSharp } from 'react-icons/io5';
 import { Link, useHistory } from 'react-router-dom';
-import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { FcShipped } from 'react-icons/fc';
 import { useDispatch, useSelector } from 'react-redux';
 import { usersSelector } from '../../store/reducers/usersSlice';
 import {
   cartsSelector,
-  clearCart,
   removeCartApi,
   total
 } from '../../store/reducers/cartsSlice';
 import { useEffect } from 'react';
-import {
-  addCustomerApi,
-  customersSelector,
-  setSuccessOrder
-} from '../../store/reducers/customersSlice';
+import { addCustomerApi } from '../../store/reducers/customersSlice';
+import { useState } from 'react';
 
 const CheckOut = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { users } = useSelector(usersSelector);
   const { cart, totalCart } = useSelector(cartsSelector);
-  const { successOrder } = useSelector(customersSelector);
-
+  const [success, setSuccess] = useState(false);
   const createCustomer = () => {
     const cus = {
       userId: users.id,
@@ -34,7 +28,7 @@ const CheckOut = () => {
       status: 'delivery'
     };
     dispatch(addCustomerApi(cus));
-    dispatch(setSuccessOrder());
+    setSuccess(true);
     dispatch(removeCartApi());
   };
   const itemCart = cart.map((item) => {
@@ -63,10 +57,13 @@ const CheckOut = () => {
   useEffect(() => {
     dispatch(total());
   }, [cart, dispatch]);
+  useEffect(() => {
+    return () => setSuccess(false);
+  }, []);
   return (
     <section className="main">
       <section className="page-checkout">
-        {successOrder && (
+        {success && (
           <section className="success">
             <div className="grid wide">
               <div className="row">
@@ -86,7 +83,7 @@ const CheckOut = () => {
             </div>
           </section>
         )}
-        {!successOrder && (
+        {!success && (
           <section className="address">
             <div className="grid wide">
               <div className="row">
@@ -110,7 +107,7 @@ const CheckOut = () => {
             </div>
           </section>
         )}
-        {!successOrder && (
+        {!success && (
           <section className="cart">
             <div className="grid wide">
               <div className="row">

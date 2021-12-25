@@ -1,29 +1,29 @@
-@import "./components/fonts";
+@import './components/fonts';
 
 @font-face {
-  font-family: "Helvetica Neue", "Roboto";
+  font-family: 'Helvetica Neue', 'Roboto';
   src: url(../fonts/helvetica-neue-light.ttf);
   font-weight: 300;
 }
 @font-face {
-  font-family: "Helvetica Neue", "Roboto";
+  font-family: 'Helvetica Neue', 'Roboto';
   src: url(../fonts/helvetica-neue-light-italic.ttf);
   font-weight: 300;
   font-style: italic;
 }
 @font-face {
-  font-family: "Helvetica Neue", "Roboto";
+  font-family: 'Helvetica Neue', 'Roboto';
   src: url(../fonts/helvetica-neue-regular.ttf);
   font-weight: 400;
 }
 @font-face {
-  font-family: "Helvetica Neue", "Roboto";
+  font-family: 'Helvetica Neue', 'Roboto';
   src: url(../fonts/helvetica-neue-italic.ttf);
   font-weight: 400;
   font-style: italic;
 }
 @font-face {
-  font-family: "Helvetica Neue", "Roboto";
+  font-family: 'Helvetica Neue', 'Roboto';
   src: url(../fonts/helvetica-neue-condensed-bold.ttf);
   font-weight: 600;
 }
@@ -41,7 +41,7 @@ img {
   width: 100%;
 }
 body {
-  font-family: "Helvetica Neue", "Roboto";
+  font-family: 'Helvetica Neue', 'Roboto';
 }
 
 ul {
@@ -51,4 +51,7 @@ ul {
 a {
   text-decoration: none;
   color: unset;
+}
+.opacity {
+  opacity: 0.5;
 }
