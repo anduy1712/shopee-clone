@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import productApi from '../../api/productApi';
+import { FixMeLater } from '../../constant/other';
+import { ProductInputModel } from '../../models/product/product.type';
 export const getProducts = createAsyncThunk('products/get', async () => {
   try {
     const response = await productApi.getAll();
@@ -10,7 +12,7 @@ export const getProducts = createAsyncThunk('products/get', async () => {
 });
 export const getProduct = createAsyncThunk(
   'products/getProduct',
-  async (id) => {
+  async (id: any) => {
     try {
       const response = await productApi.getProduct(id);
       return response;
@@ -30,34 +32,39 @@ export const filterProduct = createAsyncThunk(
     }
   }
 );
+export type initialProductType = {
+  products: ProductInputModel[];
+  product: ProductInputModel;
+};
+const initialState: initialProductType = {
+  products: [],
+  product: {}
+};
 export const producstSlice = createSlice({
   name: 'products',
-  initialState: {
-    products: [],
-    product: {}
-  },
+  initialState,
   reducers: {},
-  extraReducers: {
-    [getProducts.pending]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(getProducts.pending, (state, action) => {
       state.products = [];
-    },
-    [getProducts.fulfilled]: (state, action) => {
+    });
+    builder.addCase(getProducts.fulfilled, (state: FixMeLater, action) => {
       state.products = action.payload;
-    },
-    [getProduct.pending]: (state, action) => {
+    });
+    builder.addCase(getProduct.pending, (state: FixMeLater, action) => {
       state.product = {};
-    },
-    [getProduct.fulfilled]: (state, action) => {
+    });
+    builder.addCase(getProduct.fulfilled, (state: FixMeLater, action) => {
       state.product = action.payload;
-    },
-    [filterProduct.pending]: (state, action) => {
+    });
+    builder.addCase(filterProduct.pending, (state: FixMeLater, action) => {
       state.products = null;
-    },
-    [filterProduct.fulfilled]: (state, action) => {
+    });
+    builder.addCase(filterProduct.fulfilled, (state: FixMeLater, action) => {
       state.products = action.payload;
-    }
+    });
   }
 });
 
 //export selector
-export const productsSelector = (state) => state.products;
+export const productsSelector = (state: FixMeLater) => state.products;

@@ -5,12 +5,12 @@ import UserMenu from './UserMenu';
 import Purchase from './Purchase';
 import Profile from './Profile';
 import { useSelector } from 'react-redux';
-import { usersSelector } from '../../store/reducers/usersSlice';
-
+import { usersSelector, initialStateUser } from '../../store/reducers/usersSlice';
+import { FixMeLater } from '../../constant/other';
 const User = () => {
-  const { slug } = useParams();
+  const { slug }: FixMeLater = useParams();
   const history = useHistory();
-    const {users} = useSelector(usersSelector);
+    const {users}: initialStateUser = useSelector(usersSelector);
   if (!users) {
     history.push('/');
   }

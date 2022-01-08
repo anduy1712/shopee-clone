@@ -1,5 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { RootState } from '..';
 import customerApi from '../../api/customerApi';
+import { FixMeLater } from '../../constant/other';
 
 export const addCustomerApi = createAsyncThunk(
   'customers/addCustomerApi',
@@ -12,7 +14,7 @@ export const addCustomerApi = createAsyncThunk(
 );
 export const getCustomerByUserApi = createAsyncThunk(
   'customers/getCustomerByUserApi',
-  async (obj) => {
+  async (obj: FixMeLater) => {
     try {
       const response = await customerApi.getCustomerByUser(obj);
       return response;
@@ -32,16 +34,19 @@ export const customersSlice = createSlice({
       state.successOrder = true;
     }
   },
-  extraReducers: {
-    [addCustomerApi.fulfilled]: (state, action) => {
+  extraReducers: (builder) => {
+    builder.addCase(addCustomerApi.fulfilled, (state, action) => {
       // state.customers = action.payload;
-    },
-    [getCustomerByUserApi.fulfilled]: (state, action) => {
-      state.customers = action.payload;
-    }
+    });
+    builder.addCase(
+      getCustomerByUserApi.fulfilled,
+      (state: FixMeLater, action) => {
+        state.customers = action.payload;
+      }
+    );
   }
 });
 //export action
 export const { setSuccessOrder } = customersSlice.actions;
 //selector
-export const customersSelector = (state) => state.customers;
+export const customersSelector = (state: RootState) => state.customers;

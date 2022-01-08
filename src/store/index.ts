@@ -11,4 +11,8 @@ const store = configureStore({
     customers: customersSlice.reducer
   }
 });
+
+export type RootState = ReturnType<typeof store.getState>; // A global type to access reducers types
+export type AppDispatch = typeof store.dispatch; // Type to access dispatch
+
 export default store;

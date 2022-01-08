@@ -9,6 +9,7 @@ import {
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import _ from 'lodash';
 import clsx from 'clsx';
+import { FixMeLater } from '../../constant/other';
 
 type CartItemProps = {
   index: number;
@@ -48,7 +49,7 @@ const CartItemTable = ({
     setInputOpacity(false);
   };
   //onChangeAmount CART
-  const ChangeAmount = (e: any, id: number) => {
+  const ChangeAmount = (e: FixMeLater, id: number) => {
     const obj = {
       value: Number(e.target.value),
       id

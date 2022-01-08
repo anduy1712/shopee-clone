@@ -4,9 +4,15 @@ import { FiUser, FiTag } from 'react-icons/fi';
 import { RiMoneyCnyCircleLine } from 'react-icons/ri';
 
 import { Link, useParams } from 'react-router-dom';
+import { UserOutputModel } from '../../models/user/user.type';
+import { FixMeLater } from '../../constant/other';
 
-const UserMenu = ({ user }) => {
-  const { slug } = useParams();
+type UserMenuProps = {
+  user: UserOutputModel;
+};
+
+const UserMenu = ({ user }: UserMenuProps) => {
+  const { slug }: FixMeLater = useParams();
 
   return (
     <div className="menu">

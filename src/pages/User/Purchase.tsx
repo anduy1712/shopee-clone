@@ -3,26 +3,29 @@ import { Link } from 'react-router-dom';
 import Column from '../../components/Column';
 import { RiSearchLine } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
-import { usersSelector } from '../../store/reducers/usersSlice';
+import {
+  usersSelector,
+  initialStateUser
+} from '../../store/reducers/usersSlice';
 import {
   customersSelector,
   getCustomerByUserApi
 } from '../../store/reducers/customersSlice';
 import { useEffect } from 'react';
+import { FixMeLater } from '../../constant/other';
 
 const Purchase = () => {
   const dispatch = useDispatch();
-  const { users } = useSelector(usersSelector);
+  const { users }: initialStateUser = useSelector(usersSelector);
   const { customers } = useSelector(customersSelector);
-  console.log(customers);
-  const itemOrder = customers.map((item) => {
+  const itemOrder = customers.map((item: FixMeLater) => {
     return (
       <div className="order-table">
         <div className="order-table__status">
           <p>{item.status}</p>
         </div>
         <ul className="order-table__list">
-          {item.products.map((item) => {
+          {item.products.map((item: FixMeLater) => {
             return (
               <li className="order-table__item">
                 <img src={item.images[0]} alt="img_cart" />
@@ -43,8 +46,8 @@ const Purchase = () => {
     );
   });
   useEffect(() => {
-    dispatch(getCustomerByUserApi(users.id));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    dispatch(getCustomerByUserApi(users._id));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <div className="order">

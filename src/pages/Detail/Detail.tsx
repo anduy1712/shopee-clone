@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import {
   getProduct,
+  initialProductType,
   productsSelector
 } from '../../store/reducers/productsSlice';
 import { ToastContainer, toast } from 'react-toastify';
@@ -15,30 +16,32 @@ import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { useRef } from 'react';
 import { Carousel } from 'react-carousel-minimal';
 import { usersSelector } from '../../store/reducers/usersSlice';
+import { FixMeLater } from '../../constant/other';
+import { ProductInputModel } from '../../models/product/product.type';
 
 // install Swiper modules
 SwiperCore.use([Navigation, Thumbs]);
 
 const Detail = () => {
   //Get ID
-  const { slug } = useParams();
+  const { slug }: FixMeLater = useParams();
   //State
   const dispatch = useDispatch();
-  const [amount, setAmount] = useState(1);
+  const [amount, setAmount] = useState<number>(1);
   const [notify, setNotify] = useState(false);
   const inputElement = useRef(null);
   //Get Product
-  const { product } = useSelector(productsSelector); //rerender
+  const { product }: initialProductType = useSelector(productsSelector); //rerender
   const { users } = useSelector(usersSelector);
-  document.querySelector('title').innerText =
+  document.querySelector<FixMeLater>('title').innerText =
     Object.keys(product).length > 0
       ? product.title
       : 'Shopee Việt Nam | Mua và Sắm';
   //Add Cart Item
-  const addToCart = (obj) => {
+  const addToCart = (obj: ProductInputModel) => {
     //CHECK USER
     if (users !== null) {
-      if (amount > product.quantites) {
+      if (amount > product.quantites!) {
         alert('So luong vuot qua muc cho phep');
         return;
       }
@@ -55,8 +58,8 @@ const Detail = () => {
         draggable: true,
         progress: undefined
       });
-      obj = { ...obj, amount: Number(amount), userId: users._id };
-      dispatch(addCartApi(obj));
+      const cartData = { ...obj, amount: Number(amount), userId: users._id };
+      dispatch(addCartApi(cartData));
     } else {
       toast.error('Please login to buy', {
         position: 'bottom-right',
@@ -67,24 +70,23 @@ const Detail = () => {
         draggable: true,
         progress: undefined
       });
-      // history.push("/login");
     }
   };
   //Change amount
-  const ChangeAmount = (e) => {
+  const ChangeAmount = (e: FixMeLater) => {
     const values = e.target.value;
     if (Number(values) < 0 || /^\d*\.?\d*$/.test(values) === false) return;
-    if (Number(values) > product.quantites) {
+    if (Number(values) > product.quantites!) {
       setNotify(true);
       return;
     }
-    if (Number(values) <= product.quantites) {
+    if (Number(values) <= product.quantites!) {
       setNotify(false);
     }
     setAmount(values);
   };
   const increase = () => {
-    if (amount >= product.quantites) {
+    if (amount >= product.quantites!) {
       setNotify(true);
       return;
     }
@@ -93,7 +95,7 @@ const Detail = () => {
   };
   const decrease = () => {
     if (amount <= 1) return;
-    if (amount <= product.quantites) setNotify(false);
+    if (amount <= product.quantites!) setNotify(false);
     const newAmount = amount - 1;
     setAmount(newAmount);
   };
@@ -119,7 +121,7 @@ const Detail = () => {
       </div>
     );
   }
-  const testt = product.images.map((item) => {
+  const testt = product.images?.map((item) => {
     return { image: item };
   });
   return (

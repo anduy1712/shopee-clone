@@ -6,12 +6,18 @@ import { editUserApi } from '../../store/reducers/usersSlice';
 
 import React from 'react';
 import Column from '../../components/Column';
+import { FixMeLater } from '../../constant/other';
+import { UserOutputModel } from '../../models/user/user.type';
 
-const Profile = ({ user }) => {
+type ProfileProps = {
+  user: UserOutputModel;
+};
+
+const Profile = ({ user }: ProfileProps) => {
   const [img, setImg] = useState(
     user?.photoImage || 'https://media3.scdn.vn/img2/2017/4_13/gO5MKE.jpg'
   );
-  const inputFiles = useRef(null);
+  const inputFiles: React.MutableRefObject<any> = useRef(null);
   const dispatch = useDispatch();
 
   //Open FileType from Button
@@ -20,15 +26,16 @@ const Profile = ({ user }) => {
   };
   //Image File Change
   const imageUploaded = () => {
-    var file = document.querySelector('input[type=file]')['files'][0];
-    var reader = new FileReader();
+    var file =
+      document.querySelector<FixMeLater>('input[type=file]')['files'][0];
+    var reader: any = new FileReader();
     reader.onload = function () {
       setImg(reader.result);
     };
     reader.readAsDataURL(file);
   };
   //Submit Form
-  const handleSubmitForm = (values) => {
+  const handleSubmitForm = (values: UserOutputModel) => {
     const data = { ...values, photoImage: img };
     dispatch(editUserApi(data));
   };
@@ -45,16 +52,18 @@ const Profile = ({ user }) => {
           <Column c={8} m={8} l={8}>
             <div className="profile-content-form">
               <Formik
-                initialValues={{
-                  id: user._id,
-                  email: user.email,
-                  username: user.username,
-                  password: user.password,
-                  name: user.name,
-                  phone: user.phone,
-                  address: user.address,
-                  author: user.author
-                }}
+                initialValues={
+                  {
+                    _id: user._id,
+                    email: user.email,
+                    username: user.username,
+                    password: user.password,
+                    firstName: user.firstName,
+                    lastName: user.lastName,
+                    numberPhone: user.numberPhone,
+                    photoImage: user.photoImage
+                  } || {}
+                }
                 onSubmit={handleSubmitForm}
               >
                 <Form>
@@ -74,7 +83,7 @@ const Profile = ({ user }) => {
                   </div>
                   <div className="form-group">
                     <label htmlFor="email">Số Điện Thoại</label>
-                    <Field id="phone" name="phone" value={user.phone} />
+                    <Field id="phone" name="phone" value={user.numberPhone} />
                   </div>
                   <button type="submit" className="btn btn-primary">
                     Lưu
@@ -87,8 +96,7 @@ const Profile = ({ user }) => {
             <div className="profile-content-avatar">
               <img src={img} alt="img_avatar" />
               <button
-                type="file"
-                for="avatar"
+                type="button"
                 className="btn btn-default"
                 onClick={openImg}
               >

@@ -1,7 +1,7 @@
 import React from 'react';
 import Skeleton from 'react-loading-skeleton';
 import Column from './Column';
-const SkeletonCard = ({ size, length }) => {
+const SkeletonCard = ({ size }) => {
   const [c, m, l] = size;
   return (
     <Column c={c} m={m} l={l}>

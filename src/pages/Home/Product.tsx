@@ -6,12 +6,13 @@ import {
 } from '../../store/reducers/productsSlice';
 import ProductItem from '../../components/Home/ProductItem';
 import SkeletonCard from '../../components/SkeletonCard';
-
+import { ProductOutputModel } from '../../models/product/product.type';
 const Product = () => {
+  
   const dispatch = useDispatch();
   const { products } = useSelector(productsSelector);
   //Get Product
-  const product = products.map((item) => {
+  const product = products.map((item: ProductOutputModel) => {
     console.log(item);
     return (
       <ProductItem
@@ -46,7 +47,7 @@ const Product = () => {
         <div className="row row-cus">
           {product.length === 0
             ? Array(12)
-                .fill()
+                .fill(0)
                 .map((item, index) => (
                   <SkeletonCard key={index} size={['6', '4', '2']} />
                 ))
