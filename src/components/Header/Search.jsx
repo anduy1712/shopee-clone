@@ -47,12 +47,12 @@ const Search = () => {
     dispatch(amount());
   }, [cart, dispatch]);
   useEffect(() => {
-    if (isSuccess) {
-      dispatch(getCartByUser(users.id));
-    } else {
-      dispatch(getCartByUser(null));
-    }
-  }, [dispatch, isSuccess, users.id]);
+    // if (isSuccess) {
+    //   dispatch(getCartByUser(users._id));
+    // } else {
+    //   dispatch(getCartByUser(null));
+    // }
+  }, [dispatch, isSuccess, users]);
   return (
     <section
       className={SearchTheme ? 'header-search s-white' : 'header-search '}

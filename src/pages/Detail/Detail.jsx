@@ -14,6 +14,7 @@ import Loading from '../../components/Loading';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { useRef } from 'react';
 import { Carousel } from 'react-carousel-minimal';
+import { usersSelector } from '../../store/reducers/usersSlice';
 
 // install Swiper modules
 SwiperCore.use([Navigation, Thumbs]);
@@ -28,15 +29,15 @@ const Detail = () => {
   const inputElement = useRef(null);
   //Get Product
   const { product } = useSelector(productsSelector); //rerender
+  const { users } = useSelector(usersSelector);
   document.querySelector('title').innerText =
     Object.keys(product).length > 0
       ? product.title
       : 'Shopee Việt Nam | Mua và Sắm';
   //Add Cart Item
   const addToCart = (obj) => {
-    const user = JSON.parse(localStorage.getItem('user'));
     //CHECK USER
-    if (user !== null) {
+    if (users !== null) {
       if (amount > product.quantites) {
         alert('So luong vuot qua muc cho phep');
         return;
@@ -54,7 +55,7 @@ const Detail = () => {
         draggable: true,
         progress: undefined
       });
-      obj = { ...obj, amount: Number(amount), userId: user.id };
+      obj = { ...obj, amount: Number(amount), userId: users._id };
       dispatch(addCartApi(obj));
     } else {
       toast.error('Please login to buy', {

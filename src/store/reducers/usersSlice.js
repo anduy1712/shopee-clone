@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import userApi from '../../api/userApi';
-import firebase from 'firebase';
+import axios from 'axios';
+import { authLoader } from '../../helpers/authLoader';
 export const getUsers = createAsyncThunk('users/get', async () => {
   try {
     const response = await userApi.getAll();
@@ -11,19 +12,31 @@ export const getUsers = createAsyncThunk('users/get', async () => {
 });
 export const loginApi = createAsyncThunk('users/loginApi', async (obj) => {
   try {
-    const response = await userApi.getAll();
-    let { username, password } = obj;
-    let data = null;
-    response.forEach((user) => {
-      if (user.username === username && user.password === password) {
-        data = user;
-      }
-    });
-    return data;
+    const response = await userApi.getUser(obj);
+    if (response) {
+      localStorage.setItem('accessToken', response.accessToken);
+      return response.accessToken;
+    }
+    return;
   } catch (error) {
     return error;
   }
 });
+
+export const fetchUserByToken = createAsyncThunk(
+  'users/fetchUserByToken',
+  async () => {
+    try {
+      if (!localStorage['accessToken']) return;
+      const fetchUser = await axios.get('http://localhost:8017/v1/login');
+      if (!fetchUser.data) return;
+      return fetchUser.data;
+    } catch (error) {
+      return error;
+    }
+  }
+);
+
 export const editUserApi = createAsyncThunk(
   'users/editUserApi',
   async (obj) => {
@@ -35,44 +48,6 @@ export const editUserApi = createAsyncThunk(
     }
   }
 );
-// export const loginUser = createAsyncThunk("users/login", async (obj) => {
-//   try {
-//     const response = await axios({
-//       method: "POST",
-//       url: "https://fakestoreapi.com/auth/login",
-//       headers: {
-//         Accept: "application/json",
-//         "Content-Type": "application/json",
-//       },
-//       data: {
-//         username: obj.username,
-//         password: obj.password,
-//       },
-//     });
-//     let data = response.data;
-//     if (response.status === 200) {
-//       localStorage.setItem("token", data.token);
-//       return data;
-//     } else {
-//       return data;
-//     }
-//   } catch (error) {
-//     console.log(error);
-//     return error;
-//   }
-// });
-
-// export const fetchUserBytoken = createAsyncThunk(
-//   'users/fetchUserByToken',
-//   async ({ token }, thunkAPI) => {
-//     const config = {
-//       headers: {
-//         Authorization: 'Bearer ' + token
-//       }
-//     };
-//   }
-// );
-//Slice
 export const usersSlice = createSlice({
   name: 'users',
   initialState: {
@@ -81,7 +56,7 @@ export const usersSlice = createSlice({
       : [],
     username: '',
     isFetching: false,
-    isSuccess: localStorage.getItem('user') ? true : false
+    isSuccess: false
   },
   reducers: {
     login: {
@@ -98,9 +73,8 @@ export const usersSlice = createSlice({
     },
     logoutUser: {
       reducer: (state, action) => {
-        firebase.auth().signOut();
         state.users = [];
-        localStorage.removeItem('user');
+        localStorage.removeItem('accessToken');
         state.isSuccess = false;
       }
     }
@@ -115,10 +89,12 @@ export const usersSlice = createSlice({
       localStorage.setItem('user', JSON.stringify(action.payload));
     },
     [loginApi.fulfilled]: (state, { payload }) => {
-      if (payload !== null) {
-        state.users = payload;
-        state.isSuccess = true;
-        localStorage.setItem('user', JSON.stringify(payload));
+      authLoader(payload);
+    },
+    [fetchUserByToken.fulfilled]: (state, { payload }) => {
+      if (payload) {
+        state.users = payload.user;
+        state.isSuccess = payload.success;
       }
     }
   }

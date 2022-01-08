@@ -8,16 +8,19 @@ import {
 import { Link } from 'react-router-dom';
 import { FcVoicePresentation } from 'react-icons/fc';
 import { useEffect } from 'react';
-import { logoutUser } from '../../store/reducers/usersSlice';
-import { useDispatch } from 'react-redux';
+import { logoutUser, usersSelector } from '../../store/reducers/usersSlice';
+import { useDispatch, useSelector } from 'react-redux';
 import Column from '../Column';
+
 const Toolbar = () => {
   const dispatch = useDispatch();
-  const user = JSON.parse(localStorage.getItem('user'));
+  // const user = JSON.parse(localStorage.getItem('user'));
+  const { users, isSuccess } = useSelector(usersSelector);
+  console.log(isSuccess);
   const logOut = () => {
     dispatch(logoutUser());
   };
-  useEffect(() => {}, [user]);
+  useEffect(() => {}, [users]);
   //ERROR
   return (
     <section className="header-nav">
@@ -86,14 +89,17 @@ const Toolbar = () => {
                   <AiOutlineQuestionCircle className="toolbar__block--question" />
                   <div className="txt__small">Hỗ Trợ</div>
                 </Link>
-                {user ? (
+                {isSuccess ? (
                   <Link to="" className="user">
                     <img
                       className="txt__small-avatar"
-                      src={user.photoImage}
+                      src={
+                        users.photoImage ||
+                        'https://media3.scdn.vn/img2/2017/4_13/gO5MKE.jpg'
+                      }
                       alt=""
                     />
-                    <p className="txt__small-txt">{user.username}</p>
+                    <p className="txt__small-txt">{users.username}</p>
                     <div className="user-block">
                       <Link to="/user/profile" className="user-block__txt">
                         Tài Khoản Của Tôi
@@ -107,20 +113,15 @@ const Toolbar = () => {
                     </div>
                   </Link>
                 ) : (
-                  ''
+                  <>
+                    <Link to="" className={'txt__small bold'}>
+                      Đăng Ký
+                    </Link>
+                    <Link to="/login" className={'txt__small bold'}>
+                      Đăng Nhập
+                    </Link>
+                  </>
                 )}
-                <Link
-                  to=""
-                  className={user ? 'c-0 m-0 l-0' : 'txt__small bold'}
-                >
-                  Đăng Ký
-                </Link>
-                <Link
-                  to="/login"
-                  className={user ? 'c-0 m-0 l-0' : 'txt__small bold'}
-                >
-                  Đăng Nhập
-                </Link>
               </div>
             </div>
           </Column>

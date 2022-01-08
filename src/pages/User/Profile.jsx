@@ -8,7 +8,9 @@ import React from 'react';
 import Column from '../../components/Column';
 
 const Profile = ({ user }) => {
-  const [img, setImg] = useState(user.photoImage);
+  const [img, setImg] = useState(
+    user?.photoImage || 'https://media3.scdn.vn/img2/2017/4_13/gO5MKE.jpg'
+  );
   const inputFiles = useRef(null);
   const dispatch = useDispatch();
 
@@ -44,7 +46,7 @@ const Profile = ({ user }) => {
             <div className="profile-content-form">
               <Formik
                 initialValues={{
-                  id: user.id,
+                  id: user._id,
                   email: user.email,
                   username: user.username,
                   password: user.password,

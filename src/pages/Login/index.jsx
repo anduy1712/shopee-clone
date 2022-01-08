@@ -1,32 +1,24 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { loginApi, usersSelector } from '../../store/reducers/usersSlice';
+import {
+  fetchUserByToken,
+  loginApi,
+  usersSelector
+} from '../../store/reducers/usersSlice';
 import { Formik, Field, Form } from 'formik';
 import { useHistory } from 'react-router-dom';
-import firebase from 'firebase';
-import StyledFirebaseAuth from 'react-firebaseui/StyledFirebaseAuth';
 const Login = () => {
   //Get users
   const { isSuccess } = useSelector(usersSelector);
   const dispatch = useDispatch();
   const history = useHistory();
   //On Submit
-  const handleSubmitForm = (values) => {
-    dispatch(loginApi(values));
-    history.push('/');
+  const handleSubmitForm = async (values) => {
+    await dispatch(loginApi(values));
+    await dispatch(fetchUserByToken());
   };
 
-  // Configure FirebaseUI.
-  const uiConfig = {
-    // Popup signin flow rather than redirect flow.
-    signInFlow: 'redirect',
-    // Redirect to /signedIn after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
-    signInSuccessUrl: '/home',
-    // We will display Google and Facebook as auth providers.
-    signInOptions: [firebase.auth.GoogleAuthProvider.PROVIDER_ID]
-  };
   useEffect(() => {
-    // dispatch(getUsers());
     if (isSuccess) {
       history.push('/');
     }
@@ -48,7 +40,6 @@ const Login = () => {
                   <Form>
                     <h3 className="form-title">Đăng Nhập</h3>
                     <div className="form-group">
-                      {/* <label htmlFor="username">Username:</label> */}
                       <Field
                         id="username"
                         name="username"
@@ -57,7 +48,6 @@ const Login = () => {
                       />
                     </div>
                     <div className="form-group">
-                      {/* <label htmlFor="password">Password:</label> */}
                       <Field
                         id="password"
                         name="password"
@@ -68,10 +58,6 @@ const Login = () => {
                     <button className="btn btn-primary" type="submit">
                       Đâng Nhập
                     </button>
-                    <StyledFirebaseAuth
-                      uiConfig={uiConfig}
-                      firebaseAuth={firebase.auth()}
-                    />
                   </Form>
                 </Formik>
               </div>

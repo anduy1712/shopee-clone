@@ -4,6 +4,7 @@ import Skeleton from 'react-loading-skeleton';
 import Column from '../Column';
 const ProductItem = ({ id, img, title, price, size }) => {
   const [c, m, l] = size;
+  console.log(id);
   return (
     <Column c={c} m={m} l={l}>
       <Link to={'detail/' + id} className="product">

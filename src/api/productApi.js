@@ -1,17 +1,17 @@
-import axiosClient from "./axiosClient";
+import axiosClient from './axiosClient';
 
 const productApi = {
   getAll: (params) => {
-    const url = "/products";
+    const url = '/product';
     return axiosClient.get(url, { params });
   },
   getProduct: (id) => {
-    const url = `/products/${id}`;
+    const url = `/product/${id}`;
     return axiosClient.get(url);
   },
   filterProduct: (params) => {
     const url = `/products${params}`;
     return axiosClient.get(url);
-  },
+  }
 };
 export default productApi;

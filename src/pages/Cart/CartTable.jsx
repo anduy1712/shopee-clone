@@ -5,14 +5,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import EmptyCart from '../../components/EmptyCart';
 import {
   cartsSelector,
+  setTheme,
   total
 } from '../../store/reducers/cartsSlice';
 import CartItemTable from './CartItemTable';
+import { usersSelector } from '../../store/reducers/usersSlice';
+
 const CartTable = () => {
-  const user = JSON.parse(localStorage.getItem('user'));
+  const { users } = useSelector(usersSelector);
   const dispatch = useDispatch();
   const history = useHistory();
-  if (!user) {
+  if (!users) {
     alert('Vui lòng đăng nhập để mua hàng');
     history.push('/login');
   }
@@ -28,6 +31,10 @@ const CartTable = () => {
   useEffect(() => {
     dispatch(total());
   }, [cart, dispatch]);
+  useEffect(() => {
+    dispatch(setTheme(true));
+    return () => dispatch(setTheme(false));
+  }, [dispatch]);
   const item = cart.map((item, index) => {
     return (
       <CartItemTable

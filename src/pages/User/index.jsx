@@ -4,13 +4,14 @@ import Column from '../../components/Column';
 import UserMenu from './UserMenu';
 import Purchase from './Purchase';
 import Profile from './Profile';
+import { useSelector } from 'react-redux';
+import { usersSelector } from '../../store/reducers/usersSlice';
 
 const User = () => {
   const { slug } = useParams();
   const history = useHistory();
-  const user = JSON.parse(localStorage.getItem('user'));
-
-  if (!user) {
+    const {users} = useSelector(usersSelector);
+  if (!users) {
     history.push('/');
   }
   return (
@@ -19,11 +20,11 @@ const User = () => {
         <div className="grid wide">
           <div className="row">
             <Column c={0} m={3} l={2}>
-              <UserMenu user={user} />
+              <UserMenu user={users} />
             </Column>
             <Column c={12} m={9} l={10}>
               {slug === 'purchase' && <Purchase />}
-              {slug === 'profile' && <Profile user={user} />}
+              {slug === 'profile' && <Profile user={users} />}
             </Column>
           </div>
         </div>

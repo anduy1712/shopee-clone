@@ -8,13 +8,19 @@ import { Link, useParams } from 'react-router-dom';
 const UserMenu = ({ user }) => {
   const { slug } = useParams();
 
- 
   return (
     <div className="menu">
       <div className="menu-header">
-        <img src={user.photoImage} alt="" className="menu-header__img" />
+        <img
+          src={
+            user?.photoImage ||
+            'https://media3.scdn.vn/img2/2017/4_13/gO5MKE.jpg'
+          }
+          alt=""
+          className="menu-header__img"
+        />
         <div className="menu-header__txt">
-          <h4 className="menu-header__txt-name">{user.username}</h4>
+          <h4 className="menu-header__txt-name">{user?.username}</h4>
           <Link to="/user" className="menu-header__txt-edit">
             <MdModeEdit className="menu-header__txt-icon" />
             Sửa Hồ Sơ

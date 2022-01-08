@@ -12,10 +12,11 @@ const Product = () => {
   const { products } = useSelector(productsSelector);
   //Get Product
   const product = products.map((item) => {
+    console.log(item);
     return (
       <ProductItem
-        key={item.id}
-        id={item.id}
+        key={item._id}
+        id={item._id}
         title={item.title}
         price={item.price}
         img={item.images[0]}

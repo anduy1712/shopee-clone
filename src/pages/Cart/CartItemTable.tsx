@@ -9,13 +9,30 @@ import {
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import _ from 'lodash';
 import clsx from 'clsx';
-const CartItemTable = ({ index, id, name, img, price, amount }) => {
+
+type CartItemProps = {
+  index: number;
+  id: number;
+  name: string;
+  img: string;
+  price: number;
+  amount: number;
+};
+
+const CartItemTable = ({
+  index,
+  id,
+  name,
+  img,
+  price,
+  amount
+}: CartItemProps) => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(amount);
   const [inputOpacity, setInputOpacity] = useState(false);
 
   //INCREASE CART
-  const increaseCart = async (id) => {
+  const increaseCart = async (id: number) => {
     setInputOpacity(true);
     const newQuantity = quantity + 1;
     setQuantity(newQuantity);
@@ -23,7 +40,7 @@ const CartItemTable = ({ index, id, name, img, price, amount }) => {
     setInputOpacity(false);
   };
   //DECREASE CART
-  const decreaseCart = async (id) => {
+  const decreaseCart = async (id: number) => {
     setInputOpacity(true);
     await dispatch(decreaseCartApi(id));
     const newQuantity = quantity - 1;
@@ -31,7 +48,7 @@ const CartItemTable = ({ index, id, name, img, price, amount }) => {
     setInputOpacity(false);
   };
   //onChangeAmount CART
-  const ChangeAmount = (e, id) => {
+  const ChangeAmount = (e: any, id: number) => {
     const obj = {
       value: Number(e.target.value),
       id
@@ -39,7 +56,7 @@ const CartItemTable = ({ index, id, name, img, price, amount }) => {
     dispatch(onChangeAmount(obj));
   };
   //REMOVE ITEM CART
-  const removeCart = (index) => {
+  const removeCart = (index: number) => {
     // console.log(index);
     dispatch(deleteItemCart(index));
   };
