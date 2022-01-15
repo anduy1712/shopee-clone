@@ -3,7 +3,7 @@ import userApi from '../../api/userApi';
 import axios from 'axios';
 import { authLoader } from '../../helpers/authLoader';
 import { FixMeLater } from '../../constant/other';
-import { UserOutputModel } from '../../models/user/user.type';
+import { UserInputModel, UserOutputModel } from '../../models/user/user.type';
 export const getUsers = createAsyncThunk('users/get', async () => {
   try {
     const response = await userApi.getAll();
@@ -12,7 +12,7 @@ export const getUsers = createAsyncThunk('users/get', async () => {
     return error;
   }
 });
-export const loginApi = createAsyncThunk('users/loginApi', async (obj) => {
+export const loginApi = createAsyncThunk('users/loginApi', async (obj:UserInputModel) => {
   try {
     const response: FixMeLater = await userApi.getUser(obj);
     if (response) {

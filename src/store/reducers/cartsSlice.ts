@@ -220,7 +220,7 @@ export const cartsSlice = createSlice({
       );
       localStorage.setItem('cart', JSON.stringify(state.cart));
     },
-    total: (state, action) => {
+    total: (state: FixMeLater, action) => {
       state.totalCart = state.cart.reduce((total: number, item: FixMeLater) => {
         return (total += item.amount * item.price);
       }, 0);

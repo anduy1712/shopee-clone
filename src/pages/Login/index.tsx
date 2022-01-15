@@ -2,22 +2,24 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   fetchUserByToken,
+  initialStateUser,
   loginApi,
   usersSelector
 } from '../../store/reducers/usersSlice';
 import { Formik, Field, Form } from 'formik';
 import { useHistory } from 'react-router-dom';
+import { UserInputModel } from '../../models/user/user.type';
 const Login = () => {
-  //Get users
-  const { isSuccess } = useSelector(usersSelector);
+  //Get state of login 
+  const { isSuccess }:initialStateUser = useSelector(usersSelector);
   const dispatch = useDispatch();
   const history = useHistory();
   //On Submit
-  const handleSubmitForm = async (values) => {
+  const handleSubmitForm = async (values: UserInputModel) => {
     await dispatch(loginApi(values));
     await dispatch(fetchUserByToken());
   };
-
+  //when success is push to home page
   useEffect(() => {
     if (isSuccess) {
       history.push('/');

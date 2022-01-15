@@ -8,12 +8,10 @@ import ProductItem from '../../components/Home/ProductItem';
 import SkeletonCard from '../../components/SkeletonCard';
 import { ProductOutputModel } from '../../models/product/product.type';
 const Product = () => {
-  
   const dispatch = useDispatch();
   const { products } = useSelector(productsSelector);
   //Get Product
   const product = products.map((item: ProductOutputModel) => {
-    console.log(item);
     return (
       <ProductItem
         key={item._id}

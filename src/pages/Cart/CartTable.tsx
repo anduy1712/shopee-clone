@@ -9,33 +9,33 @@ import {
   total
 } from '../../store/reducers/cartsSlice';
 import CartItemTable from './CartItemTable';
-import { usersSelector } from '../../store/reducers/usersSlice';
+import { initialStateUser, usersSelector } from '../../store/reducers/usersSlice';
+import { FixMeLater } from '../../constant/other';
 
 const CartTable = () => {
-  const { users } = useSelector(usersSelector);
-  const dispatch = useDispatch();
+  const { users }:initialStateUser = useSelector(usersSelector);
+  const { cart, totalCart } = useSelector(cartsSelector);
+  const dispatch: any = useDispatch();
   const history = useHistory();
+  //Check user isn't login 
   if (!users) {
     alert('Vui lòng đăng nhập để mua hàng');
     history.push('/login');
   }
-  const { cart, totalCart } = useSelector(cartsSelector);
+  //Push to check out page 
   const handleSubmitCart = () => {
     history.push('/cart/checkout');
   };
-  // useEffect(() => {
-  //   if (user) {
-  //     dispatch(getCartByUser(user.id));
-  //   }
-  // }, [dispatch, user]);
+  //calculate total of the cart when cart changes 
   useEffect(() => {
-    dispatch(total());
+    dispatch(total(null));
   }, [cart, dispatch]);
+  //use themeplate when use cart page 
   useEffect(() => {
     dispatch(setTheme(true));
     return () => dispatch(setTheme(false));
   }, [dispatch]);
-  const item = cart.map((item, index) => {
+  const item = cart.map((item: FixMeLater, index: number) => {
     return (
       <CartItemTable
         key={item.id}

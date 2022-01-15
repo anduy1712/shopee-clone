@@ -4,29 +4,34 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   filterProduct,
-  productsSelector
+  productsSelector,
+  initialProductType
 } from '../../store/reducers/productsSlice';
 import Sidebar from './Sidebar';
 import Tools from './Tools';
 import Notfind from '../../components/Notfind';
 import SkeletonCard from '../../components/SkeletonCard';
+import { FixMeLater } from '../../constant/other';
 
-const Search = ({ location }) => {
+type SearchProps = {
+  location: string;
+};
+
+const Search = ({ location }: SearchProps) => {
   //Redux
   const dispatch = useDispatch();
-  const { products } = useSelector(productsSelector);
+  const { products }: initialProductType = useSelector(productsSelector);
   //Get Product
-
   const product =
     products === null
       ? Array(10)
-          .fill()
+          .fill(0)
           .map((item) => <SkeletonCard size={['6', '4', '2-4']} />)
-      : products.map((item) => {
+      : products.map((item: FixMeLater) => {
           return (
             <ProductItem
-              key={item.id}
-              id={item.id}
+              key={item._id}
+              id={item._id}
               title={item.title}
               price={item.price}
               img={item.images[0]}

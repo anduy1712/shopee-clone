@@ -23,7 +23,7 @@ export const getProduct = createAsyncThunk(
 );
 export const filterProduct = createAsyncThunk(
   'products/filterProduct',
-  async (name) => {
+  async (name: FixMeLater) => {
     try {
       const response = await productApi.filterProduct(name);
       return response;
