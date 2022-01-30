@@ -3,7 +3,7 @@ import userApi from '../../api/userApi';
 import axios from 'axios';
 import { authLoader } from '../../helpers/authLoader';
 import { FixMeLater } from '../../constant/other';
-import { UserInputModel, UserOutputModel } from '../../models/user/user.type';
+import { UserOutputModel } from '../../models/user/user.type';
 export const getUsers = createAsyncThunk('users/get', async () => {
   try {
     const response = await userApi.getAll();
@@ -12,18 +12,21 @@ export const getUsers = createAsyncThunk('users/get', async () => {
     return error;
   }
 });
-export const loginApi = createAsyncThunk('users/loginApi', async (obj:UserInputModel) => {
-  try {
-    const response: FixMeLater = await userApi.getUser(obj);
-    if (response) {
-      localStorage.setItem('accessToken', response.accessToken);
-      return response.accessToken;
+export const loginApi = createAsyncThunk(
+  'users/loginApi',
+  async (obj: Partial<UserOutputModel>) => {
+    try {
+      const response: FixMeLater = await userApi.getUser(obj);
+      if (response) {
+        localStorage.setItem('accessToken', response.accessToken);
+        return response.accessToken;
+      }
+      return;
+    } catch (error) {
+      return error;
     }
-    return;
-  } catch (error) {
-    return error;
   }
-});
+);
 
 export const fetchUserByToken = createAsyncThunk(
   'users/fetchUserByToken',
@@ -41,7 +44,7 @@ export const fetchUserByToken = createAsyncThunk(
 
 export const editUserApi = createAsyncThunk(
   'users/editUserApi',
-  async (obj:UserOutputModel) => {
+  async (obj: UserOutputModel) => {
     try {
       const response = await userApi.editUser(obj);
       return response;
@@ -52,27 +55,27 @@ export const editUserApi = createAsyncThunk(
 );
 
 export type initialStateUser = {
-  users: UserOutputModel,
-  username: string,
-  isFetching: boolean,
-  isSuccess: boolean
-}
+  users: UserOutputModel;
+  username: string;
+  isFetching: boolean;
+  isSuccess: boolean;
+};
 
-const initialState : initialStateUser = {
+const initialState: initialStateUser = {
   users: localStorage.getItem('user')
     ? JSON.parse(localStorage.getItem('user') || '{}')
     : [],
   username: '',
   isFetching: false,
   isSuccess: false
-}
+};
 
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getUsers.fulfilled, (state : FixMeLater, action) => {
+    builder.addCase(getUsers.fulfilled, (state: FixMeLater, action) => {
       state.users = action.payload;
     });
     builder.addCase(editUserApi.fulfilled, (state: FixMeLater, action) => {

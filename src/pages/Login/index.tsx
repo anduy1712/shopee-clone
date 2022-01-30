@@ -8,14 +8,14 @@ import {
 } from '../../store/reducers/usersSlice';
 import { Formik, Field, Form } from 'formik';
 import { useHistory } from 'react-router-dom';
-import { UserInputModel } from '../../models/user/user.type';
+import { UserOutputModel } from '../../models/user/user.type';
 const Login = () => {
-  //Get state of login 
-  const { isSuccess }:initialStateUser = useSelector(usersSelector);
+  //Get state of login
+  const { isSuccess }: initialStateUser = useSelector(usersSelector);
   const dispatch = useDispatch();
   const history = useHistory();
   //On Submit
-  const handleSubmitForm = async (values: UserInputModel) => {
+  const handleSubmitForm = async (values: Partial<UserOutputModel>) => {
     await dispatch(loginApi(values));
     await dispatch(fetchUserByToken());
   };

@@ -67,69 +67,35 @@ export const addCartApi = createAsyncThunk(
     } catch (error) {}
   }
 );
+export const postCartApi = createAsyncThunk(
+  'cart/postCartApi',
+  async (obj: any) => {
+    const result = await cartApi.postCart(obj);
+    return result;
+  }
+);
 export const getCartByUser = createAsyncThunk(
   'cart/getCartByUser',
-  async (id) => {
+  async (id: FixMeLater) => {
     try {
       const response: FixMeLater = await cartApi.getCartByUser(id);
       return response;
     } catch (error) {}
   }
 );
-export const deleteItemCart = createAsyncThunk(
-  'cart/deleteItemCart',
-  async (id: FixMeLater) => {
+
+export const updateQuantityCartApi = createAsyncThunk(
+  'cart/updateQuantityCartApi',
+  async (object: FixMeLater) => {
     try {
       //get user
-      const user = JSON.parse(localStorage.getItem('user') || '{}');
-      const response: FixMeLater = await cartApi.getCartByUser(user.id);
-      //Remove Item
-      response[0].products.splice(id, 1);
-      //Put Cart
-      const data = await cartApi.putCart(response[0]);
-      return data;
-    } catch (error) {}
-  }
-);
-export const increaseCartApi = createAsyncThunk(
-  'cart/increaseCartApi',
-  async (id: FixMeLater) => {
-    try {
-      //get user
-      const user = JSON.parse(localStorage.getItem('user') || '{}');
-      const response: FixMeLater = await cartApi.getCartByUser(user.id);
-      //Increase Item Cart
-      response[0].products.forEach((item: FixMeLater) => {
-        if (item.productId === id) {
-          item.amount += 1;
-        }
+      const { userId, productId, quantity } = object;
+      const response: FixMeLater = await cartApi.update(userId, {
+        productId,
+        quantity
       });
-      //Put Cart
-      const data = await cartApi.putCart(response[0]);
-      return data;
-    } catch (error) {}
-  }
-);
-export const decreaseCartApi = createAsyncThunk(
-  'cart/decreaseCartApi',
-  async (id: FixMeLater) => {
-    try {
-      //get user
-      const user = JSON.parse(localStorage.getItem('user') || '{}');
-      const response: FixMeLater = await cartApi.getCartByUser(user.id);
-      //Increase Item Cart
-      response[0].products.forEach((item: FixMeLater) => {
-        if (item.productId === id) {
-          item.amount -= 1;
-        }
-      });
-      const newProducts = response[0].products.filter((item: FixMeLater) => {
-        return item.amount !== 0;
-      });
-      response[0].products = newProducts;
-      //Put Cart
-      const data = await cartApi.putCart(response[0]);
-      return data;
+
+      return response;
     } catch (error) {}
   }
 );
@@ -221,9 +187,12 @@ export const cartsSlice = createSlice({
       localStorage.setItem('cart', JSON.stringify(state.cart));
     },
     total: (state: FixMeLater, action) => {
-      state.totalCart = state.cart.reduce((total: number, item: FixMeLater) => {
-        return (total += item.amount * item.price);
-      }, 0);
+      state.totalCart = state.cart?.reduce(
+        (total: number, item: FixMeLater) => {
+          return (total += item.amount * item.price);
+        },
+        0
+      );
     },
     getItemCart: (state, action) => {
       let isSame = false;
@@ -253,21 +222,42 @@ export const cartsSlice = createSlice({
       state.cart = action.payload.products;
     });
     builder.addCase(getCartByUser.fulfilled, (state, action) => {
-      if (action.payload.length > 0) {
-        state.cart = action.payload[0].products;
+      // state.cart = action.payload;
+      const { products }: FixMeLater = action.payload;
+      state.cart = products;
+      state.quantity = products
+        ? products.reduce((sum: number, item: FixMeLater) => {
+            return (sum += item.quantity);
+          }, 0)
+        : 0;
+      // if (action.payload.length > 0) {
+      //   state.cart = action.payload[0].products;
+      // }
+      // if (isEmpty(action.payload)) {
+      //   state.cart = [];
+      // }
+    });
+    builder.addCase(
+      updateQuantityCartApi.fulfilled,
+      (state, action: FixMeLater) => {
+        const { products } = action.payload;
+        state.cart = products;
+        state.quantity = products
+          ? products.reduce((sum: number, item: FixMeLater) => {
+              return (sum += item.quantity);
+            }, 0)
+          : 0;
       }
-      if (isEmpty(action.payload)) {
-        state.cart = [];
-      }
-    });
-    builder.addCase(deleteItemCart.fulfilled, (state, action: FixMeLater) => {
+    );
+    builder.addCase(postCartApi.fulfilled, (state, action: FixMeLater) => {
       state.cart = action.payload.products;
-    });
-    builder.addCase(increaseCartApi.fulfilled, (state, action: FixMeLater) => {
-      state.cart = action.payload.products;
-    });
-    builder.addCase(decreaseCartApi.fulfilled, (state, action: FixMeLater) => {
-      state.cart = action.payload.products;
+      console.log(`action.payload.products`, action.payload.products);
+      state.quantity = action.payload.products?.reduce(
+        (sum: number, item: FixMeLater) => {
+          return (sum += item.quantity);
+        },
+        0
+      );
     });
   }
 });

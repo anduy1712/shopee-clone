@@ -1,29 +1,33 @@
 import { FixMeLater } from '../constant/other';
 import axiosClient from './axiosClient';
- 
+
 const cartApi = {
   getAll: () => {
-    const url = '/carts';
+    const url = '/cart';
     return axiosClient.get(url);
   },
   getCart: (id: FixMeLater) => {
-    const url = `/carts/${id}`;
+    const url = `/cart/${id}`;
     return axiosClient.get(url);
   },
   postCart: (obj: FixMeLater) => {
-    const url = `/carts`;
+    const url = `/cart`;
     return axiosClient.post(url, obj);
   },
   putCart: (obj: FixMeLater) => {
-    const url = `/carts/${obj.id}`;
+    const url = `/cart/${obj.id}`;
     return axiosClient.put(url, obj);
   },
   getCartByUser: (id: FixMeLater) => {
-    const url = `/carts?userId=${id}`;
+    const url = `/cart/user/${id}`;
     return axiosClient.get(url);
   },
   deleteItemCart: (obj: FixMeLater) => {
-    const url = `/carts/${obj.id}`;
+    const url = `/cart/${obj.id}`;
+    return axiosClient.put(url, obj);
+  },
+  update: (id: FixMeLater,obj: FixMeLater) => {
+    const url = `/cart/user/${id}`;
     return axiosClient.put(url, obj);
   }
 };

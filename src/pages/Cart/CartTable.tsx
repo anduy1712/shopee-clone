@@ -5,44 +5,51 @@ import { useDispatch, useSelector } from 'react-redux';
 import EmptyCart from '../../components/EmptyCart';
 import {
   cartsSelector,
+  getCartByUser,
   setTheme,
   total
 } from '../../store/reducers/cartsSlice';
 import CartItemTable from './CartItemTable';
-import { initialStateUser, usersSelector } from '../../store/reducers/usersSlice';
+import {
+  initialStateUser,
+  usersSelector
+} from '../../store/reducers/usersSlice';
 import { FixMeLater } from '../../constant/other';
 
 const CartTable = () => {
-  const { users }:initialStateUser = useSelector(usersSelector);
+  const { users }: initialStateUser = useSelector(usersSelector);
   const { cart, totalCart } = useSelector(cartsSelector);
   const dispatch: any = useDispatch();
   const history = useHistory();
-  //Check user isn't login 
+  //Check user isn't login
   if (!users) {
     alert('Vui lòng đăng nhập để mua hàng');
     history.push('/login');
   }
-  //Push to check out page 
+  //Push to check out page
   const handleSubmitCart = () => {
     history.push('/cart/checkout');
   };
-  //calculate total of the cart when cart changes 
+  //calculate total of the cart when cart changes
   useEffect(() => {
     dispatch(total(null));
   }, [cart, dispatch]);
-  //use themeplate when use cart page 
+  useEffect(() => {
+    dispatch(getCartByUser(users._id));
+  }, [users]);
+  //use themeplate when use cart page
   useEffect(() => {
     dispatch(setTheme(true));
     return () => dispatch(setTheme(false));
   }, [dispatch]);
-  const item = cart.map((item: FixMeLater, index: number) => {
+  const item = cart?.map((item: FixMeLater, index: number) => {
     return (
       <CartItemTable
-        key={item.id}
-        id={item.productId}
+        key={item._id}
+        id={item._id}
         index={index}
         name={item.title}
-        amount={item.amount}
+        amount={item.quantity}
         img={item.images}
         price={item.price}
       />
@@ -73,12 +80,10 @@ const CartTable = () => {
             </div>
           </div>
           <div className="col c-12 m-12 l-12">
-            <ul className="cartlist">
-              {item.length === 0 ? <EmptyCart /> : item}
-            </ul>
+            <ul className="cartlist">{item ? item : <EmptyCart />}</ul>
           </div>
           <div className="col c-12 m-12 l-12">
-            {item.length === 0 ? (
+            {item ? (
               ''
             ) : (
               <div className="cartpay">

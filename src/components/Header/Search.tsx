@@ -6,12 +6,17 @@ import { BiSearch } from 'react-icons/bi';
 import {
   amount,
   cartsSelector,
+  getCartByUser
 } from '../../store/reducers/cartsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Formik, Field, Form } from 'formik';
 import Column from '../Column';
-import { usersSelector } from '../../store/reducers/usersSlice';
+import {
+  usersSelector,
+  initialStateUser
+} from '../../store/reducers/usersSlice';
+import { FixMeLater } from '../../constant/other';
 
 const Search = () => {
   //Redux
@@ -19,7 +24,7 @@ const Search = () => {
   const history = useHistory();
   const { quantity, cart, SearchTheme } = useSelector(cartsSelector);
   //Get user
-  const { users, isSuccess } = useSelector(usersSelector);
+  const { users, isSuccess }: initialStateUser = useSelector(usersSelector);
   //Sugget Item
   const item = [
     ' Váy',
@@ -38,13 +43,14 @@ const Search = () => {
     );
   });
   //On Submit
-  const handleSubmitForm = (values) => {
+  const handleSubmitForm = (values: FixMeLater) => {
     history.push(`/search?q=${values.keyword}&_sort=id`);
   };
   //USE EFFECT
   useEffect(() => {
-    dispatch(amount());
-  }, [cart, dispatch]);
+    // dispatch(amount());
+    if (isSuccess) dispatch(getCartByUser(users._id));
+  }, [users]);
   useEffect(() => {
     // if (isSuccess) {
     //   dispatch(getCartByUser(users._id));

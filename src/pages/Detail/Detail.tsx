@@ -10,14 +10,20 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import Swiper core and required modules
 import SwiperCore, { Navigation, Thumbs } from 'swiper/core';
-import { addCartApi } from '../../store/reducers/cartsSlice';
+import { addCartApi, postCartApi } from '../../store/reducers/cartsSlice';
 import Loading from '../../components/Loading';
 import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
 import { useRef } from 'react';
 import { Carousel } from 'react-carousel-minimal';
-import { usersSelector } from '../../store/reducers/usersSlice';
+import {
+  initialStateUser,
+  usersSelector
+} from '../../store/reducers/usersSlice';
 import { FixMeLater } from '../../constant/other';
-import { ProductInputModel } from '../../models/product/product.type';
+import {
+  ProductInputModel,
+  ProductOutputModel
+} from '../../models/product/product.type';
 
 // install Swiper modules
 SwiperCore.use([Navigation, Thumbs]);
@@ -32,13 +38,13 @@ const Detail = () => {
   const inputElement = useRef(null);
   //Get Product
   const { product }: initialProductType = useSelector(productsSelector); //rerender
-  const { users } = useSelector(usersSelector);
+  const { users }: initialStateUser = useSelector(usersSelector);
   document.querySelector<FixMeLater>('title').innerText =
     Object.keys(product).length > 0
       ? product.title
       : 'Shopee Việt Nam | Mua và Sắm';
   //Add Cart Item
-  const addToCart = (obj: ProductInputModel) => {
+  const addToCart = (obj: ProductOutputModel) => {
     //CHECK USER
     if (users !== null) {
       if (amount > product.quantites!) {
@@ -58,8 +64,12 @@ const Detail = () => {
         draggable: true,
         progress: undefined
       });
-      const cartData = { ...obj, amount: Number(amount), userId: users._id };
-      dispatch(addCartApi(cartData));
+      const cartData = {
+        userId: users._id,
+        products: [{ productId: obj._id, quantity: Number(amount) }]
+      };
+      console.log(cartData);
+      dispatch(postCartApi(cartData));
     } else {
       toast.error('Please login to buy', {
         position: 'bottom-right',
@@ -198,7 +208,9 @@ const Detail = () => {
 
                       <div className="content__button">
                         <button
-                          onClick={() => addToCart(product)}
+                          onClick={() =>
+                            addToCart(product as ProductOutputModel)
+                          }
                           className="btn btn-medium  btn-default"
                         >
                           Thêm vào giỏ hàng
