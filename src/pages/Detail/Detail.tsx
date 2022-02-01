@@ -24,6 +24,7 @@ import {
   ProductInputModel,
   ProductOutputModel
 } from '../../models/product/product.type';
+import InputCustom from '../../components/InputCustom';
 
 // install Swiper modules
 SwiperCore.use([Navigation, Thumbs]);
@@ -83,9 +84,7 @@ const Detail = () => {
     }
   };
   //Change amount
-  const ChangeAmount = (e: FixMeLater) => {
-    const values = e.target.value;
-    if (Number(values) < 0 || /^\d*\.?\d*$/.test(values) === false) return;
+  const ChangeAmount = (values: number) => {
     if (Number(values) > product.quantites!) {
       setNotify(true);
       return;
@@ -146,7 +145,7 @@ const Detail = () => {
                   <div className="detail__left">
                     <Carousel
                       data={testt}
-                      time={2000}
+                      time={3000}
                       captionStyle={captionStyle}
                       radius="10px"
                       slideNumber={true}
@@ -177,26 +176,13 @@ const Detail = () => {
                       <div className="content__desc">{product.description}</div>
                       <div className="content__quantity">
                         <p className="content__quantity-txt">Số Lượng</p>
-                        <div className="shopee-input">
-                          <button
-                            className="shopee-input__icon"
-                            onClick={decrease}
-                          >
-                            <AiOutlineMinus />
-                          </button>
-                          <input
-                            type="text"
-                            value={amount}
-                            onChange={(e) => ChangeAmount(e)}
-                            ref={inputElement}
-                          />
-                          <button
-                            className="shopee-input__icon"
-                            onClick={increase}
-                          >
-                            <AiOutlinePlus />
-                          </button>
-                        </div>
+                        <InputCustom
+                          onDecrease={decrease}
+                          onIncrease={increase}
+                          onChange={ChangeAmount}
+                          value={amount}
+                          timeDelayClick={0}
+                        />
                         <span>{product.quantites} sản phẩm có sẵn</span>
                       </div>
                       {notify && (

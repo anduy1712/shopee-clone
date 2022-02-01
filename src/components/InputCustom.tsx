@@ -23,23 +23,29 @@ const InputCustom = ({
 }: InputCustome) => {
   const [inputOpacity, setInputOpacity] = useState(false);
 
-  const handleIncrease = () => {
+  const handleIncrease = async () => handleCallBack(onIncrease);
+
+  const handleDecrease = async () => handleCallBack(onDecrease);
+
+  const handleChange = async (e: any) =>
+    handleCallBack(async () => {
+      const regex = /^-?\d*\.?\d*$/;
+      const result = regex.test(e.target.value);
+      if (!result) return;
+      await onChange(e.target.value === '' ? 1 : +e.target.value);
+    });
+
+  const handleCallBack = async (callback: () => void) => {
     setInputOpacity(true);
-    onIncrease();
+    await callback();
     setInputOpacity(false);
   };
 
-  const handleDecrease = () => {
-    setInputOpacity(true);
-    onDecrease();
-    setInputOpacity(false);
-  };
   return (
     <div
       className={clsx({
         'shopee-input': true,
-        className: true,
-        opacity: inputOpacity
+        'opacity opacity-notclick': inputOpacity
       })}
     >
       <button
@@ -48,7 +54,7 @@ const InputCustom = ({
       >
         <AiOutlineMinus />
       </button>
-      <input type="text" value={value} onChange={onChange} />
+      <input type="text" value={value} onChange={handleChange} />
       <button
         className="shopee-input__icon"
         onClick={_.debounce(handleIncrease, timeDelayClick)}

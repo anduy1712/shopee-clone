@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  onChangeAmount,
-  updateQuantityCartApi,
-} from '../../store/reducers/cartsSlice';
+import { updateQuantityCartApi } from '../../store/reducers/cartsSlice';
 import _ from 'lodash';
 import { FixMeLater } from '../../constant/other';
 import {
@@ -19,6 +16,7 @@ type CartItemProps = {
   img: string;
   price: number;
   amount: number;
+  quantites: number;
 };
 
 const CartItemTable = ({
@@ -27,12 +25,15 @@ const CartItemTable = ({
   name,
   img,
   price,
-  amount
+  amount,
+  quantites
 }: CartItemProps) => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(amount);
   const { users }: initialStateUser = useSelector(usersSelector);
   const updateQuantityCart = async (id: number, newQuantity: number) => {
+    if (newQuantity > quantites)
+      return alert('Số lượng sản phẩm vượt quá mức cho phép');
     const object = {
       userId: users._id,
       productId: id,
@@ -42,12 +43,16 @@ const CartItemTable = ({
     setQuantity(newQuantity);
   };
   //onChangeAmount CART
-  const ChangeAmount = (e: FixMeLater, id: number) => {
-    const obj = {
-      value: Number(e.target.value),
-      id
+  const ChangeAmount = async (value: number) => {
+    if (value > quantites)
+      return alert('Số lượng sản phẩm vượt quá mức cho phép');
+    setQuantity(value);
+    const object = {
+      userId: users._id,
+      productId: id,
+      quantity: +value
     };
-    dispatch(onChangeAmount(obj));
+    await dispatch(updateQuantityCartApi(object));
   };
   //REMOVE ITEM CART
   const removeCart = async () => {
@@ -73,7 +78,7 @@ const CartItemTable = ({
         <InputCustom
           onDecrease={() => updateQuantityCart(id, quantity - 1)}
           onIncrease={() => updateQuantityCart(id, quantity + 1)}
-          onChange={(e: any) => ChangeAmount(e, id)}
+          onChange={(e: any) => ChangeAmount(e)}
           value={quantity}
         />
       </div>

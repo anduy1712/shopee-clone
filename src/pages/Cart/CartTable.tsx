@@ -6,8 +6,7 @@ import EmptyCart from '../../components/EmptyCart';
 import {
   cartsSelector,
   getCartByUser,
-  setTheme,
-  total
+  setTheme
 } from '../../store/reducers/cartsSlice';
 import CartItemTable from './CartItemTable';
 import {
@@ -18,7 +17,7 @@ import { FixMeLater } from '../../constant/other';
 
 const CartTable = () => {
   const { users }: initialStateUser = useSelector(usersSelector);
-  const { cart, totalCart } = useSelector(cartsSelector);
+  const { cart, quantity, totalCart } = useSelector(cartsSelector);
   const dispatch: any = useDispatch();
   const history = useHistory();
   //Check user isn't login
@@ -30,10 +29,6 @@ const CartTable = () => {
   const handleSubmitCart = () => {
     history.push('/cart/checkout');
   };
-  //calculate total of the cart when cart changes
-  useEffect(() => {
-    dispatch(total(null));
-  }, [cart, dispatch]);
   useEffect(() => {
     dispatch(getCartByUser(users._id));
   }, [users]);
@@ -49,6 +44,7 @@ const CartTable = () => {
         id={item._id}
         index={index}
         name={item.title}
+        quantites={item.quantites}
         amount={item.quantity}
         img={item.images}
         price={item.price}
@@ -83,13 +79,13 @@ const CartTable = () => {
             <ul className="cartlist">{item ? item : <EmptyCart />}</ul>
           </div>
           <div className="col c-12 m-12 l-12">
-            {item ? (
+            {!item ? (
               ''
             ) : (
               <div className="cartpay">
                 <div className="cartpay__action">
                   <p className="cartpay__action-total">
-                    Tổng thanh toán (0 Sản phẩm):{' '}
+                    {`Tổng thanh toán (${quantity} Sản phẩm): `}
                     <span className="txt__primary">₫{totalCart}</span>
                   </p>
                   <button

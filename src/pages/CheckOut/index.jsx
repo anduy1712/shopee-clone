@@ -5,11 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { FcShipped } from 'react-icons/fc';
 import { useDispatch, useSelector } from 'react-redux';
 import { usersSelector } from '../../store/reducers/usersSlice';
-import {
-  cartsSelector,
-  removeCartApi,
-  total
-} from '../../store/reducers/cartsSlice';
+import { cartsSelector, removeCartApi } from '../../store/reducers/cartsSlice';
 import { useEffect } from 'react';
 import { addCustomerApi } from '../../store/reducers/customersSlice';
 import { useState } from 'react';
@@ -43,11 +39,11 @@ const CheckOut = () => {
             <p className="cartlist__item-price">{item.price}</p>
           </div>
           <div className="cartlist__item-box">
-            <p className="cartlist__item-price">{item.amount}</p>
+            <p className="cartlist__item-price">{item.quantity}</p>
           </div>
           <div className="cartlist__item-box">
             <p className="cartlist__item-totalitem">
-              {item.price * item.amount}
+              {item.price * item.quantity}
             </p>
           </div>
         </li>
@@ -55,11 +51,12 @@ const CheckOut = () => {
     );
   });
   useEffect(() => {
-    dispatch(total());
+    // dispatch(total());
   }, [cart, dispatch]);
   useEffect(() => {
     return () => setSuccess(false);
   }, []);
+  console.log(users);
   return (
     <section className="main">
       <section className="page-checkout">
@@ -95,8 +92,8 @@ const CheckOut = () => {
                     </h3>
                     <div className="address-edit__content">
                       <p>
-                        {users.name.firstname} {users.name.lastname} (+84){' '}
-                        {users.phone}
+                        {users.username} (+84){' '}
+                        {users.numberPhone ?? '0703073829'}
                       </p>
                       <span>{users.address}</span>
                       <Link to="/">thay đổi</Link>
@@ -138,12 +135,12 @@ const CheckOut = () => {
                     </div>
                     <div className="cartpay__action">
                       <p className="cartpay__action-total">Phí vận chuyển:</p>
-                      <span className="txt__grey">15.000₫</span>
+                      <span className="txt__grey">15$</span>
                     </div>
                     <div className="cartpay__action">
                       <p className="cartpay__action-total">Tổng thanh toán:</p>
                       <span className="txt__primary">
-                        {Math.floor(totalCart + 15000)}₫
+                        {Math.floor(totalCart + 15)}$
                       </span>
                     </div>
                   </div>

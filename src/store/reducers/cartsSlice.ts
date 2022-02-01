@@ -186,14 +186,6 @@ export const cartsSlice = createSlice({
       );
       localStorage.setItem('cart', JSON.stringify(state.cart));
     },
-    total: (state: FixMeLater, action) => {
-      state.totalCart = state.cart?.reduce(
-        (total: number, item: FixMeLater) => {
-          return (total += item.amount * item.price);
-        },
-        0
-      );
-    },
     getItemCart: (state, action) => {
       let isSame = false;
       const { productId } = action.payload.product;
@@ -225,6 +217,11 @@ export const cartsSlice = createSlice({
       // state.cart = action.payload;
       const { products }: FixMeLater = action.payload;
       state.cart = products;
+      state.totalCart = products
+        ? products.reduce((sum: number, item: FixMeLater) => {
+            return (sum += item.quantity * item.price);
+          }, 0)
+        : 0;
       state.quantity = products
         ? products.reduce((sum: number, item: FixMeLater) => {
             return (sum += item.quantity);
@@ -269,7 +266,6 @@ export const {
   decrease,
   onChangeAmount,
   remove,
-  total,
   getItemCart,
   setTheme,
   clearCart

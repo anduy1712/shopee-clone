@@ -51,13 +51,6 @@ const Search = () => {
     // dispatch(amount());
     if (isSuccess) dispatch(getCartByUser(users._id));
   }, [users]);
-  useEffect(() => {
-    // if (isSuccess) {
-    //   dispatch(getCartByUser(users._id));
-    // } else {
-    //   dispatch(getCartByUser(null));
-    // }
-  }, [dispatch, isSuccess, users]);
   return (
     <section
       className={SearchTheme ? 'header-search s-white' : 'header-search '}
