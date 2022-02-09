@@ -5,7 +5,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { FcShipped } from 'react-icons/fc';
 import { useDispatch, useSelector } from 'react-redux';
 import { usersSelector } from '../../store/reducers/usersSlice';
-import { cartsSelector, removeCartApi } from '../../store/reducers/cartsSlice';
+import { cartsSelector } from '../../store/reducers/cartsSlice';
 import { useEffect } from 'react';
 import { addCustomerApi } from '../../store/reducers/customersSlice';
 import { useState } from 'react';
@@ -25,7 +25,7 @@ const CheckOut = () => {
     };
     dispatch(addCustomerApi(cus));
     setSuccess(true);
-    dispatch(removeCartApi());
+    // dispatch(removeCartApi());
   };
   const itemCart = cart.map((item) => {
     return (

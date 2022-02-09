@@ -10,21 +10,17 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 // import Swiper core and required modules
 import SwiperCore, { Navigation, Thumbs } from 'swiper/core';
-import { addCartApi, postCartApi } from '../../store/reducers/cartsSlice';
+import { postCartApi } from '../../store/reducers/cartsSlice';
 import Loading from '../../components/Loading';
-import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-import { useRef } from 'react';
 import { Carousel } from 'react-carousel-minimal';
 import {
   initialStateUser,
   usersSelector
 } from '../../store/reducers/usersSlice';
 import { FixMeLater } from '../../constant/other';
-import {
-  ProductInputModel,
-  ProductOutputModel
-} from '../../models/product/product.type';
+import { ProductType } from '../../models/product/product.type';
 import InputCustom from '../../components/InputCustom';
+import { CartRequest } from '../../models/cart/Cart.type';
 
 // install Swiper modules
 SwiperCore.use([Navigation, Thumbs]);
@@ -36,7 +32,6 @@ const Detail = () => {
   const dispatch = useDispatch();
   const [amount, setAmount] = useState<number>(1);
   const [notify, setNotify] = useState(false);
-  const inputElement = useRef(null);
   //Get Product
   const { product }: initialProductType = useSelector(productsSelector); //rerender
   const { users }: initialStateUser = useSelector(usersSelector);
@@ -44,8 +39,9 @@ const Detail = () => {
     Object.keys(product).length > 0
       ? product.title
       : 'Shopee Việt Nam | Mua và Sắm';
+
   //Add Cart Item
-  const addToCart = (obj: ProductOutputModel) => {
+  const addToCart = (obj: ProductType) => {
     //CHECK USER
     if (users !== null) {
       if (amount > product.quantites!) {
@@ -65,11 +61,10 @@ const Detail = () => {
         draggable: true,
         progress: undefined
       });
-      const cartData = {
+      const cartData: CartRequest = {
         userId: users._id,
-        products: [{ productId: obj._id, quantity: Number(amount) }]
+        products: [{ _id: obj._id, quantity: Number(amount) }]
       };
-      console.log(cartData);
       dispatch(postCartApi(cartData));
     } else {
       toast.error('Please login to buy', {
@@ -83,6 +78,7 @@ const Detail = () => {
       });
     }
   };
+
   //Change amount
   const ChangeAmount = (values: number) => {
     if (Number(values) > product.quantites!) {
@@ -94,6 +90,7 @@ const Detail = () => {
     }
     setAmount(values);
   };
+
   const increase = () => {
     if (amount >= product.quantites!) {
       setNotify(true);
@@ -102,12 +99,14 @@ const Detail = () => {
     const newAmount = amount + 1;
     setAmount(newAmount);
   };
+
   const decrease = () => {
     if (amount <= 1) return;
     if (amount <= product.quantites!) setNotify(false);
     const newAmount = amount - 1;
     setAmount(newAmount);
   };
+
   const captionStyle = {
     fontSize: '2em',
     fontWeight: 'bold'
@@ -194,9 +193,7 @@ const Detail = () => {
 
                       <div className="content__button">
                         <button
-                          onClick={() =>
-                            addToCart(product as ProductOutputModel)
-                          }
+                          onClick={() => addToCart(product as ProductType)}
                           className="btn btn-medium  btn-default"
                         >
                           Thêm vào giỏ hàng

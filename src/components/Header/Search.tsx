@@ -3,11 +3,7 @@ import { Link, useHistory } from 'react-router-dom';
 import { ReactComponent as Logo } from '../../assets/images/logo.svg';
 import { FiShoppingCart } from 'react-icons/fi';
 import { BiSearch } from 'react-icons/bi';
-import {
-  amount,
-  cartsSelector,
-  getCartByUser
-} from '../../store/reducers/cartsSlice';
+import { cartsSelector, getCartByUser } from '../../store/reducers/cartsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Formik, Field, Form } from 'formik';
@@ -22,7 +18,7 @@ const Search = () => {
   //Redux
   const dispatch = useDispatch();
   const history = useHistory();
-  const { quantity, cart, SearchTheme } = useSelector(cartsSelector);
+  const { quantity, SearchTheme } = useSelector(cartsSelector);
   //Get user
   const { users, isSuccess }: initialStateUser = useSelector(usersSelector);
   //Sugget Item
@@ -50,6 +46,7 @@ const Search = () => {
   useEffect(() => {
     // dispatch(amount());
     if (isSuccess) dispatch(getCartByUser(users._id));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [users]);
   return (
     <section

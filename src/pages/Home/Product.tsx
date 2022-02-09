@@ -6,12 +6,12 @@ import {
 } from '../../store/reducers/productsSlice';
 import ProductItem from '../../components/Home/ProductItem';
 import SkeletonCard from '../../components/SkeletonCard';
-import { ProductOutputModel } from '../../models/product/product.type';
+import { ProductType } from '../../models/product/product.type';
 const Product = () => {
   const dispatch = useDispatch();
   const { products } = useSelector(productsSelector);
   //Get Product
-  const product = products.map((item: ProductOutputModel) => {
+  const product = products.map((item: ProductType) => {
     return (
       <ProductItem
         key={item._id}

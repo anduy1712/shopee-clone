@@ -1,12 +1,4 @@
-export type ProductInputModel = {
-  title?: string;
-  price?: number;
-  images?: string[];
-  quantites?: number | null;
-  description?: string;
-};
-
-export type ProductOutputModel = {
+export type ProductType = {
   _id: string;
   title: string | null;
   price: number | null;

@@ -13,7 +13,7 @@ import {
   initialStateUser,
   usersSelector
 } from '../../store/reducers/usersSlice';
-import { FixMeLater } from '../../constant/other';
+import { CartType } from '../../models/cart/Cart.type';
 
 const CartTable = () => {
   const { users }: initialStateUser = useSelector(usersSelector);
@@ -31,17 +31,18 @@ const CartTable = () => {
   };
   useEffect(() => {
     dispatch(getCartByUser(users._id));
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [users]);
   //use themeplate when use cart page
   useEffect(() => {
     dispatch(setTheme(true));
     return () => dispatch(setTheme(false));
   }, [dispatch]);
-  const item = cart?.map((item: FixMeLater, index: number) => {
+  const item = cart?.map((item: CartType, index: number) => {
     return (
       <CartItemTable
         key={item._id}
-        id={item._id}
+        id={Number(item._id)}
         index={index}
         name={item.title}
         quantites={item.quantites}

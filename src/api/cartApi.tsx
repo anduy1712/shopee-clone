@@ -1,4 +1,5 @@
 import { FixMeLater } from '../constant/other';
+import { CartRequest } from '../models/cart/Cart.type';
 import axiosClient from './axiosClient';
 
 const cartApi = {
@@ -6,27 +7,27 @@ const cartApi = {
     const url = '/cart';
     return axiosClient.get(url);
   },
-  getCart: (id: FixMeLater) => {
+  getCart: (id: string): Promise<CartRequest> => {
     const url = `/cart/${id}`;
     return axiosClient.get(url);
   },
-  postCart: (obj: FixMeLater) => {
+  postCart: (obj: CartRequest): Promise<CartRequest> => {
     const url = `/cart`;
     return axiosClient.post(url, obj);
   },
-  putCart: (obj: FixMeLater) => {
+  putCart: (obj: FixMeLater): Promise<CartRequest> => {
     const url = `/cart/${obj.id}`;
     return axiosClient.put(url, obj);
   },
-  getCartByUser: (id: FixMeLater) => {
+  getCartByUser: (id: string): Promise<CartRequest> => {
     const url = `/cart/user/${id}`;
     return axiosClient.get(url);
   },
-  deleteItemCart: (obj: FixMeLater) => {
+  deleteItemCart: (obj: FixMeLater): Promise<CartRequest> => {
     const url = `/cart/${obj.id}`;
     return axiosClient.put(url, obj);
   },
-  update: (id: FixMeLater,obj: FixMeLater) => {
+  update: (id: string, obj: FixMeLater): Promise<CartRequest> => {
     const url = `/cart/user/${id}`;
     return axiosClient.put(url, obj);
   }

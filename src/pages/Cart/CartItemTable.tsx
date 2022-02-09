@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateQuantityCartApi } from '../../store/reducers/cartsSlice';
-import _ from 'lodash';
-import { FixMeLater } from '../../constant/other';
 import {
   initialStateUser,
   usersSelector
@@ -12,15 +10,14 @@ import InputCustom from '../../components/InputCustom';
 type CartItemProps = {
   index: number;
   id: number;
-  name: string;
-  img: string;
-  price: number;
+  name: string | null;
+  img: string[];
+  price: number | null;
   amount: number;
   quantites: number;
 };
 
 const CartItemTable = ({
-  index,
   id,
   name,
   img,
@@ -31,6 +28,7 @@ const CartItemTable = ({
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(amount);
   const { users }: initialStateUser = useSelector(usersSelector);
+
   const updateQuantityCart = async (id: number, newQuantity: number) => {
     if (newQuantity > quantites)
       return alert('Số lượng sản phẩm vượt quá mức cho phép');
@@ -42,6 +40,7 @@ const CartItemTable = ({
     await dispatch(updateQuantityCartApi(object));
     setQuantity(newQuantity);
   };
+
   //onChangeAmount CART
   const ChangeAmount = async (value: number) => {
     if (value > quantites)
@@ -54,6 +53,7 @@ const CartItemTable = ({
     };
     await dispatch(updateQuantityCartApi(object));
   };
+
   //REMOVE ITEM CART
   const removeCart = async () => {
     // console.log(index);
@@ -64,7 +64,8 @@ const CartItemTable = ({
     };
     await dispatch(updateQuantityCartApi(object));
   };
-  const totalItem = price * amount;
+  
+  const totalItem = price ? price * amount : 0;
   return (
     <li className="cartlist__item">
       <div className="cartlist__item-box">

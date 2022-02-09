@@ -1,10 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import productApi from '../../api/productApi';
 import { FixMeLater } from '../../constant/other';
-import {
-  ProductInputModel,
-  ProductOutputModel
-} from '../../models/product/product.type';
+import { ProductType } from '../../models/product/product.type';
 export const getProducts = createAsyncThunk('products/get', async () => {
   try {
     const response = await productApi.getAll();
@@ -36,8 +33,8 @@ export const filterProduct = createAsyncThunk(
   }
 );
 export type initialProductType = {
-  products: ProductOutputModel[];
-  product: Partial<ProductOutputModel>;
+  products: ProductType[];
+  product: Partial<ProductType>;
 };
 const initialState: initialProductType = {
   products: [],
