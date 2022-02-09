@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Checkbox } from 'antd';
 import { updateQuantityCartApi } from '../../store/reducers/cartsSlice';
 import _ from 'lodash';
 import { FixMeLater } from '../../constant/other';
@@ -11,7 +12,7 @@ import InputCustom from '../../components/InputCustom';
 
 type CartItemProps = {
   index: number;
-  id: number;
+  _id: number;
   name: string;
   img: string;
   price: number;
@@ -21,7 +22,7 @@ type CartItemProps = {
 
 const CartItemTable = ({
   index,
-  id,
+  _id,
   name,
   img,
   price,
@@ -49,7 +50,7 @@ const CartItemTable = ({
     setQuantity(value);
     const object = {
       userId: users._id,
-      productId: id,
+      productId: _id,
       quantity: +value
     };
     await dispatch(updateQuantityCartApi(object));
@@ -59,14 +60,21 @@ const CartItemTable = ({
     // console.log(index);
     const object = {
       userId: users._id,
-      productId: id,
+      productId: _id,
       quantity: 0
     };
     await dispatch(updateQuantityCartApi(object));
   };
   const totalItem = price * amount;
+
+  function onChange(e: any) {
+    console.log(`checked = ${e.target.checked}`);
+  }
   return (
     <li className="cartlist__item">
+      <div className="cartlist__item-box">
+        <Checkbox onChange={onChange} value={_id}></Checkbox>
+      </div>
       <div className="cartlist__item-box">
         <img src={img?.[0]} alt="img_cart" />
         <h3 className="cartlist__item-title">{name}</h3>
@@ -76,8 +84,8 @@ const CartItemTable = ({
       </div>
       <div className="cartlist__item-box">
         <InputCustom
-          onDecrease={() => updateQuantityCart(id, quantity - 1)}
-          onIncrease={() => updateQuantityCart(id, quantity + 1)}
+          onDecrease={() => updateQuantityCart(_id, quantity - 1)}
+          onIncrease={() => updateQuantityCart(_id, quantity + 1)}
           onChange={(e: any) => ChangeAmount(e)}
           value={quantity}
         />
