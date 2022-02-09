@@ -312,6 +312,9 @@
             }
           }
           &--submit {
+            display: flex;
+            align-items: center;
+            justify-content: center;
             height: calc(100% - 8px);
             min-width: 60px;
             background: #ee4d2d;

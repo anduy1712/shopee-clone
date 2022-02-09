@@ -12,6 +12,11 @@
     cursor: pointer;
   }
 }
+.btn:disabled {
+  cursor: default;
+  background-color: #f8a594;
+  border-color: #f8a594;
+}
 .btn + .btn,
 .selects {
   margin-left: 10px;

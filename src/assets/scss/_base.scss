@@ -58,3 +58,13 @@ a {
     pointer-events: none;
   }
 }
+p {
+  margin-bottom: 0;
+}
+.ant-checkbox-checked .ant-checkbox-inner {
+  background-color: $nc-primary;
+  border-color: $nc-primary;
+}
+.ant-checkbox-indeterminate .ant-checkbox-inner::after {
+  background-color: $nc-primary;
+}

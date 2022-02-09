@@ -10,12 +10,14 @@ import { useEffect } from 'react';
 import { addCustomerApi } from '../../store/reducers/customersSlice';
 import { useState } from 'react';
 
-const CheckOut = () => {
+const CheckOut = ({ location }) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { users } = useSelector(usersSelector);
   const { cart, totalCart } = useSelector(cartsSelector);
+  const [itemCart, setItemCart] = useState([]);
   const [success, setSuccess] = useState(false);
+  const { cartIsChecked } = location?.state;
   const createCustomer = () => {
     const cus = {
       userId: users.id,
@@ -27,36 +29,24 @@ const CheckOut = () => {
     setSuccess(true);
     dispatch(removeCartApi());
   };
-  const itemCart = cart.map((item) => {
-    return (
-      <ul className="cartlist">
-        <li className="cartlist__item">
-          <div className="cartlist__item-box">
-            <img src={item.images[0]} alt="img_cart" />
-            <h3 className="cartlist__item-title">{item.title}</h3>
-          </div>
-          <div className="cartlist__item-box">
-            <p className="cartlist__item-price">{item.price}</p>
-          </div>
-          <div className="cartlist__item-box">
-            <p className="cartlist__item-price">{item.quantity}</p>
-          </div>
-          <div className="cartlist__item-box">
-            <p className="cartlist__item-totalitem">
-              {item.price * item.quantity}
-            </p>
-          </div>
-        </li>
-      </ul>
-    );
-  });
+  useEffect(() => {
+    let data = [];
+    // if (!cartIsChecked) return history.push('/cart');
+    cartIsChecked.forEach((item) => {
+      const newData = cart.find((itemCart) => {
+        return itemCart._id === item;
+      });
+      data.push(newData);
+    });
+    setItemCart(data);
+  }, [cartIsChecked]);
+
   useEffect(() => {
     // dispatch(total());
   }, [cart, dispatch]);
   useEffect(() => {
     return () => setSuccess(false);
   }, []);
-  console.log(users);
   return (
     <section className="main">
       <section className="page-checkout">
@@ -110,21 +100,67 @@ const CheckOut = () => {
               <div className="row">
                 <div className="col c-12 m-12 l-12">
                   <div className="cart__navbar">
-                    <div className="cart__navbar-item">
+                    <div
+                      style={{ width: '50%', textAlign: 'left' }}
+                      className="cart__navbar-item"
+                    >
                       <p className="cart__navbar-heading">Sản Phẩm</p>
                     </div>
-                    <div className="cart__navbar-item">
+                    <div style={{ width: '20%' }} className="cart__navbar-item">
                       <p className="cart__navbar-heading">Đơn Giá</p>
                     </div>
-                    <div className="cart__navbar-item">
+                    <div style={{ width: '20%' }} className="cart__navbar-item">
                       <p className="cart__navbar-heading">Số Lượng</p>
                     </div>
-                    <div className="cart__navbar-item">
+                    <div style={{ width: '10%' }} className="cart__navbar-item">
                       <p className="cart__navbar-heading">Số Tiền</p>
                     </div>
                   </div>
                 </div>
-                <div className="col c-12 m-12 l-12">{itemCart}</div>
+                <div className="col c-12 m-12 l-12">
+                  {itemCart?.length !== 0 &&
+                    itemCart.map((item) => {
+                      return (
+                        <ul className="cartlist">
+                          <li className="cartlist__item">
+                            <div
+                              style={{ width: '50%', textAlign: 'left' }}
+                              className="cartlist__item-box"
+                            >
+                              <img src={item.images[0]} alt="img_cart" />
+                              <h3 className="cartlist__item-title">
+                                {item.title}
+                              </h3>
+                            </div>
+                            <div
+                              style={{ width: '20%' }}
+                              className="cartlist__item-box"
+                            >
+                              <p className="cartlist__item-price">
+                                {item.price}
+                              </p>
+                            </div>
+                            <div
+                              style={{ width: '20%' }}
+                              className="cartlist__item-box"
+                            >
+                              <p className="cartlist__item-price">
+                                {item.quantity}
+                              </p>
+                            </div>
+                            <div
+                              style={{ width: '10%' }}
+                              className="cartlist__item-box"
+                            >
+                              <p className="cartlist__item-totalitem">
+                                {item.price * item.quantity}
+                              </p>
+                            </div>
+                          </li>
+                        </ul>
+                      );
+                    })}
+                </div>
                 <div className="col c-12 m-12 l-12">
                   <div className="cartpay">
                     <div className="cartpay__action">
