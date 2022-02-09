@@ -9,8 +9,8 @@ import {
 
 export type GenericState<T> = {
   data?: T;
-  status: 'loading' | 'finished' | 'error';
-  error: string;
+  status: 'loading' | 'finished' | 'error' | null;
+  error: null;
 };
 
 type NoInfer<T> = [T][T extends any ? 0 : never];

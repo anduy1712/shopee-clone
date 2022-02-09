@@ -101,7 +101,7 @@ export const updateQuantityCartApi = createAsyncThunk(
   }
 );
 
-type initStateCart = {
+export type initStateCart = {
   cart: CartType[];
   quantity: number;
   totalCart: number;
@@ -115,8 +115,8 @@ const initialState: GenericState<initStateCart> = {
     totalCart: 0,
     SearchTheme: false
   },
-  status: 'loading',
-  error: ''
+  status: null,
+  error: null
 };
 
 export const cartsSlice = createGenericSlice({

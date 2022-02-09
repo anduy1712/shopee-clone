@@ -14,19 +14,19 @@ const Sidebar = () => {
           <h3>Theo Danh Mục</h3>
           <li className="search-sidebar-list__item">
             <input type="checkbox" id="list__item-1" />
-            <label for="list__item-1">Mặt nạ (298k+)</label>
+            <label>Mặt nạ (298k+)</label>
           </li>
           <li className="search-sidebar-list__item">
             <input type="checkbox" id="list__item-2" />
-            <label for="list__item-2">Nhà cửa & Đời sống (95k+)</label>
+            <label>Nhà cửa & Đời sống (95k+)</label>
           </li>
           <li className="search-sidebar-list__item">
             <input type="checkbox" id="list__item-3" />
-            <label for="list__item-3">Sản phẩm dưỡng mắt (23k+)</label>
+            <label>Sản phẩm dưỡng mắt (23k+)</label>
           </li>
           <li className="search-sidebar-list__item">
             <input type="checkbox" id="list__item-4" />
-            <label for="list__item-4">Mẹ & Bé (12k+)</label>
+            <label>Mẹ & Bé (12k+)</label>
           </li>
         </ul>
       </div>

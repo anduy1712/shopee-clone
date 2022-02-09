@@ -6,6 +6,7 @@ import EmptyCart from '../../components/EmptyCart';
 import {
   cartsSelector,
   getCartByUser,
+  initStateCart,
   setTheme
 } from '../../store/reducers/cartsSlice';
 import CartItemTable from './CartItemTable';
@@ -14,10 +15,12 @@ import {
   usersSelector
 } from '../../store/reducers/usersSlice';
 import { CartType } from '../../models/cart/Cart.type';
+import { GenericState } from '../../store/types/index.type';
 
 const CartTable = () => {
   const { users }: initialStateUser = useSelector(usersSelector);
-  const { cart, quantity, totalCart } = useSelector(cartsSelector);
+  const { data }: GenericState<initStateCart> = useSelector(cartsSelector);
+
   const dispatch: any = useDispatch();
   const history = useHistory();
   //Check user isn't login
@@ -31,14 +34,14 @@ const CartTable = () => {
   };
   useEffect(() => {
     dispatch(getCartByUser(users._id));
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [users]);
   //use themeplate when use cart page
   useEffect(() => {
     dispatch(setTheme(true));
     return () => dispatch(setTheme(false));
   }, [dispatch]);
-  const item = cart?.map((item: CartType, index: number) => {
+  const item = data?.cart?.map((item: CartType, index: number) => {
     return (
       <CartItemTable
         key={item._id}
@@ -86,8 +89,8 @@ const CartTable = () => {
               <div className="cartpay">
                 <div className="cartpay__action">
                   <p className="cartpay__action-total">
-                    {`Tổng thanh toán (${quantity} Sản phẩm): `}
-                    <span className="txt__primary">₫{totalCart}</span>
+                    {`Tổng thanh toán (${data?.quantity} Sản phẩm): `}
+                    <span className="txt__primary">₫{data?.totalCart}</span>
                   </p>
                   <button
                     className="btn btn-primary"

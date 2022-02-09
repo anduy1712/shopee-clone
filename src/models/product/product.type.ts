@@ -9,3 +9,5 @@ export type ProductType = {
   updateAt: string | null;
   _destroy: boolean;
 };
+
+export type ProductOutputType = Partial<ProductType>;

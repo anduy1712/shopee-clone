@@ -26,7 +26,7 @@ const CartItemTable = ({
   quantites
 }: CartItemProps) => {
   const dispatch = useDispatch();
-  const [quantity, setQuantity] = useState(amount);
+  const [quantity, setQuantity] = useState<number>(amount);
   const { users }: initialStateUser = useSelector(usersSelector);
 
   const updateQuantityCart = async (id: number, newQuantity: number) => {

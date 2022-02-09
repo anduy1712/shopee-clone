@@ -7,8 +7,9 @@ import {
 } from "react-icons/ri";
 import { useHistory } from "react-router-dom";
 import { useState } from "react";
+import { FixMeLater } from "../../constant/other";
 
-const Tools = ({ url }) => {
+const Tools = ({ url }: FixMeLater) => {
   //state
   const [checkBtn, setCheckBtn] = useState(false);
   const [valueSelect, setValueSelect] = useState("Giá");

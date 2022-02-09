@@ -5,7 +5,7 @@ import { FixMeLater } from '../../constant/other';
 
 export const addCustomerApi = createAsyncThunk(
   'customers/addCustomerApi',
-  async (obj) => {
+  async (obj: FixMeLater) => {
     try {
       const response = await customerApi.postCustomer(obj);
       return response;

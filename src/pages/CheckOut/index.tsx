@@ -9,6 +9,7 @@ import { cartsSelector } from '../../store/reducers/cartsSlice';
 import { useEffect } from 'react';
 import { addCustomerApi } from '../../store/reducers/customersSlice';
 import { useState } from 'react';
+import { FixMeLater } from '../../constant/other';
 
 const CheckOut = () => {
   const dispatch = useDispatch();
@@ -25,9 +26,8 @@ const CheckOut = () => {
     };
     dispatch(addCustomerApi(cus));
     setSuccess(true);
-    // dispatch(removeCartApi());
   };
-  const itemCart = cart.map((item) => {
+  const itemCart = cart.map((item: FixMeLater) => {
     return (
       <ul className="cartlist">
         <li className="cartlist__item">
