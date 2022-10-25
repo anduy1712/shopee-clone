@@ -40,7 +40,7 @@ const Detail = () => {
   const { idProduct }: FixMeLater = useParams();
   const dispatch = useDispatch();
   const [amount, setAmount] = useState(1);
-  const [notify, setNotify] = useState(false);
+  const [notifyLimitProduct, setNotifyLitmitProduct] = useState(false);
   const { product }: initialProductType = useSelector(productsSelector); //rerender
   const { users }: initialStateUser = useSelector(usersSelector);
 
@@ -56,7 +56,7 @@ const Detail = () => {
         alert(STRING_CART.MAXIMUM_NOTIFICATION);
         return;
       }
-      if (notify) {
+      if (notifyLimitProduct) {
         alert(STRING_CART.MAXIMUM_NOTIFICATION);
         return;
       }
@@ -89,17 +89,17 @@ const Detail = () => {
   //Change amount
   const ChangeAmount = (values: number) => {
     if (Number(values) > product.quantites!) {
-      setNotify(true);
+      setNotifyLitmitProduct(true);
       return;
     }
     if (Number(values) <= product.quantites!) {
-      setNotify(false);
+      setNotifyLitmitProduct(false);
     }
     setAmount(values);
   };
   const increase = () => {
     if (amount >= product.quantites!) {
-      setNotify(true);
+      setNotifyLitmitProduct(true);
       return;
     }
     const newAmount = amount + 1;
@@ -107,7 +107,7 @@ const Detail = () => {
   };
   const decrease = () => {
     if (amount <= 1) return;
-    if (amount <= product.quantites!) setNotify(false);
+    if (amount <= product.quantites!) setNotifyLitmitProduct(false);
     const newAmount = amount - 1;
     setAmount(newAmount);
   };
@@ -181,7 +181,7 @@ const Detail = () => {
                         />
                         <span>{product.quantites} sản phẩm có sẵn</span>
                       </div>
-                      {notify && (
+                      {notifyLimitProduct && (
                         <div className="content__notify">
                           Đã đạt đến số lượng mua tối đa cho phép của sản phẩm
                           này

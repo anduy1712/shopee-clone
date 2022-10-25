@@ -1,4 +1,4 @@
-import { FixMeLater } from '../constant/other';
+import { FixMeLater } from 'src/constant/other';
 import axiosClient from './axiosClient';
 
 const cartApi = {
