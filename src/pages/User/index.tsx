@@ -1,12 +1,12 @@
 import React from 'react';
 import { useHistory, useParams } from 'react-router-dom';
-import Column from '../../components/Column';
+import Column from 'src/components/Column';
 import UserMenu from './UserMenu';
 import Purchase from './Purchase';
 import Profile from './Profile';
 import { useSelector } from 'react-redux';
-import { usersSelector, initialStateUser } from '../../store/reducers/usersSlice';
-import { FixMeLater } from '../../constant/other';
+import { usersSelector, initialStateUser } from 'src/store/reducers/usersSlice';
+import { FixMeLater } from 'src/constant/other';
 const User = () => {
   const { slug }: FixMeLater = useParams();
   const history = useHistory();

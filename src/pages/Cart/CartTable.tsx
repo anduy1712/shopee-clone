@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { message, Button, Space } from 'antd';
+import { message } from 'antd';
 import { useHistory } from 'react-router-dom';
-import { Checkbox, Divider } from 'antd';
+import { Checkbox } from 'antd';
 import { useDispatch, useSelector } from 'react-redux';
-import EmptyCart from '../../components/EmptyCart';
+import EmptyCart from 'src/components/EmptyCart';
 import {
   cartsSelector,
   getCartByUser,
   setTheme
-} from '../../store/reducers/cartsSlice';
+} from 'src/store/reducers/cartsSlice';
 import CartItemTable from './CartItemTable';
 import {
   initialStateUser,
   usersSelector
-} from '../../store/reducers/usersSlice';
-import { FixMeLater } from '../../constant/other';
+} from 'src/store/reducers/usersSlice';
+import { FixMeLater } from 'src/constant/other';
 
 const CartTable = () => {
   const { users }: initialStateUser = useSelector(usersSelector);
-  const { cart, quantity, totalCart } = useSelector(cartsSelector);
+  const { cart, totalCart } = useSelector(cartsSelector);
   const dispatch: any = useDispatch();
   const history = useHistory();
   //Check Item Cart

@@ -1,30 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import { Carousel } from 'react-carousel-minimal';
+import { ToastContainer, toast } from 'react-toastify';
+import SwiperCore, { Navigation, Thumbs } from 'swiper/core';
 import {
   getProduct,
   initialProductType,
   productsSelector
-} from '../../store/reducers/productsSlice';
-import { ToastContainer, toast } from 'react-toastify';
+} from 'src/store/reducers/productsSlice';
 import 'react-toastify/dist/ReactToastify.css';
-// import Swiper core and required modules
-import SwiperCore, { Navigation, Thumbs } from 'swiper/core';
-import { addCartApi, postCartApi } from '../../store/reducers/cartsSlice';
-import Loading from '../../components/Loading';
-import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-import { useRef } from 'react';
-import { Carousel } from 'react-carousel-minimal';
+import {  postCartApi } from 'src/store/reducers/cartsSlice';
+import Loading from 'src/components/Loading';
 import {
   initialStateUser,
   usersSelector
-} from '../../store/reducers/usersSlice';
-import { FixMeLater } from '../../constant/other';
+} from 'src/store/reducers/usersSlice';
+import { FixMeLater } from 'src/constant/other';
 import {
-  ProductInputModel,
   ProductOutputModel
-} from '../../models/product/product.type';
-import InputCustom from '../../components/InputCustom';
+} from 'src/models/product/product.type';
+import InputCustom from 'src/components/InputCustom';
 
 // install Swiper modules
 SwiperCore.use([Navigation, Thumbs]);
@@ -36,7 +32,6 @@ const Detail = () => {
   const dispatch = useDispatch();
   const [amount, setAmount] = useState<number>(1);
   const [notify, setNotify] = useState(false);
-  const inputElement = useRef(null);
   //Get Product
   const { product }: initialProductType = useSelector(productsSelector); //rerender
   const { users }: initialStateUser = useSelector(usersSelector);

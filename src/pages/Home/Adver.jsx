@@ -1,9 +1,9 @@
 import React from 'react';
-import banner01 from '../../assets/images/adv_01.png';
-import banner02 from '../../assets/images/adv_02.png';
-import banner03 from '../../assets/images/adv_03.png';
-import banner04 from '../../assets/images/adv_04.png';
-import banner05 from '../../assets/images/adv_05.png';
+import banner01 from 'src/assets/images/adv_01.png';
+import banner02 from 'src/assets/images/adv_02.png';
+import banner03 from 'src/assets/images/adv_03.png';
+import banner04 from 'src/assets/images/adv_04.png';
+import banner05 from 'src/assets/images/adv_05.png';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles

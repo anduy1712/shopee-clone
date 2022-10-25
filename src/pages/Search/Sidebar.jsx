@@ -1,6 +1,6 @@
 import React from 'react';
 import { BiFilterAlt } from 'react-icons/bi';
-import Column from '../../components/Column';
+import Column from 'src/components/Column';
 
 const Sidebar = () => {
   return (

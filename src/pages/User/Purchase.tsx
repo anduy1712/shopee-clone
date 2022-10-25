@@ -1,18 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Column from '../../components/Column';
+import Column from 'src/components/Column';
 import { RiSearchLine } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   usersSelector,
   initialStateUser
-} from '../../store/reducers/usersSlice';
+} from 'src/store/reducers/usersSlice';
 import {
   customersSelector,
   getCustomerByUserApi
-} from '../../store/reducers/customersSlice';
+} from 'src/store/reducers/customersSlice';
 import { useEffect } from 'react';
-import { FixMeLater } from '../../constant/other';
+import { FixMeLater } from 'src/constant/other';
 
 const Purchase = () => {
   const dispatch = useDispatch();

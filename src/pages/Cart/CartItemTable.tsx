@@ -1,14 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Checkbox } from 'antd';
-import { updateQuantityCartApi } from '../../store/reducers/cartsSlice';
-import _ from 'lodash';
-import { FixMeLater } from '../../constant/other';
+import { updateQuantityCartApi } from 'src/store/reducers/cartsSlice';
 import {
   initialStateUser,
   usersSelector
-} from '../../store/reducers/usersSlice';
-import InputCustom from '../../components/InputCustom';
+} from 'src/store/reducers/usersSlice';
+import InputCustom from 'src/components/InputCustom';
 
 type CartItemProps = {
   index: number;

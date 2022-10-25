@@ -2,12 +2,12 @@ import { Field, Form, Formik } from 'formik';
 import { useState } from 'react';
 import { useRef } from 'react';
 import { useDispatch } from 'react-redux';
-import { editUserApi } from '../../store/reducers/usersSlice';
+import { editUserApi } from 'src/store/reducers/usersSlice';
 
 import React from 'react';
-import Column from '../../components/Column';
-import { FixMeLater } from '../../constant/other';
-import { UserOutputModel } from '../../models/user/user.type';
+import Column from 'src/components/Column';
+import { FixMeLater } from 'src/constant/other';
+import { UserOutputModel } from 'src/models/user/user.type';
 
 type ProfileProps = {
   user: UserOutputModel;

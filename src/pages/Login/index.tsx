@@ -5,10 +5,10 @@ import {
   initialStateUser,
   loginApi,
   usersSelector
-} from '../../store/reducers/usersSlice';
+} from 'src/store/reducers/usersSlice';
 import { Formik, Field, Form } from 'formik';
 import { useHistory } from 'react-router-dom';
-import { UserOutputModel } from '../../models/user/user.type';
+import { UserOutputModel } from 'src/models/user/user.type';
 const Login = () => {
   //Get state of login
   const { isSuccess }: initialStateUser = useSelector(usersSelector);

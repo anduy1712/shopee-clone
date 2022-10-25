@@ -1,13 +1,12 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { ReactComponent as Logo } from '../../assets/images/logo.svg';
+import { ReactComponent as Logo } from 'src/assets/images/logo.svg';
 import { FiShoppingCart } from 'react-icons/fi';
 import { BiSearch } from 'react-icons/bi';
 import {
-  amount,
   cartsSelector,
   getCartByUser
-} from '../../store/reducers/cartsSlice';
+} from 'src/store/reducers/cartsSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { Formik, Field, Form } from 'formik';
@@ -15,14 +14,14 @@ import Column from '../Column';
 import {
   usersSelector,
   initialStateUser
-} from '../../store/reducers/usersSlice';
-import { FixMeLater } from '../../constant/other';
+} from 'src/store/reducers/usersSlice';
+import { FixMeLater } from 'src/constant/other';
 
 const Search = () => {
   //Redux
   const dispatch = useDispatch();
   const history = useHistory();
-  const { quantity, cart, SearchTheme } = useSelector(cartsSelector);
+  const { quantity, SearchTheme } = useSelector(cartsSelector);
   //Get user
   const { users, isSuccess }: initialStateUser = useSelector(usersSelector);
   //Sugget Item
