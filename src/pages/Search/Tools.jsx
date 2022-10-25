@@ -14,31 +14,29 @@ const Tools = ({ url }) => {
   const [valueSelect, setValueSelect] = useState("Giá");
   // get all the URLParams
   const params = new URLSearchParams(url);
+  const q = params.get("q");
   const history = useHistory();
+
   const handleNormal = () => {
     setCheckBtn(false);
-    // get the q param
-    const q = params.get("q");
     history.push(`/search?q=${q}&_sort=id`);
   };
+
   const handleLatest = () => {
     setCheckBtn(true);
-    // get the q param
-    const q = params.get("q");
     history.push(`/search?q=${q}&_sort=createdAt`);
   };
+
   const handleAsc = () => {
     setValueSelect("Giá: Thấp đến Cao");
-    // get the q param
-    const q = params.get("q");
     history.push(`/search?q=${q}&_sort=price&_order=asc`);
   };
+
   const handleDesc = () => {
     setValueSelect("Giá: Cao đến Thấp");
-    // get the q param
-    const q = params.get("q");
     history.push(`/search?q=${q}&_sort=price&_order=desc`);
   };
+
   return (
     <Column c={12} m={12} l={12}>
       <div className="search-tools">

@@ -21,37 +21,46 @@ import {
   ProductOutputModel
 } from 'src/models/product/product.type';
 import InputCustom from 'src/components/InputCustom';
+import { STRING_CART } from 'src/constant/strings';
 
 // install Swiper modules
 SwiperCore.use([Navigation, Thumbs]);
 
+const captionStyle = {
+  fontSize: '2em',
+  fontWeight: 'bold'
+};
+
+const slideNumberStyle = {
+  fontSize: '20px',
+  fontWeight: 'bold'
+};
+
 const Detail = () => {
-  //Get ID
-  const { slug }: FixMeLater = useParams();
-  //State
+  const { idProduct }: FixMeLater = useParams();
   const dispatch = useDispatch();
-  const [amount, setAmount] = useState<number>(1);
+  const [amount, setAmount] = useState(1);
   const [notify, setNotify] = useState(false);
-  //Get Product
   const { product }: initialProductType = useSelector(productsSelector); //rerender
   const { users }: initialStateUser = useSelector(usersSelector);
+
   document.querySelector<FixMeLater>('title').innerText =
     Object.keys(product).length > 0
       ? product.title
       : 'Shopee Việt Nam | Mua và Sắm';
-  //Add Cart Item
+
   const addToCart = (obj: ProductOutputModel) => {
     //CHECK USER
     if (users !== null) {
       if (amount > product.quantites!) {
-        alert('So luong vuot qua muc cho phep');
+        alert(STRING_CART.MAXIMUM_NOTIFICATION);
         return;
       }
       if (notify) {
-        alert('So luong vuot qua muc cho phep');
+        alert(STRING_CART.MAXIMUM_NOTIFICATION);
         return;
       }
-      toast.success('Product added to cart', {
+      toast.success(STRING_CART.ADD_CART_SUCCESS, {
         position: 'bottom-right',
         autoClose: 2000,
         hideProgressBar: true,
@@ -64,10 +73,9 @@ const Detail = () => {
         userId: users._id,
         products: [{ productId: obj._id, quantity: Number(amount) }]
       };
-      console.log(cartData);
       dispatch(postCartApi(cartData));
     } else {
-      toast.error('Please login to buy', {
+      toast.error(STRING_CART.ADD_CART_FAIL, {
         position: 'bottom-right',
         autoClose: 2000,
         hideProgressBar: true,
@@ -103,19 +111,12 @@ const Detail = () => {
     const newAmount = amount - 1;
     setAmount(newAmount);
   };
-  const captionStyle = {
-    fontSize: '2em',
-    fontWeight: 'bold'
-  };
-  const slideNumberStyle = {
-    fontSize: '20px',
-    fontWeight: 'bold'
-  };
 
   //Get Product When the fist load
   useEffect(() => {
-    dispatch(getProduct(slug));
-  }, [dispatch, slug]);
+    dispatch(getProduct(idProduct));
+  }, [dispatch, idProduct]);
+
   if (Object.keys(product).length === 0) {
     return (
       <div className="grid wide">

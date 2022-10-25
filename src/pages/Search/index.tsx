@@ -26,7 +26,7 @@ const Search = ({ location }: SearchProps) => {
     products === null
       ? Array(10)
           .fill(0)
-          .map((item) => <SkeletonCard size={['6', '4', '2-4']} />)
+          .map((_) => <SkeletonCard size={['6', '4', '2-4']} />)
       : products.map((item: FixMeLater) => {
           return (
             <ProductItem
