@@ -1,10 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import productApi from '../../api/productApi';
-import { FixMeLater } from '../../constant/other';
+import productApi from 'src/api/productApi';
+import { FixMeLater } from 'src/constant/other';
 import {
-  ProductInputModel,
   ProductOutputModel
-} from '../../models/product/product.type';
+} from 'src/models/product/product.type';
 export const getProducts = createAsyncThunk('products/get', async () => {
   try {
     const response = await productApi.getAll();

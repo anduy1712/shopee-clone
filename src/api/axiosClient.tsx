@@ -3,7 +3,7 @@ import queryString from 'query-string';
 
 // Set up default config for http requests here
 const axiosClient = axios.create({
-  baseURL: process.env.REACT_APP_API_LOCAL,
+  baseURL: process.env.REACT_APP_API_URL,
   headers: {
     'content-type': 'application/json'
   },

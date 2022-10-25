@@ -22,7 +22,8 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "noImplicitThis": true,
-    "alwaysStrict": true
+    "alwaysStrict": true,
+    "baseUrl": "."
   },
   "include": [
     "src", "decs.d.ts"

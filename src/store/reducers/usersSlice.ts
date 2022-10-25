@@ -1,9 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import userApi from '../../api/userApi';
+import userApi from 'src/api/userApi';
 import axios from 'axios';
-import { authLoader } from '../../helpers/authLoader';
-import { FixMeLater } from '../../constant/other';
-import { UserOutputModel } from '../../models/user/user.type';
+import { authLoader } from 'src/helpers/authLoader';
+import { FixMeLater } from 'src/constant/other';
+import { UserOutputModel } from 'src/models/user/user.type';
 export const getUsers = createAsyncThunk('users/get', async () => {
   try {
     const response = await userApi.getAll();

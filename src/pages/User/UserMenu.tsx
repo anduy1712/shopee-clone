@@ -4,8 +4,8 @@ import { FiUser, FiTag } from 'react-icons/fi';
 import { RiMoneyCnyCircleLine } from 'react-icons/ri';
 
 import { Link, useParams } from 'react-router-dom';
-import { UserOutputModel } from '../../models/user/user.type';
-import { FixMeLater } from '../../constant/other';
+import { UserOutputModel } from 'src/models/user/user.type';
+import { FixMeLater } from 'src/constant/other';
 
 type UserMenuProps = {
   user: UserOutputModel;

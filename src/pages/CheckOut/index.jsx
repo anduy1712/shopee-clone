@@ -1,13 +1,13 @@
 import React from 'react';
-import Column from '../../components/Column';
+import Column from 'src/components/Column';
 import { IoLocationSharp } from 'react-icons/io5';
 import { Link, useHistory } from 'react-router-dom';
 import { FcShipped } from 'react-icons/fc';
 import { useDispatch, useSelector } from 'react-redux';
-import { usersSelector } from '../../store/reducers/usersSlice';
-import { cartsSelector, removeCartApi } from '../../store/reducers/cartsSlice';
+import { usersSelector } from 'src/store/reducers/usersSlice';
+import { cartsSelector, removeCartApi } from 'src/store/reducers/cartsSlice';
 import { useEffect } from 'react';
-import { addCustomerApi } from '../../store/reducers/customersSlice';
+import { addCustomerApi } from 'src/store/reducers/customersSlice';
 import { useState } from 'react';
 
 const CheckOut = ({ location }) => {

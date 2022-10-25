@@ -1,17 +1,17 @@
 import React from 'react';
-import ProductItem from '../../components/Home/ProductItem';
+import ProductItem from 'src/components/Home/ProductItem';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   filterProduct,
   productsSelector,
   initialProductType
-} from '../../store/reducers/productsSlice';
+} from 'src/store/reducers/productsSlice';
 import Sidebar from './Sidebar';
 import Tools from './Tools';
-import Notfind from '../../components/Notfind';
-import SkeletonCard from '../../components/SkeletonCard';
-import { FixMeLater } from '../../constant/other';
+import Notfind from 'src/components/Notfind';
+import SkeletonCard from 'src/components/SkeletonCard';
+import { FixMeLater } from 'src/constant/other';
 
 type SearchProps = {
   location: string;
@@ -26,7 +26,7 @@ const Search = ({ location }: SearchProps) => {
     products === null
       ? Array(10)
           .fill(0)
-          .map((item) => <SkeletonCard size={['6', '4', '2-4']} />)
+          .map((_) => <SkeletonCard size={['6', '4', '2-4']} />)
       : products.map((item: FixMeLater) => {
           return (
             <ProductItem

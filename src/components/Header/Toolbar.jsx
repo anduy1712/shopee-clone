@@ -8,7 +8,7 @@ import {
 import { Link } from 'react-router-dom';
 import { FcVoicePresentation } from 'react-icons/fc';
 import { useEffect } from 'react';
-import { logoutUser, usersSelector } from '../../store/reducers/usersSlice';
+import { logoutUser, usersSelector } from 'src/store/reducers/usersSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import Column from '../Column';
 

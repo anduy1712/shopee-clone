@@ -1,62 +1,66 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router';
+import { Carousel } from 'react-carousel-minimal';
+import { ToastContainer, toast } from 'react-toastify';
+import SwiperCore, { Navigation, Thumbs } from 'swiper/core';
 import {
   getProduct,
   initialProductType,
   productsSelector
-} from '../../store/reducers/productsSlice';
-import { ToastContainer, toast } from 'react-toastify';
+} from 'src/store/reducers/productsSlice';
 import 'react-toastify/dist/ReactToastify.css';
-// import Swiper core and required modules
-import SwiperCore, { Navigation, Thumbs } from 'swiper/core';
-import { addCartApi, postCartApi } from '../../store/reducers/cartsSlice';
-import Loading from '../../components/Loading';
-import { AiOutlineMinus, AiOutlinePlus } from 'react-icons/ai';
-import { useRef } from 'react';
-import { Carousel } from 'react-carousel-minimal';
+import {  postCartApi } from 'src/store/reducers/cartsSlice';
+import Loading from 'src/components/Loading';
 import {
   initialStateUser,
   usersSelector
-} from '../../store/reducers/usersSlice';
-import { FixMeLater } from '../../constant/other';
+} from 'src/store/reducers/usersSlice';
+import { FixMeLater } from 'src/constant/other';
 import {
-  ProductInputModel,
   ProductOutputModel
-} from '../../models/product/product.type';
-import InputCustom from '../../components/InputCustom';
+} from 'src/models/product/product.type';
+import InputCustom from 'src/components/InputCustom';
+import { STRING_CART } from 'src/constant/strings';
 
 // install Swiper modules
 SwiperCore.use([Navigation, Thumbs]);
 
+const captionStyle = {
+  fontSize: '2em',
+  fontWeight: 'bold'
+};
+
+const slideNumberStyle = {
+  fontSize: '20px',
+  fontWeight: 'bold'
+};
+
 const Detail = () => {
-  //Get ID
-  const { slug }: FixMeLater = useParams();
-  //State
+  const { idProduct }: FixMeLater = useParams();
   const dispatch = useDispatch();
-  const [amount, setAmount] = useState<number>(1);
-  const [notify, setNotify] = useState(false);
-  const inputElement = useRef(null);
-  //Get Product
+  const [amount, setAmount] = useState(1);
+  const [notifyLimitProduct, setNotifyLitmitProduct] = useState(false);
   const { product }: initialProductType = useSelector(productsSelector); //rerender
   const { users }: initialStateUser = useSelector(usersSelector);
+
   document.querySelector<FixMeLater>('title').innerText =
     Object.keys(product).length > 0
       ? product.title
       : 'Shopee Việt Nam | Mua và Sắm';
-  //Add Cart Item
+
   const addToCart = (obj: ProductOutputModel) => {
     //CHECK USER
     if (users !== null) {
       if (amount > product.quantites!) {
-        alert('So luong vuot qua muc cho phep');
+        alert(STRING_CART.MAXIMUM_NOTIFICATION);
         return;
       }
-      if (notify) {
-        alert('So luong vuot qua muc cho phep');
+      if (notifyLimitProduct) {
+        alert(STRING_CART.MAXIMUM_NOTIFICATION);
         return;
       }
-      toast.success('Product added to cart', {
+      toast.success(STRING_CART.ADD_CART_SUCCESS, {
         position: 'bottom-right',
         autoClose: 2000,
         hideProgressBar: true,
@@ -69,10 +73,9 @@ const Detail = () => {
         userId: users._id,
         products: [{ productId: obj._id, quantity: Number(amount) }]
       };
-      console.log(cartData);
       dispatch(postCartApi(cartData));
     } else {
-      toast.error('Please login to buy', {
+      toast.error(STRING_CART.ADD_CART_FAIL, {
         position: 'bottom-right',
         autoClose: 2000,
         hideProgressBar: true,
@@ -86,17 +89,17 @@ const Detail = () => {
   //Change amount
   const ChangeAmount = (values: number) => {
     if (Number(values) > product.quantites!) {
-      setNotify(true);
+      setNotifyLitmitProduct(true);
       return;
     }
     if (Number(values) <= product.quantites!) {
-      setNotify(false);
+      setNotifyLitmitProduct(false);
     }
     setAmount(values);
   };
   const increase = () => {
     if (amount >= product.quantites!) {
-      setNotify(true);
+      setNotifyLitmitProduct(true);
       return;
     }
     const newAmount = amount + 1;
@@ -104,23 +107,16 @@ const Detail = () => {
   };
   const decrease = () => {
     if (amount <= 1) return;
-    if (amount <= product.quantites!) setNotify(false);
+    if (amount <= product.quantites!) setNotifyLitmitProduct(false);
     const newAmount = amount - 1;
     setAmount(newAmount);
-  };
-  const captionStyle = {
-    fontSize: '2em',
-    fontWeight: 'bold'
-  };
-  const slideNumberStyle = {
-    fontSize: '20px',
-    fontWeight: 'bold'
   };
 
   //Get Product When the fist load
   useEffect(() => {
-    dispatch(getProduct(slug));
-  }, [dispatch, slug]);
+    dispatch(getProduct(idProduct));
+  }, [dispatch, idProduct]);
+
   if (Object.keys(product).length === 0) {
     return (
       <div className="grid wide">
@@ -185,7 +181,7 @@ const Detail = () => {
                         />
                         <span>{product.quantites} sản phẩm có sẵn</span>
                       </div>
-                      {notify && (
+                      {notifyLimitProduct && (
                         <div className="content__notify">
                           Đã đạt đến số lượng mua tối đa cho phép của sản phẩm
                           này
